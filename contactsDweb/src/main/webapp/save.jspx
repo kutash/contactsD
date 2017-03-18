@@ -1,0 +1,167 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: Galina
+  Date: 15.03.2017
+  Time: 22:41
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.1">
+    <jsp:directive.page contentType="text/html; charset=Utf-8" isELIgnored="false"/>
+    <html>
+    <head><title>Contact</title>
+        <link rel="stylesheet" href="css/style.css"/></head>
+    <body>
+    <div class="nav">
+        <ul class="nav-ul" >
+            <li class="nav-li">
+                <a href="/my-servlet?command=show">List of contacts</a>
+            </li>
+            <li>
+                <a href="search.jspx">Search</a>
+            </li>
+            <li>
+                <a href="email.jspx">Email</a>
+            </li>
+            <li>
+                <a href="save.jspx">Edit contact</a>
+            </li>
+
+            <li>
+                <a href="/my-servlet?command=delete">Delete contact</a>
+            </li>
+            <li>
+                <a href="save.jspx">New contact</a>
+
+            </li>
+        </ul>
+    </div>
+
+    <form action="/my-servlet" method="post">
+        <input type="hidden" name="command"  value="save"/>
+        <input type="hidden" name="idContact" value="${contact.id}"/>
+            <div class="label-div">
+                <label class="label" for="firstName">Name:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" name="firstName" value="${contact.name}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
+                id="name" placeholder="Enter name"  maxlength="20"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="middleName">Middle name:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" name="middleName" value="${contact.middleName}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
+                   id="middname" maxlength="30" placeholder="Enter middle name"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="surname">Last name:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" name="lastName" value="${contact.lastName}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
+                   id="surname" placeholder="Enter surname" maxlength="40"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="birthday">Birthday:</label>
+            </div>
+            <div class="inp-div">
+                <input type="date" value="${contact.birthday}" max="2010-12-31"
+                   min="1900-12-31"  class="input-txt" id="birthday" name="birthday"
+                   placeholder="Enter birthday"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="sex">Sex:</label>
+            </div>
+            <div class="inp-div">
+                <select id="sex" class="input-txt" name="sex">
+                    <c:if test="${contact.sex == 'М'}">
+                        <option selected="selected" value="М">мужской</option>
+                        <option VALUE="Ж">женский</option>
+                    </c:if>
+                    <c:if test="${contact.sex == 'Ж'}">
+                        <option value="М">мужской</option>
+                        <option selected="selected" value="Ж">женский</option>
+                    </c:if>
+                    <c:if test="${empty contact}">
+                        <option value="М">мужской</option>
+                        <option value="Ж">женский</option>
+                    </c:if>
+                </select>
+            </div>
+            <div class="label-div">
+                <label class="label" for="citizenship">Citizenship:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" value="${contact.citizenship}" class="input-txt"
+                              maxlength="20"   pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" id="national" name="citizenship"
+                              placeholder="Enter citizenship"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="status">Status:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" value="${contact.status}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" maxlength="20" class="input-txt" id="status" name="status"
+                       placeholder="Enter marital status"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="site">Website:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" value="${contact.site}" class="input-txt" pattern="^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" id="site"
+                       maxlength="30"   name="site" placeholder="Enter website"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="email">Email:</label>
+            </div>
+            <div class="inp-div">
+                <input type="email" value="${contact.email}" pattern="^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
+                       maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email"/>
+            </div>
+            <div class="label-div">
+                <label class="label" for="company">Company:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" value="${contact.company}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
+                       maxlength="40"  id="company" name="company" placeholder="Enter company"/>
+            </div>
+
+                <input type="hidden" name="idAddress" value="${contact.address.idAddress}"/>
+            <div class="label-div">
+                <label class="label" for="country">Address:</label>
+            </div>
+            <div class="inp-div">
+                <input type="text" value="${contact.address.country}"
+                       pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt" id="country" name="country"
+                       maxlength="30"   placeholder="Enter country"/>
+            </div>
+
+
+            <label class="label"></label>
+        <div class="inp-div">
+            <input type="text" value="${contact.address.city}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*"
+                       maxlength="20"  class="input-txt"  name="city" placeholder="Enter city"/>
+        </div>
+
+            <label class="label"></label>
+        <div class="inp-div">
+            <input type="text" value="${contact.address.address}" class="input-txt"  name="address"
+                       maxlength="80"  placeholder="Enter address"/>
+        </div>
+
+
+            <label class="label"></label>
+        <div class="inp-div">
+            <input type="text" maxlength="10" value="${contact.address.index}" pattern="\d*" class="input-txt"
+                   name="index" placeholder="Enter index"/>
+        </div>
+        <input type="submit" value="save" class="but"/>
+    </form>
+
+
+
+
+
+    </body>
+    </html>
+</jsp:root>

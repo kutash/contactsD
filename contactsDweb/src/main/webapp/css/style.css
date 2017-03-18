@@ -1,0 +1,60 @@
+.nav{
+    background-color: #87CEFA;
+
+}
+ul li{
+    display: inline-block;
+    padding-right:  30px;
+    padding-left: 30px;
+
+}
+li > a{
+    font-family: MV BOLI;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+.nav-ul{
+    display:inline-block;
+
+    margin-left: 50px;
+    font-family:PLAYBILL;
+    font-size: 70px;
+    color: #E0FFFF;
+    margin: auto;
+    text-decoration: none;
+}
+
+.label{
+    font-size: 25px;
+    font-family: Broadway;
+    color: black;
+}
+
+.input-txt{
+
+    height: 30px;
+    width: 200px;
+    background-color: antiquewhite;
+}
+.label-div{
+
+}
+.inp-div{
+
+}
+
+.table-show {
+    border: 1px solid black;
+    width: 100%;
+    border-collapse: collapse;
+}
+.edit-href{
+    text-decoration: none;
+    color: black;
+}
+th, td {
+    border: solid black 1px;
+    font-family: cursive;
+    font-size: 20px;
+}
