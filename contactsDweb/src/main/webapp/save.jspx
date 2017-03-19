@@ -40,12 +40,13 @@
 
     <form action="/my-servlet" method="post">
         <input type="hidden" name="command"  value="save"/>
+
         <input type="hidden" name="idContact" value="${contact.id}"/>
             <div class="label-div">
                 <label class="label" for="firstName">Name:</label>
             </div>
             <div class="inp-div">
-                <input type="text" name="firstName" value="${contact.name}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
+                <input type="text" name="firstName" value="${contact.firstName}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
                 id="name" placeholder="Enter name"  maxlength="20"/>
             </div>
             <div class="label-div">
@@ -93,7 +94,7 @@
                 <label class="label" for="citizenship">Citizenship:</label>
             </div>
             <div class="inp-div">
-                <input type="text" value="${contact.citizenship}" class="input-txt"
+                <input type="text" value="${contact.citizen}" class="input-txt"
                               maxlength="20"   pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" id="national" name="citizenship"
                               placeholder="Enter citizenship"/>
             </div>
@@ -126,7 +127,7 @@
                        maxlength="40"  id="company" name="company" placeholder="Enter company"/>
             </div>
 
-                <input type="hidden" name="idAddress" value="${contact.address.idAddress}"/>
+                <input type="hidden" name="idAddress" value="${contact.address.addressId}"/>
             <div class="label-div">
                 <label class="label" for="country">Address:</label>
             </div>

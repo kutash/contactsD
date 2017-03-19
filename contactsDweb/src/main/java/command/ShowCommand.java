@@ -19,7 +19,7 @@ public class ShowCommand implements Command {
 
             DAO contactDAO = DAOFactory.getContactDao();
             int contactsCount = contactDAO.getContactsCount();
-            int targetPage = 1;
+            int targetPage = 2;
             int pagesCount = (int) Math.ceil(contactsCount / 10.0);
             List<Contact> contacts = contactDAO.getCont(targetPage);
 

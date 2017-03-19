@@ -29,7 +29,7 @@ public class ContactDAOImpl implements DAO{
         try {
             connection = source.getConnection();
             String sql = "SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `address`.country, `address`.city,`address`.address, `address`.index, `contact`.company FROM `contact` \n" +
-                    "JOIN `address` ON contact.idAddress=address.idAddress LIMIT 10 OFFSET ?";
+                    "JOIN `address` ON contact.idAddress=address.idAddress limit 40 offset ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, 10 * (page - 1));
             resultSet = statement.executeQuery();
@@ -56,9 +56,9 @@ public class ContactDAOImpl implements DAO{
                 contacts.add(tempContact);
             }
         } catch (SQLException e) {
-            //log.error("Unable to get contact list", e);
+
         } finally {
-            //close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
 
         }
 
@@ -90,12 +90,12 @@ public class ContactDAOImpl implements DAO{
 
 
     public Long setAddress(Contact contact){
-        System.out.println("hello1");
+
         Connection connection = null;
         PreparedStatement statement = null;
         Address address = contact.getAddress();
         Long idAddress = address.getAddressId();
-        System.out.println(idAddress);
+
         if(idAddress == null) {
 
             try {
@@ -136,7 +136,7 @@ public class ContactDAOImpl implements DAO{
 
                 return idAddress;
             } catch (SQLException e) {
-                throw new DAOException("Error while updating address of contact", e);
+                throw new DAOException(e);
             } finally {
                 close(connection, statement, null);
 
@@ -205,13 +205,13 @@ public class ContactDAOImpl implements DAO{
         ResultSet resultSet = null;
         Contact tempContact=null;
         try {
-            System.out.println("dododod");
+
             connection = source.getConnection();
             String sql = "SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.address, `address`.`index`, `contact`.company FROM `contact` \n" +
-                    "JOIN `address` ON contact.idAddress=address.idAddress WHERE id = 428";
-            System.out.println("do");
+                    "JOIN `address` ON contact.idAddress=address.idAddress WHERE id = "+id;
+
             String s = Long.toString(id);
-            System.out.println(s);
+
             //statement.setString(1,s);
 
             statement = connection.prepareStatement(sql);
@@ -240,10 +240,10 @@ public class ContactDAOImpl implements DAO{
 
                 Address address = new Address(country, city, theAddress, index);
                 tempContact = new Contact(contactId, firstName, middleName, lastName, birthday, email, sex, status, citizenship, photo, site, company, address);
-                System.out.println("posle");
+
             }
         } catch (SQLException e) {
-            //log.error("Unable to get contact list", e);
+
         } finally {
             close(connection, statement, resultSet);
 
@@ -262,7 +262,7 @@ public class ContactDAOImpl implements DAO{
              statement = connection.prepareStatement("UPDATE contact  SET firstName = ?, " +
                     "middleName = ?, lastName = ?," +
                     " birthday = ?,  email = ?, sex = ? , status = ?, citizenship = ?, " +
-                    "site = ?, company = ?, idAddress = ? WHERE idContact = ?");
+                    "site = ?, company = ?, idAddress = ? WHERE id = ?");
                 statement.setString(1,contact.getFirstName());
                 statement.setString(2,contact.getMiddleName());
                 statement.setString(3,contact.getLastName());
@@ -296,6 +296,18 @@ public class ContactDAOImpl implements DAO{
     }
 
     public void setPhoto(long idContact, String path) {
+
+        try {
+            Connection connection = source.getConnection();
+            PreparedStatement statement = connection.prepareStatement("UPDATE Contact SET photo = ? " +
+                    "WHERE idContact = ?");
+            statement.setString(1, path);
+            statement.setLong(2,idContact);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
 
     }
 

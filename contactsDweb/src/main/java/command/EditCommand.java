@@ -14,9 +14,9 @@ public class EditCommand implements Command {
 
         DAO contactDAO = DAOFactory.getContactDao();
         Long contactId = Long.parseLong(request.getParameter("idContact"));
-        System.out.println(contactId);
+
         Contact contact = contactDAO.getById(contactId);
-        System.out.println(contact);
+
         request.setAttribute("contact", contact);
 
         return "/save.jspx";

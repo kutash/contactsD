@@ -51,9 +51,9 @@ public class Contact {
 
     }
 
-    public Contact(String firstName, String middleName, String lastName, Date birthday, String sex, String citizenship, String status, String site, String email, String company, Address address){
+    public Contact(Long id, String firstName, String middleName, String lastName, Date birthday, String sex, String citizenship, String status, String site, String email, String company, Address address){
 
-
+        this.id=id;
         this.firstName=firstName;
         this.middleName=middleName;
         this.lastName=lastName;
