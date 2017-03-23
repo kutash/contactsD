@@ -110,6 +110,8 @@ public class SaveCommand implements Command {
         if (photoPart.getSize() > 0) {
             photoPath += File.separator + id + fileName;
             photoPart.write(photoPath);
+        } else {
+
         }
 
             contactDAO.setPhoto(id, photoPath);
