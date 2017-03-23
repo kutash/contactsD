@@ -69,7 +69,6 @@ public class SaveCommand implements Command {
 
         try {
             savePhoto(id2);
-            saveAttaches(id2);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ServletException e) {

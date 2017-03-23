@@ -31,7 +31,7 @@ public class ContactDAOImpl implements DAO{
         try {
             connection = source.getConnection();
             String sql = "SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `address`.country, `address`.city,`address`.address, `address`.index, `contact`.company FROM `contact` \n" +
-                    "JOIN `address` ON contact.idAddress=address.idAddress limit 40 offset ?";
+                    "JOIN `address` ON contact.idAddress=address.idAddress limit 10 offset ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, 10 * (page - 1));
             resultSet = statement.executeQuery();
@@ -152,7 +152,7 @@ public class ContactDAOImpl implements DAO{
     public Long setContact(Contact contact) {
 
         Long idContact = contact.getId();
-        System.out.println(idContact);
+
         if( idContact == null) {
             return saveContact(contact);
         } else {
@@ -251,13 +251,13 @@ public class ContactDAOImpl implements DAO{
             close(connection, statement, resultSet);
 
         }
-
         return tempContact;
 
     }
 
 
     public void editContact(Contact contact){
+
         Connection connection = null;
         PreparedStatement statement = null;
         try {
@@ -278,6 +278,7 @@ public class ContactDAOImpl implements DAO{
                 statement.setString(10,contact.getCompany());
 
                 long addressId = setAddress(contact);
+
                 statement.setLong(11, addressId);
 
                 statement.setLong(12, contact.getId());

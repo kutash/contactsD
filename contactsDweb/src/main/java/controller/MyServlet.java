@@ -48,8 +48,7 @@ public class MyServlet extends HttpServlet {
 
             }
         } catch (Exception e) {
-            //logger.error("Error while process request", e);
-            //response.sendRedirect(request.getContextPath() + "/error.jsp");
+
         }
 
 
