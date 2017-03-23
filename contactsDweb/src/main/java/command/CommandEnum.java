@@ -22,21 +22,15 @@ public enum CommandEnum {
         }
     },
 
-    AVATAR{
+    PHOTO{
         {
-            this.command = new FotoCommand();
+            this.command = new PhotoCommand();
         }
     },
 
     DELETE{
         {
             this.command = new DeleteCommand();
-        }
-    },
-
-    SETATTACH{
-        {
-            this.command = new SetAttachCommand();
         }
     },
 
@@ -51,6 +45,7 @@ public enum CommandEnum {
             this.command = new AttachCommand();
         }
     },
+
     EMAIL{
         {
             this.command = new EmailCommand();

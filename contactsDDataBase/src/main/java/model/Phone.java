@@ -5,49 +5,49 @@ package model;
  */
 public class Phone {
 
-    private int id;
+    private Long phoneId;
 
     private String countryCode;
     private String operatorCode;
     private String phoneNumber;
     private String phoneType;
-    private String comments;
+    private String comment;
 
-    public Phone(int id, String countryCode, String operatorCode, String phoneNumber, String phoneType, String comments) {
-        this.id = id;
+    public Phone(Long phoneId, String countryCode, String operatorCode, String phoneNumber, String phoneType, String comment) {
+        this.phoneId = phoneId;
         this.countryCode = countryCode;
         this.operatorCode = operatorCode;
         this.phoneNumber = phoneNumber;
         this.phoneType = phoneType;
-        this.comments = comments;
+        this.comment = comment;
     }
 
-    public Phone(String countryCode, String operatorCode, String phoneNumber, String phoneType, String comments) {
+    public Phone(String countryCode, String operatorCode, String phoneNumber, String phoneType, String comment) {
         this.countryCode = countryCode;
         this.operatorCode = operatorCode;
         this.phoneNumber = phoneNumber;
         this.phoneType = phoneType;
-        this.comments = comments;
+        this.comment = comment;
     }
 
     @Override
     public String toString() {
         return "Phone{" +
-                "id=" + id +
+                "id=" + phoneId +
                 ", countryCode='" + countryCode + '\'' +
                 ", operatorCode='" + operatorCode + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", phoneType='" + phoneType + '\'' +
-                ", comments='" + comments + '\'' +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 
-    public int getId() {
-        return id;
+    public Long getPhoneId() {
+        return phoneId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPhoneId(Long phoneId) {
+        this.phoneId = phoneId;
     }
 
     public String getCountryCode() {
@@ -82,12 +82,12 @@ public class Phone {
         this.phoneType = phoneType;
     }
 
-    public String getComments() {
-        return comments;
+    public String getComment() {
+        return comment;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
 

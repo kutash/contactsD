@@ -28,23 +28,11 @@ public interface DAO {
 
     void setPhoto(long idContact, String path);
 
-    //long countContacts(SearchCriteria criteria);
-
     void deleteContact(Long idContact);
 
-    //List<Contact> getToShowContacts(SearchCriteria criteria, ViewSettings settings);
+    void saveAttaches(Attachment attachment);
 
-    void insertPhone(Phone phone);
 
-    void setPhones(long idContact, List<Phone> phones);
 
-    List<Phone> getPhones(Long idContact);
 
-    //List<Attach> getAttaches(Long idContact);
-
-    //void insertAttach(Attach attach);
-
-    //void setAttaches(long idContact,Collection<Attach> attaches);
-
-    List<Contact> forBirthdayContacts();
 }

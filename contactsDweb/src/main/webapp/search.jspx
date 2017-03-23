@@ -12,12 +12,13 @@
     <html>
     <head><title>Search</title>
         <link rel="stylesheet" href="css/style.css"/>
+
     </head>
     <body>
     <div class="nav">
         <ul class="nav-ul" >
-            <li class="nav-li">
-                <a href="/my-servlet?command=show">List of contacts</a>
+            <li>
+                <a href="/my-servlet?command=show">Contacts</a>
             </li>
             <li>
                 <a href="search.jspx">Search</a>
@@ -25,15 +26,20 @@
             <li>
                 <a href="email.jspx">Email</a>
             </li>
-            <li>
-                <a href="save.jspx">Edit contact</a>
+            <li class="edit-hr">
+                <form action="/my-servlet" id="chosen">
+                    <input type="hidden" name="command"/>
+                    <input type="hidden" name="id"/>
+
+                    <a href="javascript:{}" onclick="chooseContact(); return false;" class="edit-hr">Edit</a>
+                </form>
             </li>
 
             <li>
-                <a href="/my-servlet?command=delete">Delete contact</a>
+                <a href="/my-servlet?command=delete">Delete</a>
             </li>
             <li>
-                <a href="save.jspx">New contact</a>
+                <a href="save.jspx">Add</a>
 
             </li>
         </ul>

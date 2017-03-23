@@ -11,12 +11,14 @@
     <jsp:directive.page contentType="text/html; charset=Utf-8" isELIgnored="false"/>
     <html>
     <head><title>Contact</title>
-        <link rel="stylesheet" href="css/style.css"/></head>
+        <link rel="stylesheet" href="css/style.css"/>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/contact.js">;</script>
+    </head>
     <body>
     <div class="nav">
         <ul class="nav-ul" >
-            <li class="nav-li">
-                <a href="/my-servlet?command=show">List of contacts</a>
+            <li>
+                <a href="/my-servlet?command=show">Contacts</a>
             </li>
             <li>
                 <a href="search.jspx">Search</a>
@@ -24,24 +26,36 @@
             <li>
                 <a href="email.jspx">Email</a>
             </li>
-            <li>
-                <a href="save.jspx">Edit contact</a>
+            <li class="edit-hr">
+                <form action="/my-servlet" id="chosen">
+                    <input type="hidden" name="command"/>
+                    <input type="hidden" name="id"/>
+
+                    <a href="javascript:{}" onclick="chooseContact(); return false;" class="edit-hr">Edit</a>
+                </form>
             </li>
 
             <li>
-                <a href="/my-servlet?command=delete">Delete contact</a>
+                <a href="/my-servlet?command=delete">Delete</a>
             </li>
             <li>
-                <a href="save.jspx">New contact</a>
+                <a href="save.jspx">Add</a>
 
             </li>
         </ul>
     </div>
 
-    <form action="/my-servlet" method="post">
-        <input type="hidden" name="command"  value="save"/>
 
+    <a href="javascript:{}" onclick="document.getElementById('photo').click()">
+        <img id="image" src="${pageContext.request.contextPath}/my-servlet?command=photo&amp;idContact=${contact.id}" width="500" height="500"  alt="Image preview..."/>
+    </a>
+    <input id="photo" form="saveForm" style="display: none" onchange="previewFile()" type="file" name="photo" accept="image/*" />
+
+
+    <form action="/my-servlet" method="post" enctype="multipart/form-data" id="saveForm">
+        <input type="hidden" name="command"  value="save"/>
         <input type="hidden" name="idContact" value="${contact.id}"/>
+
             <div class="label-div">
                 <label class="label" for="firstName">Name:</label>
             </div>
@@ -137,32 +151,75 @@
                        maxlength="30"   placeholder="Enter country"/>
             </div>
 
-
-            <label class="label"></label>
-        <div class="inp-div">
-            <input type="text" value="${contact.address.city}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*"
+            <div class="inp-div">
+                <input type="text" value="${contact.address.city}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*"
                        maxlength="20"  class="input-txt"  name="city" placeholder="Enter city"/>
-        </div>
-
-            <label class="label"></label>
-        <div class="inp-div">
-            <input type="text" value="${contact.address.address}" class="input-txt"  name="address"
+            </div>
+            <div class="inp-div">
+                <input type="text" value="${contact.address.address}" class="input-txt"  name="address"
                        maxlength="80"  placeholder="Enter address"/>
-        </div>
-
-
-            <label class="label"></label>
-        <div class="inp-div">
-            <input type="text" maxlength="10" value="${contact.address.index}" pattern="\d*" class="input-txt"
+            </div>
+            <div class="inp-div">
+                <input type="text" maxlength="10" value="${contact.address.index}" pattern="\d*" class="input-txt"
                    name="index" placeholder="Enter index"/>
-        </div>
-        <input type="submit" value="save" class="but"/>
+            </div>
+
     </form>
 
 
 
 
+    <!--<div>
+        <div class="buttons">
+            <button onclick="openWindow()" class="but" id="add">Add</button>
+            <button onclick="" class="but" id="del">Delete</button>
+            <button onclick="" class="but" id="edit">Edit</button>
+        </div>
+        <table class="table-show">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Commment</th>
+            </tr>
+            </thead>
+            <tbody>
 
+                <tr>
+                    <td><input type="checkbox" name="attaches" value="${attach.attachName}"/></td>
+                    <td><input type="date"  value="${ attach.date}" /></td>
+                    <td><input type="text"  value="${ attach.comment}" /></td>
+                    <td><input type="hidden" value="${attach.attachName}"/></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+        <div id="win" class="attach-div" style="display: none">
+            <div class="content">
+                <div>
+                    <label class="label" for="fileName">File Name</label>
+                    <input type="text" name="fileName" form="saveForm" readonly="readonly"/>
+                </div>
+                <div>
+                    <input type="file" name="attach" id="attach" form="saveForm"/>
+                </div>
+                <div>
+                    <textarea rows="6" name="comment" form="saveForm" cols="40"
+                              id="comment" maxlength="100" placeholder="Type your comment..."><jsp:text/></textarea>
+                </div>
+                <div>
+                    <button  onclick="save()" class="but">Save</button>
+                    <button onclick="closeWindow()" class="but">Cancel</button>
+                </div>
+            </div>
+        </div>
+-->
+
+        <input type="submit" value="save" class="but" form="saveForm"/>
     </body>
     </html>
 </jsp:root>

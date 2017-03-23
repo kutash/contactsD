@@ -2,6 +2,7 @@ package DAO;
 
 
 import model.Address;
+import model.Attachment;
 import model.Contact;
 import model.Phone;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 
 public class ContactDAOImpl implements DAO{
+
     public static final DAO INSTANCE = new ContactDAOImpl();
     private DataSource source = DaoUtil.getDataSource();
 
@@ -56,7 +58,7 @@ public class ContactDAOImpl implements DAO{
                 contacts.add(tempContact);
             }
         } catch (SQLException e) {
-
+                throw new DAOException(e);
         } finally {
             close(connection, statement, resultSet);
 
@@ -79,11 +81,11 @@ public class ContactDAOImpl implements DAO{
             resultSet.next();
 
             result = resultSet.getInt("count");
-            //log.info("There are {} contacts in DB", result);
+
         } catch (SQLException e) {
-            //log.error("Unable to get contacts count", e);
+            throw new DAOException(e);
         }  finally {
-        //close(connection, statement, resultSet);
+            close(connection, statement, resultSet);
         }
         return result;
     }
@@ -93,6 +95,7 @@ public class ContactDAOImpl implements DAO{
 
         Connection connection = null;
         PreparedStatement statement = null;
+        ResultSet generatedKeys = null;
         Address address = contact.getAddress();
         Long idAddress = address.getAddressId();
 
@@ -109,13 +112,13 @@ public class ContactDAOImpl implements DAO{
                 statement.setString(4, address.getIndex());
 
                 statement.executeUpdate();
-                ResultSet generatedKeys = statement.getGeneratedKeys();
+                generatedKeys = statement.getGeneratedKeys();
                 generatedKeys.next();
 
                 return generatedKeys.getLong(1);
 
             } catch (SQLException e) {
-                throw new DAOException("Error while inserting address of contact", e);
+                throw new DAOException(e);
             } finally {
                 close(connection, statement, null);
 
@@ -164,36 +167,42 @@ public class ContactDAOImpl implements DAO{
 
         Connection connection = null;
         PreparedStatement statement = null;
+        ResultSet generatedKeys = null;
         try {
-             connection = source.getConnection();
-             statement = connection.prepareStatement("INSERT INTO contact(firstName, middleName, " +
+            connection = source.getConnection();
+            statement = connection.prepareStatement("INSERT INTO contact(firstName, middleName, " +
                             "lastName, birthday, email," +
                             "sex, status, citizenship, site, company, idAddress) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
-                statement.setString(1, contact.getFirstName());
-                statement.setString(2, contact.getMiddleName());
-                statement.setString(3, contact.getLastName());
-                statement.setDate(4, (java.sql.Date) contact.getBirthday());
-                statement.setString(5, contact.getEmail());
-                statement.setString(6, contact.getSex());
-                statement.setString(7, contact.getStatus());
-                statement.setString(8, contact.getCitizen());
-                statement.setString(9, contact.getSite());
-                statement.setString(10, contact.getCompany());
+            statement.setString(1, contact.getFirstName());
+            statement.setString(2, contact.getMiddleName());
+            statement.setString(3, contact.getLastName());
+            statement.setDate(4, (java.sql.Date) contact.getBirthday());
+            statement.setString(5, contact.getEmail());
+            statement.setString(6, contact.getSex());
+            statement.setString(7, contact.getStatus());
+            statement.setString(8, contact.getCitizen());
+            statement.setString(9, contact.getSite());
+            statement.setString(10, contact.getCompany());
 
-                Long id = setAddress(contact);
-                statement.setLong(11, id);
+            Long id = setAddress(contact);
+            statement.setLong(11, id);
 
-                statement.executeUpdate();
-                ResultSet generatedKeys = statement.getGeneratedKeys();
+            statement.executeUpdate();
+            generatedKeys = statement.getGeneratedKeys();
 
-                generatedKeys.next();
-                return generatedKeys.getLong(1);
+            generatedKeys.next();
+            return generatedKeys.getLong(1);
 
         } catch (SQLException e) {
-            throw new DAOException("Error while inserting contact", e);
+            throw new DAOException(e);
+        } finally {
+            close(connection, statement, generatedKeys);
         }
     }
+
+
+
 
 
 
@@ -207,17 +216,11 @@ public class ContactDAOImpl implements DAO{
         try {
 
             connection = source.getConnection();
-            String sql = "SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.address, `address`.`index`, `contact`.company FROM `contact` \n" +
-                    "JOIN `address` ON contact.idAddress=address.idAddress WHERE id = "+id;
+            statement = connection.prepareStatement("SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.address, `address`.`index`, `contact`.company FROM `contact` \n" +
+                    "JOIN `address` ON contact.idAddress=address.idAddress WHERE id = ?");
 
-            String s = Long.toString(id);
-
-            //statement.setString(1,s);
-
-            statement = connection.prepareStatement(sql);
-
+            statement.setLong(1,id);
             resultSet = statement.executeQuery();
-
 
             while (resultSet.next()) {
                 long contactId = resultSet.getLong("id");
@@ -239,7 +242,7 @@ public class ContactDAOImpl implements DAO{
                 String index = resultSet.getString("index");
 
                 Address address = new Address(country, city, theAddress, index);
-                tempContact = new Contact(contactId, firstName, middleName, lastName, birthday, email, sex, status, citizenship, photo, site, company, address);
+                tempContact = new Contact(contactId, firstName, middleName, lastName, birthday, citizenship, sex, status, photo, site, email, company, address);
 
             }
         } catch (SQLException e) {
@@ -282,7 +285,7 @@ public class ContactDAOImpl implements DAO{
                 statement.executeUpdate();
 
         } catch (SQLException e) {
-            throw new DAOException("Error while updating contact", e);
+            throw new DAOException(e);
         }
         finally {
         close(connection, statement, null);
@@ -292,21 +295,45 @@ public class ContactDAOImpl implements DAO{
 
 
     public String getPhoto(long idContact) {
-        return null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet set = null;
+                String path = null;
+        try {
+            connection = source.getConnection();
+            statement = connection.prepareStatement("SELECT photo FROM contact" +
+                     " WHERE id = ?");
+            statement.setLong(1, idContact);
+            set = statement.executeQuery();
+                if (set.next()) {
+                    path = set.getString("photo");
+                }
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        finally {
+            close(connection, statement, null);
+        }
+        return path;
     }
 
     public void setPhoto(long idContact, String path) {
-
+        Connection connection = null;
+        PreparedStatement statement = null;
         try {
-            Connection connection = source.getConnection();
-            PreparedStatement statement = connection.prepareStatement("UPDATE Contact SET photo = ? " +
-                    "WHERE idContact = ?");
+            connection = source.getConnection();
+            statement = connection.prepareStatement("UPDATE contact SET photo = ? " +
+                    "WHERE id = ?");
             statement.setString(1, path);
             statement.setLong(2,idContact);
             statement.executeUpdate();
 
         } catch (SQLException e) {
             throw new DAOException(e);
+        }
+        finally {
+            close(connection, statement, null);
         }
 
     }
@@ -315,21 +342,31 @@ public class ContactDAOImpl implements DAO{
 
     }
 
-    public void insertPhone(Phone phone) {
 
+    public void saveAttaches(Attachment attachment){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = source.getConnection();
+            statement = connection.prepareStatement("INSERT INTO attachment(path,`name`," +
+                    "`date`,comment,idContact ) VALUES (?,?,?,?,?)");
+                statement.setString(1, attachment.getAttachPath());
+                statement.setString(2, attachment.getAttachName());
+                statement.setDate(3, (java.sql.Date) attachment.getDate());
+                statement.setString(4, attachment.getComment());
+                statement.setLong(5,attachment.getContactId());
+                statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        finally {
+            close(connection, statement, null);
+        }
     }
 
-    public void setPhones(long idContact, List<Phone> phones) {
 
-    }
 
-    public List<Phone> getPhones(Long idContact) {
-        return null;
-    }
-
-    public List<Contact> forBirthdayContacts() {
-        return null;
-    }
 
     public static void close(Connection connection, Statement statement, ResultSet resultSet) {
         try {

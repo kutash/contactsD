@@ -2,17 +2,21 @@ package command;
 
 import DAO.*;
 import model.Address;
+import model.Attachment;
 import model.Contact;
-
+import org.apache.commons.io.FileUtils;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -20,17 +24,21 @@ import java.text.SimpleDateFormat;
  */
 public class SaveCommand implements Command {
 
+    DAO contactDAO = DAOFactory.getContactDao();
+    private HttpServletRequest request;
+    private HttpSession session;
 
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-
+        this.request = request;
+        session = request.getSession();
         Long id;
         String idSt = request.getParameter("idContact");
-        if (!idSt.equals("")){
-             id = Long.parseLong(idSt);
+        if (!idSt.equals("")) {
+            id = Long.parseLong(idSt);
 
         } else {
-           id = null;
+            id = null;
         }
         String firstName = request.getParameter("firstName");
         String middleName = request.getParameter("middleName");
@@ -43,7 +51,6 @@ public class SaveCommand implements Command {
         } catch (ParseException e) {
 
         }
-
         String sex = request.getParameter("sex");
         String citizenship = request.getParameter("citizenship");
         String status = request.getParameter("status");
@@ -55,40 +62,62 @@ public class SaveCommand implements Command {
         String address = request.getParameter("address");
         String index = request.getParameter("index");
         Address address1 = new Address(country, city, address, index);
-        Contact contact = new Contact(id, firstName, middleName, lastName, birthday, sex, citizenship, status, site, email, company, address1);
+        Contact contact = new Contact(id, firstName, middleName, lastName, birthday, citizenship, sex, status, site, email, company, address1);
 
-        DAO contactDAO = DAOFactory.getContactDao();
+
         long id2 = contactDAO.setContact(contact);
 
-        /*try {
-            savePhoto(id);
+        try {
+            savePhoto(id2);
+            saveAttaches(id2);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ServletException e) {
             e.printStackTrace();
-        }*/
+        }
 
         return "/my-servlet?command=show";
     }
 
 
-    /*public void savePhoto(long id) throws IOException, ServletException {
-        System.out.println("hello1");
-        String savePath = "D:/h";
-        File fileSaveDir = new File(savePath);
+
+    public void savePhoto(long id) throws IOException, ServletException {
+
+        Properties properties = new Properties();
+        properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
+        String photoPath = properties.getProperty("AVATARS_PATH");
+
+
+        File fileSaveDir = new File(photoPath);
 
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
 
-        Part filePart = request.getPart("avatar");
-        if(filePart.getSize()>0) {
-            String fileExtension = filePart.getName().substring(filePart.getName().indexOf('.'));
-            savePath = fileSaveDir.getAbsolutePath()+ File.separator + id + fileExtension;
-            filePart.write(savePath);
-        }
-        System.out.println("hello2");
-        contactDAO.setPhoto(id, savePath);
-    }*/
 
+        Part photoPart = request.getPart("photo");
+
+        String fileName = "";
+        String contentDisp = photoPart.getHeader("Content-Disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                fileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        fileName = fileName.substring(fileName.indexOf("."));
+
+
+        if (photoPart.getSize() > 0) {
+            photoPath += File.separator + id + fileName;
+            photoPart.write(photoPath);
+        }
+
+            contactDAO.setPhoto(id, photoPath);
+    }
+
+
+    private void saveAttaches(long id) throws IOException {
+
+    }
 }
