@@ -1,28 +1,31 @@
- .nav{
-    background-color: #87CEFA;
-    height: 150px;
-
- }
- ul li{
-    display: inline-block;
-    padding-right:  30px;
-    padding-left: 50px;
-    padding-top: 30px;
-    padding-bottom: 15px;
+.nav{
+    background-color: #698BDB;
+    height: 100px;
 
 }
+
+ ul li{
+    display: inline-block;
+    padding-right:  20px;
+    padding-left: 10px;
+     float: left;
+    padding-top: 30px;
+    padding-bottom: 20px;
+
+ }
+
  li > a{
-    font-family: MV BOLI;
+    font-family: Arial;
     color: white;
     text-decoration: none;
-    font-size: 50px;
+    font-size: 30px;
  }
 
  .edit-hr{
-    font-family: MV BOLI;
+    font-family: Arial;
     color: white;
     text-decoration: none;
-    font-size: 50px;
+    font-size: 30px;
  }
  .edit-href {
     text-decoration: none;
@@ -37,25 +40,30 @@
 
  .label{
     font-size: 25px;
-    font-family: Broadway;
+    font-family: "Arial Black";
     color: black;
  }
 
- .input-txt{
-    height: 30px;
-    width: 200px;
-    background-color: antiquewhite;
+ .small-label{
+     font-size: 15px;
+     font-family: Broadway;
+     color: black;
  }
- .label-div{
 
+ .input-txt {
+     height: 30px;
+     width: 400px;
+     background-color: whitesmoke;
  }
- .inp-div{
 
+ .sel{
+     height: 30px;
+     width: 400px;
  }
+
 
  .table-show {
-
-    width: 100%;
+     width: 100%;
     border-collapse: collapse;
  }
 
@@ -66,42 +74,286 @@
 
  th {
        border-bottom: solid lightgray 1px;
-       border-top: solid lightgray 1px ;
-       font-family: cursive;
-       font-size: 30px;
-       padding-bottom: 30px;
-       padding-top: 30px;
+       /*border-top: solid lightgray 1px ;*/
+       font-family: "Arial";
+       font-size: 25px;
+       padding-bottom: 20px;
+       padding-top: 12px;
  }
 
  td {
-     font-family: cursive;
+     font-family: "Arial Narrow";
      font-size: 20px;
-     padding-bottom: 30px;
-     padding-top: 30px;
+     padding-bottom: 20px;
+     padding-top: 20px;
 
  }
 
- .attach-div {
-
-     top:0;
-     left:0;
-     position:fixed;
-     background-color:rgba(0,0,0,0.74);
-     width:100%;
-     height:100%;
-     z-index:10000;
- }
- .content{
-     position:relative;
-     background-color:#fff;
-     width:700px;
-     padding:12px;
-     opacity: 1;
-     height:350px;
-     margin:10% auto auto auto;
-     border:black solid 1px;
- }
 
  .buttons{
+     border: 1px solid #888888;
+     font-size: 1.5rem;
+     background-color: #80A6FF;
+     color: white;
      float: right;
+     cursor: pointer;
  }
+ .button-save{
+     border: 1px solid #888888;
+     font-size: 2rem;
+     background-color: #80A6FF;
+     color: white;
+     cursor: pointer;
+ }
+
+ .table-attach{
+     width: 100%;
+     border-collapse: collapse;
+     border-bottom: solid lightgray 1px;
+     border-top: solid lightgray 1px;
+ }
+
+
+
+
+ .modal {
+     width: 600px;
+     padding: 1rem;
+     border: 1px solid #717171;
+     position: fixed;
+     /*top: 10vh;
+     left: calc(50% - 600px / 2);*/
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     box-shadow: 5px 5px 5px #888888;
+     background-color: white;
+     font-family: Arial, serif;
+ }
+
+ .modal .header {
+     font-size: 1.5rem;
+     margin-bottom: 1rem;
+     padding-bottom: 0.5rem;
+     border-bottom: 1px solid #888888;
+ }
+
+ .modal .header .close:after {
+     content: '✖';
+     float: right;
+     color: red;
+ }
+
+ .modal .header .close:hover:after {
+     opacity: 0.6;
+ }
+
+ .modal .body {
+     border-bottom: 1px solid #888888;
+ }
+
+ .modal .body .field {
+     margin: 15px 0;
+ }
+
+ .modal input {
+     font-size: 1rem;
+     height: 25px;
+     padding-left: 10px;
+     width: 400px;
+ }
+
+ .modal label {
+     width: 150px;
+     display: inline-block;
+     text-align: right;
+     padding-right: 15px;
+ }
+
+ .modal .error {
+     display: inline-block;
+     width: 580px;
+     text-align: right;
+     color: red;
+     margin-top: 5px;
+     visibility: hidden;
+ }
+
+ .modal .field.invalid .error {
+     visibility: visible;
+
+ }
+
+ .modal .submit {
+     padding-top: 1rem;
+ }
+
+ .modal .submit button {
+     border: 1px solid #888888;
+     font-size: 1.5rem;
+     background-color: #80A6FF;
+     color: white;
+     float: right;
+     cursor: pointer;
+ }
+
+ .modal .submit button:hover {
+     opacity: 0.7;
+ }
+
+ .modal .submit button:active {
+     opacity: 0.9;
+ }
+
+ .modal .submit .cancel {
+     margin-top: 5px;
+     display: inline-block;
+     text-decoration: none;
+     color: #698BDB;
+     font-size: 1.3rem;
+ }
+
+ .modal .submit .cancel:hover {
+     text-decoration: underline;
+ }
+
+ .container div {
+     margin: 1rem 0;
+     font-size: 1rem;
+     font-family: "Arial Black", serif;
+     color: gray;
+ }
+
+ .modalPones {
+     width: 600px;
+     padding: 1rem;
+     border: 1px solid #717171;
+     position: fixed;
+     /*top: 10vh;
+     left: calc(50% - 600px / 2);*/
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     box-shadow: 5px 5px 5px #888888;
+     background-color: white;
+     font-family: Arial, serif;
+ }
+
+ .modalPones .header {
+     font-size: 1.5rem;
+     margin-bottom: 1rem;
+     padding-bottom: 0.5rem;
+     border-bottom: 1px solid #888888;
+ }
+
+ .modalPones .header .close :after {
+     content: '✖';
+     float: right;
+     color: #717171;
+
+ }
+
+ .modalPones .header .close:hover:after {
+     opacity: 0.6;
+ }
+
+ .modalPones .body {
+     border-bottom: 1px solid #888888;
+ }
+
+ .modalPones .body .field {
+     margin: 15px 0;
+ }
+
+ .modalPones input {
+     font-size: 1rem;
+     height: 25px;
+     padding-left: 10px;
+     width: 400px;
+ }
+
+ .modalPones select {
+     font-size: 1rem;
+     height: 25px;
+     padding-left: 10px;
+     width: 200px;
+ }
+
+ .modalPones label {
+     width: 150px;
+     display: inline-block;
+     text-align: right;
+     padding-right: 15px;
+ }
+
+ .modalPones .error {
+     display: inline-block;
+     width: 580px;
+     text-align: right;
+     color: red;
+     margin-top: 5px;
+     visibility: hidden;
+ }
+
+ .modalPones .field.invalid .error {
+     visibility: visible;
+
+ }
+
+ .modalPones .submit {
+     padding-top: 1rem;
+ }
+
+ .modalPones .submit button {
+     border: 1px solid #888888;
+     font-size: 1.5rem;
+     background-color: #80A6FF;
+     color: white;
+     float: right;
+     cursor: pointer;
+ }
+
+ .modalPones .submit button:hover {
+     opacity: 0.7;
+ }
+
+ .modalPones .submit button:active {
+     opacity: 0.9;
+ }
+
+ .modalPones .submit .cancelPhone {
+     margin-top: 5px;
+     display: inline-block;
+     text-decoration: none;
+     color: #698BDB;
+     font-size: 1.3rem;
+ }
+
+ .modalPones .submit .cancelPhone:hover {
+     text-decoration: underline;
+ }
+
+
+ .input-page{
+     border: 2px solid lightgray;
+     border-radius: 4px;
+ }
+
+ .page-href{
+     text-decoration: none;
+     color: #698BDB;
+     font-size: 1.6rem;
+ }
+
+ .pag {
+     padding-left:670px;
+     padding-top: 18px;
+ }
+
+.total{
+    float: left;
+    font-size: 20px;
+    padding-top: 20px;
+
+}
+

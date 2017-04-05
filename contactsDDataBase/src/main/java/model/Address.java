@@ -10,6 +10,14 @@ public class Address {
     private String address;
     private String index;
 
+    public Address(Long addressId, String country, String city, String address, String index){
+        this.addressId=addressId;
+        this.country=country;
+        this.city=city;
+        this.address=address;
+        this.index=index;
+    }
+
     public Address(String country, String city, String address, String index){
         this.country=country;
         this.city=city;

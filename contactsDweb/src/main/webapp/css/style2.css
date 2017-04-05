@@ -1,0 +1,103 @@
+.nav{
+    background-color: #698BDB;
+    height: 100px;
+
+}
+
+ul li{
+    display: inline-block;
+    padding-right:  20px;
+    padding-left: 10px;
+    float: left;
+    padding-top: 30px;
+    padding-bottom: 20px;
+
+}
+
+li > a{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.edit-hr{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+.edit-href {
+    text-decoration: none;
+    color: black;
+}
+
+
+.nav-ul{
+    margin-left: 50px;
+    margin: auto;
+}
+
+.label{
+    font-size: 25px;
+    font-family: "Arial Black";
+    color: black;
+}
+
+.small-label{
+    font-size: 15px;
+    font-family: Broadway;
+    color: black;
+}
+
+.input-txt {
+    height: 30px;
+    width: 400px;
+    background-color: whitesmoke;
+}
+.small-input {
+    width: 400px;
+    height: 25px;
+    border:solid 1px lightgray;
+}
+
+.sel{
+    height: 30px;
+    width: 400px;
+}
+
+.button-save{
+    border: 1px solid #888888;
+    font-size: 2rem;
+    background-color: #80A6FF;
+    color: white;
+    cursor: pointer;
+}
+
+.button-cancel {
+    margin-top: 5px;
+    display: inline-block;
+    text-decoration: none;
+    color: #698BDB;
+    font-size: 1.3rem;
+}
+.content {
+    padding-top: 30px;
+}
+
+.cont-div{
+    padding-top: 20px;
+}
+
+.submit-button{
+    border: 1px solid #888888;
+    font-size: 1.5rem;
+    background-color: #80A6FF;
+    color: white;
+    float: right;
+    cursor: pointer;
+}
+.error-img{
+    padding-left: 100px;
+    padding-top: 80px;
+}

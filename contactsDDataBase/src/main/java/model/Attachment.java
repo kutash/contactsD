@@ -14,13 +14,32 @@ public class Attachment {
     private Date date;
     private Long contactId;
 
-    public Attachment(Long attachId, String attachName, String attachPath, String comment, Date date, Long contactId){
-        this.attachId=attachId;
+
+    public Attachment(Long contactId, String attachName, String attachPath, String comment, Date date,Long attachId){
+        this.contactId=contactId;
         this.attachName=attachName;
         this.attachPath=attachPath;
         this.comment=comment;
         this.date=date;
+        this.attachId=attachId;
+    }
+
+
+    public Attachment(Long contactId, String attachName, String attachPath, String comment, Date date){
         this.contactId=contactId;
+        this.attachName=attachName;
+        this.attachPath=attachPath;
+        this.comment=comment;
+        this.date=date;
+
+    }
+
+
+    public Attachment(Long contactId, String attachName, String comment, Date date){
+        this.contactId=contactId;
+        this.attachName=attachName;
+        this.comment=comment;
+        this.date=date;
 
     }
 

@@ -14,7 +14,7 @@
     <html>
     <head><title>List of contacts</title>
         <link rel="stylesheet" href="css/style.css"/>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/contact.js">;</script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/show.js">;</script>
     </head>
     <body>
     <div class="nav">
@@ -26,27 +26,28 @@
                 <a href="search.jspx">Search</a>
             </li>
             <li>
-                <a href="email.jspx">Email</a>
+                <a href="javascript:{}" class="email-but edit-hr">Email</a>
             </li>
             <li class="edit-hr">
                 <form action="/my-servlet" id="chosen">
                     <input type="hidden" name="command"/>
                     <input type="hidden" name="idChosen"/>
-                    <a href="javascript:{}" onclick="chooseContact(); return false;" class="edit-hr">Edit</a>
+                    <input type="hidden" name="mode"/>
+                    <a href="javascript:{}" class="edit-but edit-hr">Edit</a>
                 </form>
             </li>
 
             <li>
-                <a href="/my-servlet?command=delete">Delete</a>
+                <a href="javascript:{}" class="delete-but">Delete</a>
             </li>
             <li>
                 <a href="save.jspx">Add</a>
-
             </li>
         </ul>
     </div>
     <div>
-        <form action="/my-servlet">
+        <form action="/my-servlet" id="showForm" >
+            <input type="hidden" name="command"/>
             <table class="table-show">
                 <thead>
                 <tr>
@@ -77,7 +78,19 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <span class="total">
+                 Total pages: ${pages}
+            </span>
+            <div class="pag">
+                <a href="javascript:{}" class="prev page-href">prev</a>
+                <span>
+                    <input type="number" name="currentPage" min="1"
+                           max="${pages}" value="${currentPage}" class="str input-page"/>
+                </span>
+                <a href="javascript:{}" class="next page-href">next</a>
+            </div>
         </form>
+        <input type="hidden" id="emailMessage" value="${message}"/>
     </div>
     </body>
     </html>

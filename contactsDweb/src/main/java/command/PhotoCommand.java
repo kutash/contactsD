@@ -1,6 +1,10 @@
 package command;
 
-import DAO.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import service.ContactService;
+import service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,25 +19,31 @@ import java.util.Properties;
  * Created by Galina on 14.03.2017.
  */
 public class PhotoCommand implements Command {
-    DAO contactDAO = DAOFactory.getContactDao();
+
+    private Logger logger = LogManager.getLogger(PhotoCommand.class);
+    private ContactService contactService = ServiceFactory.getContactService();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         String path;
         String stId = request.getParameter("idContact");
+        logger.info("getting photo for contact id {}", stId);
         Properties properties = new Properties();
+        HttpSession session = request.getSession();
         try {
             properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (stId.equals("")){
-            String appPath = request.getServletContext().getRealPath("");
-            path = appPath + properties.getProperty("AVATAR");
-        }else {
+        if (StringUtils.isNotEmpty(stId)){
             Long idContact = Long.parseLong(stId);
-            path = contactDAO.getPhoto(idContact);
-
+            path = contactService.getPhoto(idContact);
+            if (path == null) {
+                String appPath = request.getServletContext().getRealPath("");
+                path = appPath + properties.getProperty("AVATAR");
+            }
+        }else {
+            path =(String) session.getAttribute("temp_photo_path");
             if (path == null) {
                 String appPath = request.getServletContext().getRealPath("");
                 path = appPath + properties.getProperty("AVATAR");
@@ -47,11 +57,13 @@ public class PhotoCommand implements Command {
         response.setBufferSize(buffSize);
         response.setContentType(properties.getProperty("CONTENT_TYPE"));
         response.setHeader("Content-Length", String.valueOf(file.length()));
-        response.setHeader("Content-Disposition", "avatar; filename=/" + file.getName() + "/");
+        response.setHeader("Content-Disposition", "avatar; filename=\"" + file.getName() + "\"");
 
+        OutputStream out = null;
+        FileInputStream in = null;
         try{
-            OutputStream out = response.getOutputStream();
-            FileInputStream in = new FileInputStream(file);
+            out = response.getOutputStream();
+            in = new FileInputStream(file);
             byte[] buffer = new byte[buffSize];
             int length;
             while ((length = in.read(buffer)) > 0) {

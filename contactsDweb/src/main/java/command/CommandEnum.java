@@ -46,6 +46,18 @@ public enum CommandEnum {
         }
     },
 
+    GETATTACH{
+        {
+            this.command = new GetAttachCommand();
+        }
+    },
+
+    SENDEMAIL{
+        {
+            this.command = new SendEmailCommand();
+        }
+    },
+
     EMAIL{
         {
             this.command = new EmailCommand();

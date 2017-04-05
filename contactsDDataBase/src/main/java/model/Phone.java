@@ -6,7 +6,7 @@ package model;
 public class Phone {
 
     private Long phoneId;
-
+    private Long contactId;
     private String countryCode;
     private String operatorCode;
     private String phoneNumber;
@@ -28,6 +28,16 @@ public class Phone {
         this.phoneNumber = phoneNumber;
         this.phoneType = phoneType;
         this.comment = comment;
+    }
+
+    public Phone(Long phoneId, String countryCode, String operatorCode, String phoneNumber, String phoneType, String comment, Long contactId) {
+        this.phoneId=phoneId;
+        this.countryCode = countryCode;
+        this.operatorCode = operatorCode;
+        this.phoneNumber = phoneNumber;
+        this.phoneType = phoneType;
+        this.comment = comment;
+        this.contactId=contactId;
     }
 
     @Override
@@ -88,6 +98,18 @@ public class Phone {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Long getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(Long contactId) {
+        this.contactId = contactId;
+    }
+
+    public String getFullNumber(){
+        return countryCode+" ("+operatorCode+") "+phoneNumber;
     }
 
 

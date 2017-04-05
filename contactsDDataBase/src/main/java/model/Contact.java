@@ -21,6 +21,7 @@ public class Contact {
      private String email;
      private String photo;
      private List<Phone> phoneList;
+     private List<Attachment> attachments;
 
      public Contact(Long id, String firstName, String middleName, String lastName, Date birthday, Address address, String company){
          this.id=id;
@@ -30,8 +31,7 @@ public class Contact {
          this.birthday=birthday;
          this.address=address;
          this.company=company;
-
-    }
+     }
 
     public Contact(Long id, String firstName, String middleName, String lastName, Date birthday, String citizenship, String sex, String status, String photo, String site, String email, String company, Address address){
 
@@ -68,6 +68,17 @@ public class Contact {
         this.address=address;
 
     }
+
+
+    public Contact(Long id, String firstName, String middleName, String lastName, String email){
+        this.id=id;
+        this.firstName=firstName;
+        this.middleName=middleName;
+        this.lastName=lastName;
+        this.email=email;
+
+    }
+
 
     public Long getId() {
         return id;
@@ -179,6 +190,14 @@ public class Contact {
 
     public void setPhoneList(List<Phone> phoneList) {
         this.phoneList = phoneList;
+    }
+
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     @Override

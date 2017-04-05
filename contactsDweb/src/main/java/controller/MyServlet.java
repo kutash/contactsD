@@ -3,6 +3,9 @@ package controller;
 
 
 import command.*;
+import mailing.BirthdayMailing;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 import javax.servlet.RequestDispatcher;
@@ -27,6 +30,27 @@ import java.io.IOException;
         maxRequestSize=1024*1024*50)
 public class MyServlet extends HttpServlet {
 
+    private Logger logger = LogManager.getLogger(MyServlet.class);
+    BirthdayMailing  birthdayMailing = new BirthdayMailing();
+
+    public void init() throws ServletException{
+        try {
+            //birthdayMailing.startService();
+        } catch (Exception e) {
+            logger.error("Error in init method", e);
+        }
+
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            //birthdayMailing.stopService();
+        } catch (Exception e) {
+            logger.error("Error in destroy method", e);
+        }
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request,response);
     }
@@ -48,7 +72,7 @@ public class MyServlet extends HttpServlet {
 
             }
         } catch (Exception e) {
-
+            logger.error("Error in processRequest method", e);
         }
 
 
