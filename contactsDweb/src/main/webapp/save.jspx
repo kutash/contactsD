@@ -56,15 +56,15 @@
         <input type="hidden" name="idContact" value="${contact.id}"/>
         <input type="hidden" name="idContact" value="${contact.id}" form="chosen"/>
 
-            <!--<div class="row">-->
-                <div class="inp-div">
+            <div class="row">
+
                     <label class="label" for="firstName">Name:</label>
-                </div>
+
                 <div class="inp-div">
                     <input type="text" name="firstName" value="${contact.firstName}" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt"
                     id="name" placeholder="Enter name"  maxlength="20" required="required"/>
                 </div>
-            <!--</div>-->
+            </div>
             <!--<div class="row">-->
                 <div class="inp-div">
                     <label class="label" for="middleName">Middle name:</label>

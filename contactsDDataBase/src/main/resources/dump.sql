@@ -18,7 +18,7 @@ CREATE TABLE `kutash_galina`.`address` (
 
 
 CREATE TABLE `kutash_galina`.`attachment` (
-  `idattach` int(10) NOT NULL AUTO_INCREMENT,
+  `idAttach` int(10) NOT NULL AUTO_INCREMENT,
   `path` varchar(21000) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
   `date` date DEFAULT NULL,
