@@ -28,7 +28,7 @@ public class SearchCommand implements Command {
         logger.info("searching contacts");
         Map<String, String> params = new HashMap<String, String>();
         for (String param: parametersList) {
-            String value = request.getParameter(param);
+            String value = request.getParameter(param).trim();
             if (StringUtils.isNotEmpty(value)) {
                 params.put(param, value);
             }

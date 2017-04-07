@@ -191,42 +191,40 @@ public class ContactService {
         } else {
             id = null;
         }
-        String firstName = request.getParameter("firstName");
-        String middleName = request.getParameter("middleName");
-        String lastName = request.getParameter("lastName");
-
-        String sex = request.getParameter("sex");
-        String citizenship = request.getParameter("citizenship");
-        String status = request.getParameter("status");
-        String site = request.getParameter("site");
-        String email = request.getParameter("email");
-        String company = request.getParameter("company");
-        String country = request.getParameter("country");
-        String city = request.getParameter("city");
-        String address = request.getParameter("address");
-        String index = request.getParameter("index");
-        String date = request.getParameter("birthday");
+        String firstName = request.getParameter("firstName").trim();
+        String middleName = request.getParameter("middleName").trim();
+        String lastName = request.getParameter("lastName").trim();
+        String sex = request.getParameter("sex").trim();
+        String citizenship = request.getParameter("citizenship").trim();
+        String status = request.getParameter("status").trim();
+        String site = request.getParameter("site").trim();
+        String email = request.getParameter("email").trim();
+        String company = request.getParameter("company").trim();
+        String country = request.getParameter("country").trim();
+        String city = request.getParameter("city").trim();
+        String address = request.getParameter("address").trim();
+        String index = request.getParameter("index").trim();
+        String date = request.getParameter("birthday").trim();
 
 
         Pattern patternName = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])*");
-        Pattern patternDate = Pattern.compile("(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
-        Pattern patternEmail = Pattern.compile("^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$");
-        Pattern patternCite = Pattern.compile("^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$");
+        Pattern patternDate = Pattern.compile("(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
+        Pattern patternEmail = Pattern.compile("^[-\\w.]+\\+*+[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$");
+        Pattern patternSite = Pattern.compile("^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$");
         Pattern patternIndex = Pattern.compile("\\d*");
         Matcher m1 = patternName.matcher(firstName);
         Matcher m2 = patternName.matcher(middleName);
         Matcher m3 = patternName.matcher(lastName);
         Matcher m4 = patternName.matcher(citizenship);
         Matcher m5 = patternName.matcher(company);
-        Matcher m6 = patternName.matcher(status);
         Matcher m7 = patternName.matcher(country);
         Matcher m8 = patternName.matcher(city);
         Matcher m9 = patternDate.matcher(date);
         Matcher m10 = patternEmail.matcher(email);
-        Matcher m11 = patternCite.matcher(site);
+        Matcher m11 = patternSite.matcher(site);
         Matcher m12 = patternIndex.matcher(index);
 
-        if (m1.matches() && m2.matches() && m3.matches() && m4.matches() && m5.matches() && m6.matches() && m7.matches() && m8.matches() && m9.matches() && m10.matches() && m11.matches() && m12.matches()) {
+        if (m1.matches() && m2.matches() && m3.matches() && m4.matches() && m5.matches() && m7.matches() && m8.matches() && m9.matches() && m10.matches() && m11.matches() && m12.matches()) {
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date birthday = null;

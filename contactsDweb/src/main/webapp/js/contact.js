@@ -97,65 +97,65 @@ window.onload = function () {
 
 
 
-       var rowCount = 0;
-       var flag = 0;
+    var rowCount = 0;
+    var flag = 0;
 
 
 
-       var phoneShow = document.querySelector(".show-modalphone");
-            phoneShow.addEventListener("click", function (event) {
-                event.preventDefault();
-                flag = 0;
-                var modalWindow = document.querySelector(".modalPones");
-                modalWindow.style.display = "block";
-            });
+    var phoneShow = document.querySelector(".show-modalphone");
+    phoneShow.addEventListener("click", function (event) {
+        event.preventDefault();
+        flag = 0;
+        var modalWindow = document.querySelector(".modalPones");
+        modalWindow.style.display = "block";
+    });
 
 
 
-        var phoneSubmit = document.querySelector(".save_phone");
-            phoneSubmit.addEventListener("click", function (event) {
-                 event.preventDefault();
+    var phoneSubmit = document.querySelector(".save_phone");
+    phoneSubmit.addEventListener("click", function (event) {
+        event.preventDefault();
 
-                 var form = document.getElementById("telForm");
+        var form = document.getElementById("telForm");
 
-                 var table = document.getElementById("phoneTable");
-                 var modalWindow = document.querySelector(".modalPones");
-                 modalWindow.style.display = "none";
-                 var i, row, cell1, cell2, cell3, cell4,cell5,cell6,cell7;
+        var table = document.getElementById("phoneTable");
+        var modalWindow = document.querySelector(".modalPones");
+        modalWindow.style.display = "none";
+        var i, row, cell1, cell2, cell3, cell4,cell5,cell6,cell7;
 
-                 if (flag == 0) {
-                     i = table.rows.length;
-                     row = table.insertRow(i);
-                     cell1 = row.insertCell(0);
-                     cell2 = row.insertCell(1);
-                     cell3 = row.insertCell(2);
-                     cell4 = row.insertCell(3);
-                     cell5 = row.insertCell(4);
-                     cell6 = row.insertCell(5);
-                     cell7 = row.insertCell(6);
-                 } else {
-                     i = rowCount;
-                     row = table.rows[i];
-                     cell1 = row.cells[0];
-                     cell2 = row.cells[1];
-                     cell3 = row.cells[2];
-                     cell4 = row.cells[3];
-                     cell5 = row.cells[4];
-                     cell6 = row.cells[5];
-                     cell7 = row.cells[6];
-                 }
+        if (flag == 0) {
+            i = table.rows.length;
+            row = table.insertRow(i);
+            cell1 = row.insertCell(0);
+            cell2 = row.insertCell(1);
+            cell3 = row.insertCell(2);
+            cell4 = row.insertCell(3);
+            cell5 = row.insertCell(4);
+            cell6 = row.insertCell(5);
+            cell7 = row.insertCell(6);
+        } else {
+            i = rowCount;
+            row = table.rows[i];
+            cell1 = row.cells[0];
+            cell2 = row.cells[1];
+            cell3 = row.cells[2];
+            cell4 = row.cells[3];
+            cell5 = row.cells[4];
+            cell6 = row.cells[5];
+            cell7 = row.cells[6];
+        }
 
-                 cell1.innerHTML = "<input type='checkbox'  name='phone_checkbox'/>";
+        cell1.innerHTML = "<input type='checkbox'  name='phone_checkbox'/>";
 
-                 var fullPhone = form.countryCode.value + " " + form.operatorCode.value + " " + form.telephone.value;
-                 cell2.innerHTML = "<input type='text' form='saveForm' value='" + fullPhone + "' readonly/>";
-                 cell3.innerHTML = "<input type='text' form='saveForm' name='type" + i + "' value='" + form.phonetype.value + "' readonly/>";
-                 cell4.innerHTML = "<input type='text' form='saveForm' name='comment" + i + "' value='" + form.phoneComment.value + "' readonly/>";
-                 cell5.innerHTML ="<input type='hidden' form='saveForm' name='countryCode"+i+"' value='"+form.countryCode.value+"' />";
-                 cell6.innerHTML ="<input type='hidden' form='saveForm' name='operatorCode"+i+"' value='"+form.operatorCode.value+"' />";
-                 cell7.innerHTML ="<input type='hidden' form='saveForm' name='telephone"+i+"' value='"+form.telephone.value+"' />";
-                 form.reset();
-            });
+        var fullPhone = form.countryCode.value + " " + form.operatorCode.value + " " + form.telephone.value;
+        cell2.innerHTML = "<input type='text' form='saveForm' value='" + fullPhone + "' readonly/>";
+        cell3.innerHTML = "<input type='text' form='saveForm' name='type" + i + "' value='" + form.phonetype.value + "' readonly/>";
+        cell4.innerHTML = "<input type='text' form='saveForm' name='comment" + i + "' value='" + form.phoneComment.value + "' readonly/>";
+        cell5.innerHTML ="<input type='hidden' form='saveForm' name='countryCode"+i+"' value='"+form.countryCode.value+"' />";
+        cell6.innerHTML ="<input type='hidden' form='saveForm' name='operatorCode"+i+"' value='"+form.operatorCode.value+"' />";
+        cell7.innerHTML ="<input type='hidden' form='saveForm' name='telephone"+i+"' value='"+form.telephone.value+"' />";
+        form.reset();
+    });
 
 
 
@@ -248,7 +248,6 @@ window.onload = function () {
 
 
 };
-
 
 
 

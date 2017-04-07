@@ -39,28 +39,10 @@
  }
 
  .label{
-    font-size: 15px;
+    font-size: 20px;
     font-family: "Arial Black";
     color: black;
  }
-
- .small-label{
-     font-size: 15px;
-     font-family: "Arial Black";
-     color: black;
- }
-
- .input-txt {
-     height: 30px;
-     width: 400px;
-     background-color: whitesmoke;
- }
-
- .sel{
-     height: 30px;
-     width: 400px;
- }
-
 
  .table-show {
      width: 100%;
@@ -74,7 +56,6 @@
 
  th {
        border-bottom: solid lightgray 1px;
-       /*border-top: solid lightgray 1px ;*/
        font-family: "Arial";
        font-size: 25px;
        padding-bottom: 20px;
@@ -89,40 +70,43 @@
 
  }
 
-
  .buttons{
      border: 1px solid #888888;
      font-size: 1.5rem;
-     background-color: #80A6FF;
+     background-color: #698BDB;
      color: white;
      float: right;
      cursor: pointer;
  }
  .button-save{
      border: 1px solid #888888;
-     font-size: 2rem;
-     background-color: #80A6FF;
+     font-size: 2.5rem;
+     background-color: #698BDB;
      color: white;
      cursor: pointer;
+     float: right;
+ }
+
+ .button-cancel{
+     margin-top: 5px;
+     display: inline-block;
+     text-decoration: none;
+     color: #698BDB;
+     font-size: 3rem;
  }
 
  .table-attach{
      width: 100%;
      border-collapse: collapse;
-     border-bottom: solid lightgray 1px;
-     border-top: solid lightgray 1px;
+     border: solid lightgray 1px;
+     margin-top: 2px;
  }
-
-
-
 
  .modal {
      width: 600px;
      padding: 1rem;
      border: 1px solid #717171;
      position: fixed;
-     /*top: 10vh;
-     left: calc(50% - 600px / 2);*/
      top: 50%;
      left: 50%;
      transform: translate(-50%, -50%);
@@ -163,6 +147,7 @@
      width: 400px;
  }
 
+
  .modal label {
      width: 150px;
      display: inline-block;
@@ -191,7 +176,7 @@
  .modal .submit button {
      border: 1px solid #888888;
      font-size: 1.5rem;
-     background-color: #80A6FF;
+     background-color: #698BDB;
      color: white;
      float: right;
      cursor: pointer;
@@ -229,8 +214,6 @@
      padding: 1rem;
      border: 1px solid #717171;
      position: fixed;
-     /*top: 10vh;
-     left: calc(50% - 600px / 2);*/
      top: 50%;
      left: 50%;
      transform: translate(-50%, -50%);
@@ -307,7 +290,7 @@
  .modalPones .submit button {
      border: 1px solid #888888;
      font-size: 1.5rem;
-     background-color: #80A6FF;
+     background-color: #698BDB;
      color: white;
      float: right;
      cursor: pointer;
@@ -354,6 +337,56 @@
     float: left;
     font-size: 20px;
     padding-top: 20px;
-
 }
+
+.inp-div{
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.inp-div input {
+    float: right;
+    height: 40px;
+    width: 500px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+.inp-div select{
+    float: right;
+    height: 40px;
+    width: 500px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+
+.form{
+    margin: 0px auto;
+    width: 700px;
+    padding-bottom: 20px;
+}
+
+h2{
+    text-align: center;
+    color: black;
+}
+
+.tab{
+    padding-top: 5px;
+    width: 900px;
+    text-align: center;
+    padding-left: 20%;
+}
+
+.input-small {
+    width: 250px;
+    height: 30px;
+    border: 1px solid lightgray;
+}
+
+
+
 

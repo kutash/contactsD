@@ -52,12 +52,11 @@ public class BirthdayMailing {
 
 
     private void sendEmail(){
-        logger.info("sending birthday emails");
-        List<Contact> contacts = contactService.getContactsForBirthday();
-        STGroup group = new STGroupFile("emailTemplates.stg");
-        ST st1 = group.getInstanceOf("template3");
-        st1.impl.getTemplateSource();
-        String theme = "Поздравление с Днем Рождения";
+        logger.info("sending birthday email");
+        String letter = makeLetter();
+        String theme = "Дни рождения";
+        String address = "kutashgalina16@gmail.com";
+
 
         final Properties properties = new Properties();
         try {
@@ -72,13 +71,29 @@ public class BirthdayMailing {
                         }
                     });
 
-            for (Contact contact : contacts){
-                st1.add("contact", contact);
-                sendEmail(contact.getEmail(), theme, st1.render(), properties, sender, session);
-            }
+
+                sendEmail(address, theme, letter, properties, sender, session);
+
         } catch (IOException e) {
             logger.error("error while sending birthday emails");
         }
+    }
+
+
+
+    private String makeLetter(){
+        List<Contact> contacts = contactService.getContactsForBirthday();
+        String letter = "";
+        if (contacts.size()==0){
+            letter = "Некого поздравлять.";
+        } else {
+            letter="Сегодня дни рождения у: ";
+            for (Contact contact : contacts) {
+
+                letter += contact.getFullName()+", ";
+            }
+        }
+        return letter;
     }
 
 

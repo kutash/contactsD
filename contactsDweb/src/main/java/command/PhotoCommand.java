@@ -72,6 +72,14 @@ public class PhotoCommand implements Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                out.close();
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return null;
     }

@@ -69,7 +69,7 @@ li > a{
 .button-save{
     border: 1px solid #888888;
     font-size: 2rem;
-    background-color: #80A6FF;
+    background-color:#698BDB;
     color: white;
     cursor: pointer;
 }
@@ -92,7 +92,7 @@ li > a{
 .submit-button{
     border: 1px solid #888888;
     font-size: 1.5rem;
-    background-color: #80A6FF;
+    background-color:#698BDB;
     color: white;
     float: right;
     cursor: pointer;

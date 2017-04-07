@@ -38,7 +38,7 @@ public class SaveCommand implements Command {
 
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.info("saveing contact");
+        logger.info("saving contact");
         this.request = request;
         session= request.getSession();
 
@@ -77,7 +77,7 @@ public class SaveCommand implements Command {
             if (!fileSaveDir.exists()) {
                 fileSaveDir.mkdirs();
             }
-
+            deleteAllFilesFolder(photoPath);
             String fileName = "";
             String contentDisp = photoPart.getHeader("Content-Disposition");
             String[] items = contentDisp.split(";");
@@ -91,15 +91,17 @@ public class SaveCommand implements Command {
             photoPart.write(photoPath);
             contactService.setPhoto(id, photoPath);
         }else {
-            fileSaveDir = new File(photoPath);
-            if (!fileSaveDir.exists()) {
-                fileSaveDir.mkdirs();
-            }
             String pathTemp = (String)session.getAttribute("temp_photo_path");
             if (pathTemp != null){
+                fileSaveDir = new File(photoPath);
+                if (!fileSaveDir.exists()) {
+                    fileSaveDir.mkdirs();
+                }
+                deleteAllFilesFolder(photoPath);
                 session.removeAttribute("temp_photo_path");
                 File file = new File(pathTemp);
                 FileUtils.moveFileToDirectory(file,fileSaveDir,true);
+
                 photoPath += File.separator + file.getName();
                 contactService.setPhoto(id, photoPath);
             }else {
@@ -109,6 +111,12 @@ public class SaveCommand implements Command {
         }
 
 
+    }
+
+
+    public static void deleteAllFilesFolder(String path) {
+        for (File myFile : new File(path).listFiles())
+            if (myFile.isFile()) myFile.delete();
     }
 
 

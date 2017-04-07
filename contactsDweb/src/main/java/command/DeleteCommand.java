@@ -58,7 +58,7 @@ public class DeleteCommand implements Command {
         if (path != null){
             File file = new File(path);
             if (file.canWrite() && file.exists()) {
-                file.delete();
+                System.out.println(file.delete());
             }
         }
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
