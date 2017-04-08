@@ -23,20 +23,6 @@
             <li>
                 <a href="search.jspx">Search</a>
             </li>
-            <!--<li>
-                <a href="email.jspx">Email</a>
-            </li>-->
-            <!--<li class="edit-hr">
-                <form action="/my-servlet" id="chosen">
-                    <input type="hidden" name="command"/>
-                    <input type="hidden" name="id"/>
-                    <a href="javascript:{}" onclick="chooseContact(); return false;" class="edit-hr">Edit</a>
-                </form>
-            </li>-->
-
-            <!--<li>
-                <a href="/my-servlet?command=delete">Delete</a>
-            </li>-->
             <li>
                 <a href="save.jspx">Add</a>
 
@@ -49,20 +35,26 @@
             <input type="hidden" value="${temp}" id="ST${i}"/>
         </c:forEach>
         <div class="content">
-            <form action="/my-servlet">
+            <form action="/my-servlet" id="emailForm">
+                <input type="hidden" name="idContact"/>
                 <input type="hidden" name="command" value="sendemail"/>
                 <div class="cont-div">
-                    <label for="whom" class="small-label">To:</label>
-                    <c:forEach items="${contacts}" var="contact" varStatus="num">
-                        <input type="text" value="${contact.email}" name="whom" class="small-input"/>
-                    </c:forEach>
+                    <label for="whom" class="label">To:</label>
+                    <c:if test="${contacts == null}">
+                        <input type="text" name="whom" class="whom"/>
+                    </c:if>
+                    <c:if test="${contacts != null}">
+                        <c:forEach items="${contacts}" var="contact" varStatus="num">
+                            <input type="text" value="${contact.email}" name="whom" class="whom"/>
+                        </c:forEach>
+                    </c:if>
                 </div>
                 <div class="cont-div">
-                    <label for="theme" class="small-label">Theme:</label>
-                    <input type="text" name="theme" class="input-txt"/>
+                    <label for="theme" class="label">Theme:</label>
+                    <input type="text" name="theme" class="input-txt" placeholder="Type your theme"/>
                 </div>
                 <div class="cont-div">
-                    <label for="template" class="small-label">Template:</label>
+                    <label for="template" class="label">Template:</label>
                     <select onchange="setTemplate(this)" name="template" id="template" class="sel">
                         <option value="0">Without template</option>
                         <option value="1">Template 1</option>
@@ -70,15 +62,16 @@
                     </select>
                 </div>
                 <div class="cont-div">
-                    <label for="letter" class="small-label">Text:</label>
-                    <textarea rows="12" name="letter" id="textarea" cols="80" class="com"
+                    <label for="letter" class="label">Text:</label>
+                    <textarea rows="10" name="letter" id="textarea" cols="59" class="com"
                               placeholder="Type your letter..."><jsp:text/></textarea>
                 </div>
-                <div class="cont-div">
-                    <input type="submit" value="send" class="button-save"/>
-                    <a href="/my-servlet?command=show" class="button-cancel">cancel</a>
-                </div>
             </form>
+            <div class="div-but">
+                <input type="submit" value="send" class="button-save" form="emailForm"/>
+                <input type="submit" value="cancel" class="button-cancel"/>
+
+            </div>
         </div>
     </body>
     </html>

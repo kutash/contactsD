@@ -50,13 +50,20 @@ public class SendEmailCommand implements Command {
                         }
                     });
 
-            ST st = null;
-            for (String address : addresses){
-                for (Contact contact : emailContact) {
-                    if (contact.getEmail().equals(address)) {
-                        st = new ST(text);
-                        st.add("contact", contact);
-                        sendEmail(address, theme, st.render(), properties, sender, session);
+
+            if (emailContact==null){
+                for (String address : addresses){
+                    sendEmail(address, theme, text, properties, sender, session);
+                }
+            }else {
+                ST st = null;
+                for (String address : addresses) {
+                    for (Contact contact : emailContact) {
+                        if (contact.getEmail().equals(address)) {
+                            st = new ST(text);
+                            st.add("contact", contact);
+                            sendEmail(address, theme, st.render(), properties, sender, session);
+                        }
                     }
                 }
             }

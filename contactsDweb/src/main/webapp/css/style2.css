@@ -39,7 +39,7 @@ li > a{
 }
 
 .label{
-    font-size: 25px;
+    font-size: 20px;
     font-family: "Arial Black";
     color: black;
 }
@@ -61,32 +61,67 @@ li > a{
     border:solid 1px lightgray;
 }
 
-.sel{
-    height: 30px;
-    width: 400px;
-}
-
 .button-save{
     border: 1px solid #888888;
-    font-size: 2rem;
-    background-color:#698BDB;
+    font-size: 2.5rem;
+    background-color: #698BDB;
     color: white;
     cursor: pointer;
+    float: right;
+    margin-bottom: 25px;
 }
 
-.button-cancel {
-    margin-top: 5px;
-    display: inline-block;
-    text-decoration: none;
-    color: #698BDB;
-    font-size: 1.3rem;
+.button-cancel{
+    border: 1px solid #888888;
+    font-size: 2.5rem;
+    background-color: #698BDB;
+    color: white;
+    cursor: pointer;
+    float: left;
+    margin-bottom: 25px;
 }
-.content {
+
+.div-but{
+    width: 350px;
+    padding-left: 22%;
     padding-top: 30px;
 }
 
+.content {
+    padding-top: 30px;
+    margin: 0px auto;
+    width: 600px;
+    padding-bottom: 20px;
+}
+
 .cont-div{
-    padding-top: 20px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.cont-div input {
+    float: right;
+    height: 30px;
+    width: 450px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+.cont-div select{
+    float: right;
+    height: 30px;
+    width: 450px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+
+.cont-div textarea {
+    float: right;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
 }
 
 .submit-button{

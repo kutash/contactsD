@@ -85,14 +85,28 @@
      color: white;
      cursor: pointer;
      float: right;
+     margin-bottom: 25px;
  }
 
  .button-cancel{
-     margin-top: 5px;
+     /*margin-top: 5px;
      display: inline-block;
      text-decoration: none;
      color: #698BDB;
-     font-size: 3rem;
+     font-size: 3rem;*/
+
+     border: 1px solid #888888;
+     font-size: 2.5rem;
+     background-color: #698BDB;
+     color: white;
+     cursor: pointer;
+     float: left;
+     margin-bottom: 25px;
+ }
+
+ .div-but{
+     width: 350px;
+     padding-left: 37%;
  }
 
  .table-attach{
@@ -120,12 +134,8 @@
      margin-bottom: 1rem;
      padding-bottom: 0.5rem;
      border-bottom: 1px solid #888888;
- }
-
- .modal .header .close:after {
-     content: '✖';
-     float: right;
-     color: red;
+     font-family: Arial, serif;
+     color: black;
  }
 
  .modal .header .close:hover:after {
@@ -133,7 +143,7 @@
  }
 
  .modal .body {
-     border-bottom: 1px solid #888888;
+     /*border-bottom: 1px solid #888888;*/
  }
 
  .modal .body .field {
@@ -142,7 +152,7 @@
 
  .modal input {
      font-size: 1rem;
-     height: 25px;
+     height: 30px;
      padding-left: 10px;
      width: 400px;
  }
@@ -153,9 +163,12 @@
      display: inline-block;
      text-align: right;
      padding-right: 15px;
+     font-family: Arial, serif;
+     font-size: 20px;
+     color: black;
  }
 
- .modal .error {
+ /*.modal .error {
      display: inline-block;
      width: 580px;
      text-align: right;
@@ -167,7 +180,7 @@
  .modal .field.invalid .error {
      visibility: visible;
 
- }
+ }*/
 
  .modal .submit {
      padding-top: 1rem;
@@ -227,32 +240,38 @@
      margin-bottom: 1rem;
      padding-bottom: 0.5rem;
      border-bottom: 1px solid #888888;
+     font-family: Arial, serif;
+     color: black;
  }
 
- .modalPones .header .close :after {
-     content: '✖';
-     float: right;
-     color: #717171;
+.close{
+    float: right;
+    color: #717171;
+    text-decoration: none;
+}
 
- }
 
  .modalPones .header .close:hover:after {
      opacity: 0.6;
  }
 
  .modalPones .body {
-     border-bottom: 1px solid #888888;
+     /*border-bottom: 1px solid #888888;*/
  }
 
  .modalPones .body .field {
      margin: 15px 0;
  }
 
+.modalPones .body .field2 {
+    margin: 15px 0;
+}
+
  .modalPones input {
      font-size: 1rem;
-     height: 25px;
+     height: 30px;
      padding-left: 10px;
-     width: 400px;
+     width: 350px;
  }
 
  .modalPones select {
@@ -267,18 +286,21 @@
      display: inline-block;
      text-align: right;
      padding-right: 15px;
+     font-family: Arial, serif;
+     font-size: 20px;
+     color: black;
  }
 
  .modalPones .error {
-     display: inline-block;
+    /* display: inline-block;
      width: 580px;
-     text-align: right;
+     text-align: right;*/
      color: red;
      margin-top: 5px;
      visibility: hidden;
  }
 
- .modalPones .field.invalid .error {
+ .modalPones .invalid .error {
      visibility: visible;
 
  }
@@ -375,7 +397,8 @@ h2{
 }
 
 .tab{
-    padding-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 20px;
     width: 900px;
     text-align: center;
     padding-left: 20%;

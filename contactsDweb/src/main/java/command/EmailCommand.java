@@ -26,28 +26,40 @@ public class EmailCommand implements Command {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
             session = request.getSession();
-
             String [] chosen = request.getParameterValues("idContact");
-            List<Contact> emailContact = new ArrayList<Contact>();
-            for(String c : chosen) {
-                long id = Long.parseLong(c);
-                Contact contact = contactService.getById(id);
-                emailContact.add(contact);
+            if (chosen==null || chosen[0].equals("")){
+                STGroup group = new STGroupFile("emailTemplates.stg");
+                List<String> templates = new ArrayList<String>();
+                ST st1 = group.getInstanceOf("template1");
+                ST st2 = group.getInstanceOf("template2");
+                templates.add(st1.impl.getTemplateSource());
+                templates.add(st2.impl.getTemplateSource());
+                request.setAttribute("templates", templates);
+                request.setAttribute("contacts", null);
+                session.setAttribute("contacts", null);
+                return "/email.jspx";
+            }else {
+                List<Contact> emailContact = new ArrayList<Contact>();
+                for (String c : chosen) {
+                    long id = Long.parseLong(c);
+                    Contact contact = contactService.getById(id);
+                    emailContact.add(contact);
+                }
+
+
+                STGroup group = new STGroupFile("emailTemplates.stg");
+                List<String> templates = new ArrayList<String>();
+                ST st1 = group.getInstanceOf("template1");
+                ST st2 = group.getInstanceOf("template2");
+                templates.add(st1.impl.getTemplateSource());
+                templates.add(st2.impl.getTemplateSource());
+
+                request.setAttribute("templates", templates);
+                request.setAttribute("contacts", emailContact);
+                session.setAttribute("contacts", emailContact);
+                logger.info("filling email form for contacts {}", Arrays.toString(chosen));
+                return "/email.jspx";
             }
-
-
-            STGroup group = new STGroupFile("emailTemplates.stg");
-            List<String> templates = new ArrayList<String>();
-            ST st1 = group.getInstanceOf("template1");
-            ST st2 = group.getInstanceOf("template2");
-            templates.add(st1.impl.getTemplateSource());
-            templates.add(st2.impl.getTemplateSource());
-
-            request.setAttribute("templates", templates);
-            request.setAttribute("contacts", emailContact);
-            session.setAttribute("contacts", emailContact);
-            logger.info("filling email form for contacts {}", Arrays.toString(chosen));
-            return "/email.jspx";
     }
 
 

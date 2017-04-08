@@ -46,11 +46,6 @@ window.onload = function () {
         var form = document.getElementById('chosen');
         form.command.value = 'email';
         form.idChosen.value = '';
-        if (countCont() === 0) {
-            alert("Select contact");
-            return false;
-        }
-
         form.submit();
 
     });

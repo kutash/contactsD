@@ -22,6 +22,12 @@ public enum CommandEnum {
         }
     },
 
+    CANCEL{
+        {
+            this.command = new CancelCommand();
+        }
+    },
+
     PHOTO{
         {
             this.command = new PhotoCommand();

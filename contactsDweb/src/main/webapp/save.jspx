@@ -205,7 +205,7 @@
                     <label class="label" for="address">Address:</label>
 
                     <input type="text" value="${contact.address.address}" class="input-txt"  name="address"
-                       maxlength="80"  placeholder="Enter address" required="required"/>
+                       maxlength="80"  placeholder="Street/house/flat" required="required"/>
                 </div>
 
                 <div class="inp-div">
@@ -277,27 +277,34 @@
                 </tbody>
             </table>
         </div>
-        <input type="submit" value="save" class="button-save" form="saveForm"/>
-        <a href="javascript:{}" class="button-cancel">cancel</a>
-
+        <div class="div-but">
+            <input type="submit" value="save" class="button-save" form="saveForm"/>
+            <input type="submit" value="cancel" class="button-cancel" form="cancelForm"/>
+        </div>
+        <div>
+            <form action="/my-servlet" id="cancelForm">
+                <input type="hidden" name="command" value="cancel"/>
+            </form>
+        </div>
     </div>
 
     <div class="modal" id="attachPopUp" style="display: none;">
             <div class="header">
                 Attachments
-                <!--<button type="button" class="close cancel"></button>-->
-                <!--<a href="#" class="close cancel"/>-->
+                <a href="#" class="close cancel">&#10006;</a>
             </div>
             <div class="body">
                 <div class="field" id="div_attachName">
                     <input  type="text" form="saveForm" name="file_name" id="popUp_attachName" readonly="readonly"/>
                 </div>
                 <div class="field" id="div_attaches">
+                    <label for="attach">File:</label>
                     <input type="file" class="inputFile" name="attach" id="attach" form="saveForm" />
 
                 </div>
                 <div class="field">
-                    <textarea rows="6" name="comment" form="saveForm" cols="40" class="com"
+                    <label for="comment">Comment:</label>
+                    <textarea rows="8" name="comment" form="saveForm" cols="50" class="com"
                               id="popUp_comment" maxlength="100" placeholder="Type your comment..."><jsp:text/></textarea>
                 </div>
                 <div class="submit">
@@ -316,29 +323,32 @@
         <form id="telForm" accept-charset="utf-8" role="form">
         <div class="header">
             Phone number
-            <!--<a href="javascript:{}" onclick="closePhoneModal()" class="close">    </a>-->
+            <a href="#" class="close cancelPhone">&#10006;</a>
         </div>
         <div class="body">
             <div class="field" id="div_countryCode">
                 <label for="countryCode">Country code:</label>
-                <input  type="number" min="0" name="countryCode" id="popUp_countryCode" placeholder="Country code" />
+                <input  type="number" min="0" name="countryCode" id="popUp_countryCode" class="countryCode" placeholder="Country code"/>
+                <span class="error">&#10033;</span>
             </div>
             <div class="field" id="div_operatorCode">
                 <label for="operatorCode">Operator code:</label>
-                <input  type="number" min="0" name="operatorCode" id="popUp_operatorCode" placeholder="Operator code" />
+                <input  type="number" min="0" name="operatorCode" id="popUp_operatorCode" class="operatorCode" placeholder="Operator code" />
+                <span class="error">&#10033;</span>
             </div>
             <div class="field" id="div_telephone">
                 <label for="telephone">Telephone:</label>
-                <input  type="number" min="0" name="telephone" id="popUp_telephone" placeholder="Telephone" />
+                <input  type="number" min="0" name="telephone" id="popUp_telephone" class="telephone" placeholder="Telephone" />
+                <span class="error">&#10033;</span>
             </div>
-            <div  class="field" id="div_type">
+            <div class="field2" id="div_type">
                 <label for="type">Type:</label>
                 <select name="phonetype" id="type" >
                     <option>Home</option>
                     <option>Mobile</option>
                 </select>
             </div>
-            <div class="field" >
+            <div class="field2">
                 <label for="phoneComment">Comment:</label>
                 <textarea rows="6" name="phoneComment" cols="53" class="phoneComm"
                               id="popUp_phoneComment" maxlength="100" placeholder="Type your comment..."><jsp:text/></textarea>

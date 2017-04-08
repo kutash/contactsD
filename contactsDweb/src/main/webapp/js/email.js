@@ -21,3 +21,17 @@ function setTemplate(t) {
 }
 
 
+
+window.onload = function () {
+
+    var button = document.querySelector(".button-cancel");
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        var form = document.getElementById("emailForm");
+        form.command.value = "email";
+        form.idContact.value = "";
+        form.submit();
+    });
+}
+
+
