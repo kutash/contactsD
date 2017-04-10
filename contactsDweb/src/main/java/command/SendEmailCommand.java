@@ -30,7 +30,8 @@ public class SendEmailCommand implements Command {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         session=request.getSession();
-        List<Contact> emailContact = (List<Contact>) session.getAttribute("contacts");
+        List<Contact> emailContact = (List<Contact>) session.getAttribute("emailContacts");
+        session.removeAttribute("emailContacts");
         String[] addresses = request.getParameterValues("whom");
         logger.info("sending emails to contacts {}", Arrays.toString(addresses));
         String theme = request.getParameter("theme");

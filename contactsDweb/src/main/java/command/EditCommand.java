@@ -32,7 +32,7 @@ public class EditCommand implements Command {
         List<Phone> listPhones = contactService.getPhones(contactId);
         request.setAttribute("phones", listPhones);
         request.setAttribute("attaches",attachments);
-        request.setAttribute("contact", contact);
+        request.setAttribute("contacts", contact);
         logger.info("edit contact id {}", contactId);
         return "/save.jspx";
     }

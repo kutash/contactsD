@@ -20,7 +20,7 @@
     <div class="nav">
         <ul class="nav-ul" >
             <li>
-                <a href="/my-servlet?command=show">Contacts</a>
+                <a href="index.jsp">Contacts</a>
             </li>
             <li>
                 <a href="search.jspx">Search</a>
@@ -59,7 +59,7 @@
                 </tr>
                 </thead>
                 <tbody class="t-body">
-                <c:forEach var="contact" items="${requestScope.contact}" >
+                <c:forEach var="contact" items="${contact}" >
                     <tr>
                         <td>
                             <input type="checkbox" form="chosen" name="idContact" value="${contact.id}"/>
@@ -78,7 +78,7 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <span class="total">
+            <!--<span class="total">
                  Total pages: ${pages}
             </span>
             <div class="pag">
@@ -88,8 +88,63 @@
                            max="${pages}" value="${currentPage}" class="str input-page"/>
                 </span>
                 <a href="javascript:{}" class="next page-href">next</a>
-            </div>
+            </div>-->
         </form>
+
+
+
+    <div class="pag">
+        <c:if test="${PAGINATOR.totalPages > 1}">
+            <ul class="pagination">
+                <c:choose>
+                    <c:when test="${PAGINATOR.prevPageActive}">
+                        <li>
+                            <a href="/my-servlet?command=show&amp;targetPage=prev" aria-label="Previous">
+                                <span aria-hidden="true" class="page-href">prev</span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:when test="${!PAGINATOR.prevPageActive}">
+                        <li class="disabled">
+                            <span aria-hidden="true" class="page-href">prev</span>
+                        </li>
+                    </c:when>
+                </c:choose>
+                <c:forEach var="i" items="${PAGINATOR.pages}">
+                    <c:url var="targetPage" value="/my-servlet">
+                        <c:param name="command" value="show"/>
+                        <c:param name="targetPage" value="${i}"/>
+                    </c:url>
+                    <c:choose>
+                        <c:when test="${PAGINATOR.currentPage == i}">
+                            <li class="active"><a href="${targetPage}" class="page-nav">${i}</a></li>
+                        </c:when>
+                        <c:when test="${PAGINATOR.currentPage != i}">
+                            <li><a href="${targetPage}" class="page-nav">${i}</a></li>
+                        </c:when>
+                    </c:choose>
+                </c:forEach>
+                <c:choose>
+                    <c:when test="${PAGINATOR.nextPageActive}">
+                        <li>
+                            <a href="/my-servlet?command=show&amp;targetPage=next" aria-label="Next">
+                                <span aria-hidden="true" class="page-href">next</span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:when test="${!PAGINATOR.nextPageActive}">
+                        <li class="disabled">
+                            <span aria-hidden="true" class="page-href">next</span>
+                        </li>
+                    </c:when>
+                </c:choose>
+            </ul>
+        </c:if>
+    </div>
+
+
+
+
         <input type="hidden" id="emailMessage" value="${message}"/>
     </div>
     </body>

@@ -7,6 +7,7 @@
 </head>
 <body>
    <div>
+       <%session.removeAttribute("isSearch");%>
       <jsp:forward page="/my-servlet?command=show"/>
    </div>
 </body>

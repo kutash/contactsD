@@ -62,7 +62,7 @@ window.onload = function () {
     }
 
 
-    var modalButton = document.querySelector(".next");
+    /*var modalButton = document.querySelector(".next");
     modalButton.addEventListener("click", function (event) {
         event.preventDefault();
         var form = document.getElementById("showForm");
@@ -93,7 +93,7 @@ window.onload = function () {
         var form = document.getElementById("showForm");
         form.command.value="show";
         form.submit();
-    });
+    });*/
 
 
 

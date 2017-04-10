@@ -55,8 +55,8 @@ public class EmailCommand implements Command {
                 templates.add(st2.impl.getTemplateSource());
 
                 request.setAttribute("templates", templates);
-                request.setAttribute("contacts", emailContact);
-                session.setAttribute("contacts", emailContact);
+                request.setAttribute("emailContacts", emailContact);
+                session.setAttribute("emailContacts", emailContact);
                 logger.info("filling email form for contacts {}", Arrays.toString(chosen));
                 return "/email.jspx";
             }

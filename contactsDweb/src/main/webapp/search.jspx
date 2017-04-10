@@ -18,7 +18,7 @@
     <div class="nav">
         <ul class="nav-ul" >
             <li>
-                <a href="/my-servlet?command=show">Contacts</a>
+                <a href="index.jsp">Contacts</a>
             </li>
             <li>
                 <a href="javascript:{}" class="email-but edit-hr">Email</a>

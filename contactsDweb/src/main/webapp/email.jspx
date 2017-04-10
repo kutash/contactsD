@@ -18,7 +18,7 @@
     <div class="nav">
         <ul class="nav-ul" >
             <li>
-                <a href="/my-servlet?command=show">Contacts</a>
+                <a href="index.jsp">Contacts</a>
             </li>
             <li>
                 <a href="search.jspx">Search</a>
@@ -40,11 +40,11 @@
                 <input type="hidden" name="command" value="sendemail"/>
                 <div class="cont-div">
                     <label for="whom" class="label">To:</label>
-                    <c:if test="${contacts == null}">
+                    <c:if test="${emailContacts == null}">
                         <input type="text" name="whom" class="whom"/>
                     </c:if>
-                    <c:if test="${contacts != null}">
-                        <c:forEach items="${contacts}" var="contact" varStatus="num">
+                    <c:if test="${emailContacts != null}">
+                        <c:forEach items="${emailContacts}" var="contact" varStatus="num">
                             <input type="text" value="${contact.email}" name="whom" class="whom"/>
                         </c:forEach>
                     </c:if>

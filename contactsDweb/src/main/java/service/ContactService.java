@@ -133,9 +133,14 @@ public class ContactService {
     }
 
 
-    public List<Contact> searchContacts(Map<String, String> params){
-        List<Contact> contacts = contactDAO.searchContacts(params);
+    public List<Contact> searchContacts(Map<String, String> params,int page){
+        List<Contact> contacts = contactDAO.searchContacts(params, page);
         return contacts;
+    }
+
+    public int countForSearch(Map<String, String> params){
+       int count = contactDAO.countForSearch(params);
+       return count;
     }
 
 

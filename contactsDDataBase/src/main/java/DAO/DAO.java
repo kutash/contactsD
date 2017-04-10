@@ -51,7 +51,9 @@ public interface DAO {
 
     void deletePhones(Long idContact);
 
-    List<Contact> searchContacts(Map<String, String> params);
+    List<Contact> searchContacts(Map<String, String> params, int page);
+
+    int countForSearch(Map<String, String> params);
 
     List<Contact> getContactsForBirthday();
 }
