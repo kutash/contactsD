@@ -35,16 +35,16 @@ public class PhotoCommand implements Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (StringUtils.isNotEmpty(stId)){
-            Long idContact = Long.parseLong(stId);
-            path = contactService.getPhoto(idContact);
-            if (path == null) {
-                String appPath = request.getServletContext().getRealPath("");
-                path = appPath + properties.getProperty("AVATAR");
-            }
-        }else {
-            path =(String) session.getAttribute("temp_photo_path");
-            if (path == null) {
+        path =(String) session.getAttribute("temp_photo_path");
+        if (path==null){
+            if (StringUtils.isNotEmpty(stId)) {
+                Long idContact = Long.parseLong(stId);
+                path = contactService.getPhoto(idContact);
+                if (path == null) {
+                    String appPath = request.getServletContext().getRealPath("");
+                    path = appPath + properties.getProperty("AVATAR");
+                }
+            } else {
                 String appPath = request.getServletContext().getRealPath("");
                 path = appPath + properties.getProperty("AVATAR");
             }

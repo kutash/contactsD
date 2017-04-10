@@ -5,10 +5,12 @@ CREATE DATABASE `kutash_galina`
 
 
 CREATE TABLE `kutash_galina`.`address` (
-  `idAddress` int(10) NOT NULL AUTO_INCREMENT,
+  `idAddress` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `country` varchar(45) DEFAULT NULL,
   `city` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
+  `street` varchar(45) DEFAULT NULL,
+  `house` VARCHAR (45)  DEFAULT NULL,
+   `flat` VARCHAR (45) DEFAULT NULL,
   `index` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idAddress`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -18,7 +20,7 @@ CREATE TABLE `kutash_galina`.`address` (
 
 
 CREATE TABLE `kutash_galina`.`attachment` (
-  `idAttach` int(10) NOT NULL AUTO_INCREMENT,
+  `idAttach` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `path` varchar(21000) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
   `date` date DEFAULT NULL,
@@ -32,7 +34,7 @@ CREATE TABLE `kutash_galina`.`attachment` (
 
 
 CREATE TABLE `kutash_galina`.`telephone` (
-  `idPhone` int(10) NOT NULL AUTO_INCREMENT,
+  `idPhone` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `countryCode` varchar(3) DEFAULT NULL,
   `operatorCode` varchar(45) DEFAULT NULL,
   `number` varchar(45) DEFAULT NULL,
@@ -42,14 +44,14 @@ CREATE TABLE `kutash_galina`.`telephone` (
   PRIMARY KEY (`idPhone`),
   UNIQUE KEY `idPhone_UNIQUE` (`idPhone`),
   KEY `PhoneFk_idx` (`idContact`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
 
 
 CREATE TABLE `kutash_galina`.`contact` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `firstName` varchar(45) NOT NULL,
   `middleName` varchar(45) NOT NULL,
   `lastName` varchar(45) DEFAULT NULL,
@@ -58,14 +60,14 @@ CREATE TABLE `kutash_galina`.`contact` (
   `sex` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `citizenship` varchar(45) DEFAULT NULL,
-  `photo` varchar(45) DEFAULT NULL,
+  `photo` varchar(100) DEFAULT NULL,
   `site` varchar(45) DEFAULT NULL,
   `company` varchar(45) DEFAULT NULL,
-  `idAddress` int(10) DEFAULT NULL,
-  `idPhone` int(10) default null,
+  `idAddress` int(10) unsigned DEFAULT NULL,
+  `idPhone` int(10) unsigned default null,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fk_Contact_address1_idx` (`idAddress`),
+  KEY `fk_contact_address1_idx` (`idAddress`),
   key `fk_contact_phone_idx` (`idPhone`),
   FOREIGN KEY (`idAddress` )
   REFERENCES `kutash_galina`.`address` (`idAddress` )

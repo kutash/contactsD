@@ -1,0 +1,371 @@
+ body{
+
+ }
+
+.nav{
+    background-color: #30adc7;
+    height: 100px;
+}
+
+ul li{
+    display: inline-block;
+    padding-right:  20px;
+    padding-left: 10px;
+    float: left;
+    padding-top: 30px;
+    padding-bottom: 20px;
+
+}
+
+li > a{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.edit-hr{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.label{
+    font-size: 20px;
+    font-family: "Arial Black";
+    color: black;
+}
+
+.buttons{
+    border: 1px solid #888888;
+    font-size: 25px;
+    background-color: #30adc7;
+    color: white;
+    float: right;
+    cursor: pointer;
+    margin-right: 3px;
+}
+
+.button-save{
+    border: 1px solid #888888;
+    font-size: 2.0rem;
+    height: 60px;
+    width: 200px;
+    font-family: oblique serif;
+    background-color: #30adc7;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 25px;
+}
+
+.button-cancel{
+    border: 1px solid #888888;
+    font-size: 2.0rem;
+    height: 60px;
+    width: 200px;
+    background-color: #30adc7;
+    color:white;
+    cursor: pointer;
+    float: left;
+    margin-bottom: 25px;
+    font-family: oblique serif;
+}
+
+.div-but{
+    width: 450px;
+    padding-left: 35%;
+}
+
+.table-attach{
+    width: 100%;
+    /*border-collapse: collapse;*/
+    border: solid lightgray 1px;
+    margin-top: 2px;
+}
+
+.modal {
+    width: 600px;
+    padding: 1rem;
+    border: 1px solid #717171;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 5px #888888;
+    background-color: white;
+    font-family: Arial, serif;
+}
+
+.modal .header {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #888888;
+    font-family: Arial, serif;
+    color: black;
+}
+
+.modal .header .close:hover:after {
+    opacity: 0.6;
+}
+
+.modal .body .field {
+    margin: 15px 0;
+}
+
+.modal input {
+    font-size: 1rem;
+    height: 30px;
+    padding-left: 10px;
+    width: 400px;
+}
+
+
+.modal label {
+    width: 150px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 15px;
+    font-family: Arial, serif;
+    font-size: 20px;
+    color: black;
+}
+
+.modal .submit {
+    padding-top: 1rem;
+}
+
+.modal .submit button {
+    border: 1px solid #888888;
+    font-size: 1.5rem;
+    background-color: #30adc7;
+    color: white;
+    float: right;
+    cursor: pointer;
+}
+
+.modal .submit button:hover {
+    opacity: 0.7;
+}
+
+.modal .submit button:active {
+    opacity: 0.9;
+}
+
+.modal .submit .cancel {
+    border: 1px solid #888888;
+    font-size: 1.5rem;
+    background-color: #30adc7;
+    color: white;
+    float: left;
+    cursor: pointer;
+}
+
+.modal .submit .cancel:hover {
+    opacity: 0.7;
+}
+
+.container div {
+    margin: 1rem 0;
+    font-size: 1rem;
+    /*font-family: "Arial Black", serif;*/
+    color: gray;
+
+}
+
+.modalPones {
+    width: 600px;
+    padding: 1rem;
+    border: 1px solid #717171;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 5px 5px 5px #888888;
+    background-color: white;
+    font-family: Arial, serif;
+}
+
+.modalPones .header {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #888888;
+    font-family: Arial, serif;
+    color: black;
+}
+
+.close{
+    float: right;
+    color: #717171;
+    text-decoration: none;
+}
+
+
+.modalPones .header .close:hover:after {
+    opacity: 0.6;
+}
+
+.modalPones .body .field {
+    margin: 15px 0;
+}
+
+.modalPones .body .field2 {
+    margin: 15px 0;
+}
+
+.modalPones input {
+    font-size: 1rem;
+    height: 30px;
+    padding-left: 10px;
+    width: 350px;
+}
+
+.modalPones select {
+    font-size: 1rem;
+    height: 25px;
+    padding-left: 10px;
+    width: 200px;
+}
+
+.modalPones label {
+    width: 150px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 15px;
+    font-family: Arial, serif;
+    font-size: 20px;
+    color: black;
+}
+
+.modalPones .error {
+    color: red;
+    margin-top: 5px;
+    visibility: hidden;
+}
+
+.modalPones .invalid .error {
+    visibility: visible;
+
+}
+
+.modalPones .submit {
+    padding-top: 1rem;
+}
+
+.modalPones .submit button {
+    border: 1px solid #888888;
+    font-size: 1.5rem;
+    background-color: #30adc7;
+    color: white;
+    float: right;
+    cursor: pointer;
+}
+
+.modalPones .submit button:hover {
+    opacity: 0.7;
+}
+
+.modalPones .submit button:active {
+    opacity: 0.9;
+}
+
+.modalPones .submit .cancelPhone {
+    border: 1px solid #888888;
+    font-size: 1.5rem;
+    background-color: #30adc7;
+    color: white;
+    float: left;
+    cursor: pointer;
+}
+
+.modalPones .submit .cancelPhone:hover {
+    opacity: 0.7;
+}
+
+.inp-div{
+    margin-bottom: 5px;
+    overflow: hidden;
+
+}
+
+.inp-div input {
+    float: right;
+    height: 40px;
+    width: 500px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+.inp-div select{
+    float: right;
+    height: 40px;
+    width: 500px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+
+ .form{
+    margin: 0px auto;
+    width: 700px;
+    padding-bottom: 20px;
+
+}
+
+h2{
+    text-align: center;
+    color: black;
+}
+
+.tab{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 900px;
+    /*text-align: center;*/
+    padding-left: 20%;
+}
+
+.tab-label{
+    float: left;
+    font-size: 35px;
+    color: black;
+}
+
+.input-small {
+    width: 200px;
+    height: 30px;
+    border: 1px solid gray;
+}
+
+tr {
+    border-top: solid lightgray 1px;
+    border-bottom: solid lightgray 1px;
+
+}
+
+table{
+    border: solid lightgray 1px;
+}
+
+th {
+    /*border-right: solid lightgray 1px;*/
+    /*border-top: solid lightgray 1px;*/
+    text-align: left;
+    font-family: "Arial";
+    font-size: 25px;
+    padding-bottom: 20px;
+    padding-top: 12px;
+}
+
+td {
+    border-top: solid lightgray 1px;
+    font-family: "Arial Narrow";
+    font-size: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

@@ -11,8 +11,8 @@
     <jsp:directive.page contentType="text/html; charset=Utf-8" isELIgnored="false"/>
     <html>
     <head><title>Search</title>
-        <link rel="stylesheet" href="css/style2.css"/>
-
+        <link rel="stylesheet" href="css/search-email.css"/>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/search.js">;</script>
     </head>
     <body>
     <div class="nav">
@@ -21,23 +21,11 @@
                 <a href="/my-servlet?command=show">Contacts</a>
             </li>
             <li>
-                <a href="search.jspx">Search</a>
+                <a href="javascript:{}" class="email-but edit-hr">Email</a>
             </li>
-            <!--<li>
-                <a href="email.jspx">Email</a>
-            </li>
-            <li class="edit-hr">
                 <form action="/my-servlet" id="chosen">
                     <input type="hidden" name="command"/>
-                    <input type="hidden" name="id"/>
-
-                    <a href="javascript:{}" onclick="chooseContact(); return false;" class="edit-hr">Edit</a>
                 </form>
-            </li>
-
-            <li>
-                <a href="/my-servlet?command=delete">Delete</a>
-            </li>-->
             <li>
                 <a href="save.jspx">Add</a>
 
@@ -45,103 +33,99 @@
         </ul>
     </div>
 
-    <form action="/my-servlet" method="post">
+    <form action="/my-servlet" method="post" class="searchForm" id="searchForm">
         <input type="hidden" name="command" value="search"/>
-    <div>
-        <label class="label" for="firstName">Name:</label>
-        <div>
-            <input type="text" class="input-txt"  pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" id="name" name="firstName"
+        <div class="cont-div">
+            <label class="label" for="firstName">Name:</label>
+            <input type="text" class="input-txt"  pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" id="name" name="firstName"
                    placeholder="Enter name"/>
         </div>
-    </div>
 
-    <div>
-        <label class="label" for="middleName">Middle name:</label>
-        <div>
-            <input type="text" class="input-txt"  pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" id="midname" name="middleName"
+        <div class="cont-div">
+            <label class="label" for="middleName">Middle name:</label>
+            <input type="text" class="input-txt"  pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" id="midname" name="middleName"
                    placeholder="Enter surname"/>
         </div>
-    </div>
 
-    <div>
-        <label class="label" for="lastName">Last name:</label>
-        <div class="col-sm-10">
-            <input type="text" class="input-txt"  pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" id="surname" name="lastName"
-                   placeholder="Enter middle name"/>
+        <div class="cont-div">
+            <label class="label" for="lastName">Last name:</label>
+            <input type="text" class="input-txt"  pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" id="surname" name="lastName"
+               placeholder="Enter middle name"/>
         </div>
-    </div>
 
-    <div>
-        <label for="sex" class="label">Sex:</label>
-        <div>
+        <div class="cont-div">
+            <label for="sex" class="label">Sex:</label>
             <select name="sex" class="sel" id="gender">
-                <option>male</option>
-                <option>female</option>
+                <option value="">not chosen</option>
+                <option value="male">male</option>
+                <option value="female">female</option>
             </select>
         </div>
-    </div>
-
-
-    <div>
-        <label class="label">Birthday's range:</label>
-        <div>
+        <h2>Birthday's range:</h2>
+        <div class="cont-div">
             <label class="label" for="birthSince">From:</label>
             <input type="text" id="birthSince" name="birthSince" autocomplete="off" placeholder="YYYY-MM-DD"
-                   pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+                   pattern="(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+        </div>
+        <div class="cont-div">
             <label class="label" for="birthUpto">To:</label>
             <input type="text"  id="birthUpto" name="birthUpto" autocomplete="off" placeholder="YYYY-MM-DD"
-                   pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+                   pattern="(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
         </div>
-    </div>
 
-    <div>
-        <label class="label" for="citizenship">Citizenship:</label>
-        <div>
-            <input type="text" class="input-txt" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" id="national" name="citizenship"
+        <div class="cont-div">
+            <label class="label" for="citizenship">Citizenship:</label>
+            <input type="text" class="input-txt" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" id="national" name="citizenship"
                    placeholder="Enter citizenship"/>
         </div>
-    </div>
 
-    <div>
-        <label class="label" for="status">Status:</label>
-        <div>
-            <input type="text"  pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt" id="maritStatus"
-                   name="status" placeholder="Enter status"/>
+        <div class="cont-div">
+            <label class="label" for="status">Status:</label>
+            <select name="status" class="sel" id="status">
+                <option value="">not chosen</option>
+                <option value="single">single</option>
+                <option value="marride">married</option>
+                <option value="divorced">divorced</option>
+            </select>
         </div>
-    </div>
-        <label class="label">Address:</label>
-    <div>
-        <label  for="country" class="small-label">Country:</label>
-        <div>
-            <input type="text"  pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" class="input-txt" id="country"
+        <h2>Address:</h2>
+        <div class="cont-div">
+            <label  for="country" class="label">Country:</label>
+            <input type="text"  pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" class="input-txt" id="country"
                    name="country" placeholder="Enter country"/>
         </div>
-    </div>
 
-    <div>
-        <label class="small-label" for="city">City:</label>
-        <div>
-            <input type="text"  class="input-txt" pattern="([a-z]|[A-Z]|[а-я]|[А-Я])*" name="city"
+        <div class="cont-div">
+            <label class="label" for="city">City:</label>
+            <input type="text"  class="input-txt" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" name="city"
                    placeholder="Enter city"/>
         </div>
-    </div>
 
-    <div>
-        <label class="small-label" for="address">Address:</label>
-        <div>
-            <input type="text"  class="input-txt"  name="address" placeholder="Enter address"/>
+        <div class="cont-div">
+            <label class="label" for="street">Street:</label>
+            <input type="text"  class="input-txt"  name="street" placeholder="Street" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"/>
         </div>
-    </div>
 
-    <div>
-        <label class="small-label" for="index">Index:</label>
-        <div>
+        <div class="cont-div">
+            <label class="label" for="house">House:</label>
+            <input type="number" min="0" max="32000" name="house" placeholder="House"/>
+        </div>
+
+        <div class="cont-div">
+            <label class="label" for="house">Flat:</label>
+            <input type="number" min="0" max="32000" name="flat" placeholder="Flat"/>
+        </div>
+
+        <div class="cont-div">
+            <label class="label" for="index">Index:</label>
             <input type="text"  class="input-txt"  name="index" placeholder="Enter index" pattern="\d*"/>
         </div>
-    </div>
 
-    <button type="submit" class="submit-button">Search</button>
     </form>
+        <div class="div-but2">
+            <input type="submit" class="button-save" value="search" form="searchForm"/>
+            <input type="submit" class="button-cancel" value="cancel"/>
+        </div>
     </body>
     </html>
 </jsp:root>

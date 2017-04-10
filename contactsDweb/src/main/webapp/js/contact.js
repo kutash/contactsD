@@ -26,8 +26,10 @@ window.onload = function () {
     modalButton.addEventListener("click", function (event) {
         event.preventDefault();
         var modalWindow = document.querySelector(".modal");
-        var fileName = document.getElementById("popUp_attachName");
+        var fileName = document.getElementById("div_attachName");
         fileName.style.display = "none";
+        var input_file = document.getElementById("div_attaches");
+        input_file.style.display = "initial";
         modalWindow.style.display = "block";
         var form = document.getElementById('saveForm');
         form.attachButton.value = 'add';
@@ -50,7 +52,7 @@ window.onload = function () {
         event.preventDefault();
         var form = document.getElementById('saveForm');
         var input_file = document.getElementById("div_attaches");
-        if(form.attach.value == "") {
+        if(form.attach.value == "" && input_file.style.display == "initial") {
             alert("Select the file, please");
             return false;
         }
@@ -83,7 +85,6 @@ window.onload = function () {
         var checkboxes = document.getElementsByName('attach_checkbox'), length = checkboxes.length;
         var form = document.getElementById('saveForm');
         form.attachButton.value = 'edit';
-
         var input_file = document.getElementById("div_attaches");
         var file_name = document.getElementById("div_attachName");
         input_file.style.display = "none";

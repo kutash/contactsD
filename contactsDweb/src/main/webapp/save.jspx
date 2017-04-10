@@ -11,7 +11,7 @@
     <jsp:directive.page contentType="text/html; charset=Utf-8" isELIgnored="false"/>
     <html>
     <head><title>Contact</title>
-        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/save.css"/>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/contact.js">;</script>
     </head>
     <body>
@@ -27,13 +27,12 @@
             <li>
                 <a href="javascript:{}" class="email-but edit-hr">Email</a>
             </li>
-            <!--<li class="edit-hr">-->
+
                 <form action="/my-servlet" id="chosen">
                     <input type="hidden" name="command"/>
                     <input type="hidden" name="idChosen"/>
-                   <!-- <a href="javascript:{}" onclick="chooseContact(); return false;" class="edit-hr">Edit</a>-->
                 </form>
-            <!--</li>-->
+
 
             <li>
                 <a href="javascript:{}" class="delete-but">Delete</a>
@@ -96,22 +95,17 @@
                     <label class="label" for="sex">Sex:</label>
                     <select id="sex" name="sex">
                         <c:if test="${contact.sex == 'male'}">
-                            <option value="not chosen">not chosen</option>
+                            <option value="">not chosen</option>
                             <option selected="selected" value="male">male</option>
                             <option VALUE="female">female</option>
                         </c:if>
                         <c:if test="${contact.sex == 'female'}">
-                            <option value="not chosen">not chosen</option>
+                            <option value="">not chosen</option>
                             <option value="male">male</option>
                             <option selected="selected" value="female">female</option>
                         </c:if>
-                        <c:if test="${empty contact}">
-                            <option value="not chosen" elected="selected">not chosen</option>
-                            <option value="male">male</option>
-                            <option value="female">female</option>
-                        </c:if>
-                        <c:if test="${contact.sex == 'not chosen'}">
-                            <option value="not chosen" elected="selected">not chosen</option>
+                        <c:if test="${contact.sex == null}">
+                            <option value="" elected="selected">not chosen</option>
                             <option value="male">male</option>
                             <option value="female">female</option>
                         </c:if>
@@ -123,38 +117,33 @@
 
                     <input type="text" value="${contact.citizen}" class="input-txt"
                               maxlength="20"   pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" id="national" name="citizenship"
-                              placeholder="Enter citizenship"/>
+                              placeholder="Enter citizenship" required="required"/>
                 </div>
 
                 <div class="inp-div">
                     <label class="label" for="status">Status:</label>
                     <select id="status" name="status">
                         <c:if test="${contact.status == 'single'}">
-                            <option value="not chosen">not chosen</option>
+                            <option value="">not chosen</option>
                             <option selected="selected" value="single">single</option>
                             <option VALUE="married">married</option>
                             <option value="divorced">divorced</option>
                         </c:if>
                         <c:if test="${contact.status == 'married'}">
-                            <option value="not chosen">not chosen</option>
+                            <option value="">not chosen</option>
                             <option value="single">single</option>
                             <option selected="selected" value="married">married</option>
                             <option value="divorced">divorced</option>
                         </c:if>
                         <c:if test="${contact.status == 'divorced'}">
-                            <option value="not chosen">not chosen</option>
+                            <option value="">not chosen</option>
                             <option value="single">single</option>
                             <option value="married">married</option>
                             <option selected="selected"  value="divorced">divorced</option>
                         </c:if>
-                        <c:if test="${empty contact}">
-                            <option selected="selected" value="not chosen">not chosen</option>
-                            <option value="single">single</option>
-                            <option value="married">married</option>
-                            <option value="divorced">divorced</option>
-                        </c:if>
-                        <c:if test="${contact.status == 'not chosen'}">
-                            <option selected="selected" value="null">not chosen</option>
+
+                        <c:if test="${contact.status == null}">
+                            <option selected="selected" value="">not chosen</option>
                             <option value="single">single</option>
                             <option value="married">married</option>
                             <option value="divorced">divorced</option>
@@ -173,7 +162,7 @@
                     <label class="label" for="email">Email:</label>
 
                     <input type="email" value="${contact.email}" pattern="^[-\w.]+/+*+[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
-                       maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email"/>
+                       maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email" required="required"/>
                 </div>
 
                 <div class="inp-div">
@@ -202,10 +191,17 @@
                 </div>
 
                 <div class="inp-div">
-                    <label class="label" for="address">Address:</label>
-
-                    <input type="text" value="${contact.address.address}" class="input-txt"  name="address"
-                       maxlength="80"  placeholder="Street/house/flat" required="required"/>
+                    <label class="label" for="street">Street:</label>
+                    <input type="text" value="${contact.address.street}" name="street" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"
+                       maxlength="80"  placeholder="Enter street" required="required"/>
+                </div>
+                <div class="inp-div">
+                    <label class="label" for="house">House:</label>
+                    <input type="number" value="${contact.address.house}" min="0" max="32000" name="house" placeholder="Enter house" required="required"/>
+                </div>
+                <div class="inp-div">
+                    <label class="label" for="flat">Flat:</label>
+                    <input type="number" value="${contact.address.flat}" min="0" max="32000" name="flat" placeholder="Enter flat" required="required"/>
                 </div>
 
                 <div class="inp-div">
@@ -218,14 +214,16 @@
     </form>
 
         <div class="tab">
-            <h2>Attachments</h2>
+
             <table class="table-attach">
-                <button type="button" class="show-modal buttons">Add</button>
+                <label class="tab-label">Attachments</label>
+                <button class="show-modal buttons">Add</button>
                 <button class="delete_attach buttons">Delete</button>
                 <button class="edit_attach buttons">Edit</button>
+
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>  </th>
                         <th>Name</th>
                         <th>Date</th>
                         <th>Commment</th>
@@ -249,14 +247,15 @@
 
 
         <div class="tab">
-            <h2>Phones</h2>
             <table class="table-attach">
-            <button type="button" class="show-modalphone buttons">Add</button>
-            <button class="delete_phone buttons" id="del">Delete</button>
-            <button class="edit buttons" id="edit">Edit</button>
+                <label class="tab-label">Phones</label>
+                <button type="button" class="show-modalphone buttons">Add</button>
+                <button class="delete_phone buttons" id="del">Delete</button>
+                <button class="edit buttons" id="edit">Edit</button>
+
                 <thead>
                 <tr>
-                    <th></th>
+                    <th>  </th>
                     <th>Number</th>
                     <th>Type</th>
                     <th>Commment</th>
@@ -267,12 +266,13 @@
                     <tr>
                         <td><input type="checkbox" form="saveForm" id="table_phones" name="phone_checkbox"/></td>
                         <td><input type='text' form='saveForm' class="input-small" value="${phone.getFullNumber()}" readonly="readonly"/></td>
-                        <td><input type="text" form='saveForm' class="input-small"  name="type${ num.count - 1 }" value="${phone.phoneType}" id="phone_type" readonly="readonly"/></td>
+                        <td><input type="text" form='saveForm' class="input-small" name="type${ num.count - 1 }" value="${phone.phoneType}" id="phone_type" readonly="readonly"/></td>
                         <td><input type="text" form='saveForm' class="input-small phone_comment" name="comment${ num.count - 1 }" id="phone_comment" value="${phone.comment}" readonly="readonly"/></td>
                         <td><input type='hidden' form='saveForm' name="countryCode${ num.count - 1}" value="${ phone.countryCode}" readonly="readonly"/></td>
                         <td><input type='hidden' form='saveForm' name="operatorCode${ num.count - 1}" value="${ phone.operatorCode}" readonly="readonly"/></td>
                         <td><input type='hidden' form='saveForm' name="telephone${ num.count - 1}" value="${ phone.phoneNumber}" readonly="readonly"/></td>
                     </tr>
+
                 </c:forEach>
                 </tbody>
             </table>
@@ -295,6 +295,7 @@
             </div>
             <div class="body">
                 <div class="field" id="div_attachName">
+                    <label for="file_name">Name:</label>
                     <input  type="text" form="saveForm" name="file_name" id="popUp_attachName" readonly="readonly"/>
                 </div>
                 <div class="field" id="div_attaches">
@@ -309,7 +310,7 @@
                 </div>
                 <div class="submit">
                     <input form="saveForm" type="hidden" name="attachButton"/>
-                    <a href="" class="cancel">Cancel</a>
+                    <button type="button" class="cancel">Cancel</button>
                     <button type="button" class="submit-button" id="submit-button">Save</button>
                 </div>
             </div>
@@ -350,11 +351,11 @@
             </div>
             <div class="field2">
                 <label for="phoneComment">Comment:</label>
-                <textarea rows="6" name="phoneComment" cols="53" class="phoneComm"
+                <textarea rows="6" name="phoneComment" cols="47" class="phoneComm"
                               id="popUp_phoneComment" maxlength="100" placeholder="Type your comment..."><jsp:text/></textarea>
             </div>
             <div class="submit">
-                <a href="javascript:{}" class="cancelPhone">Cancel</a>
+                <button type="button" class="cancelPhone">Cancel</button>
                 <button type="button" class="save_phone submit-button" id="submit-button">Save</button>
             </div>
         </div>

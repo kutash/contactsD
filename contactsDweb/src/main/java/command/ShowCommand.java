@@ -34,7 +34,7 @@ public class ShowCommand implements Command {
 
         String s = request.getParameter("currentPage");
         int targetPage = 0;
-        if (s!=null){
+        if (s!= null){
            targetPage = Integer.parseInt(s);
 
         }else {

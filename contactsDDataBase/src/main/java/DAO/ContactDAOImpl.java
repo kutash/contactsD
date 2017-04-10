@@ -2,6 +2,7 @@ package DAO;
 
 
 import com.healthmarketscience.sqlbuilder.*;
+import com.healthmarketscience.sqlbuilder.custom.mysql.MysLimitClause;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbColumn;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSchema;
 import com.healthmarketscience.sqlbuilder.dbspec.basic.DbSpec;
@@ -40,7 +41,7 @@ public class ContactDAOImpl implements DAO{
 
         try {
             connection = source.getConnection();
-            String sql = "SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `address`.country, `address`.city,`address`.address, `address`.index, `contact`.company FROM `contact` \n" +
+            String sql = "SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `address`.country, `address`.city,`address`.street, `address`.house, `address`.flat, `address`.index, `contact`.company FROM `contact` \n" +
                     "JOIN `address` ON contact.idAddress=address.idAddress limit 10 offset ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, 10 * (page - 1));
@@ -55,9 +56,11 @@ public class ContactDAOImpl implements DAO{
                 String company = resultSet.getString("company");
                 String country = resultSet.getString("country");
                 String city = resultSet.getString("city");
-                String theAddress = resultSet.getString("address");
+                String street = resultSet.getString("street");
+                String house = resultSet.getString("house");
+                String flat = resultSet.getString("flat");
                 String index = resultSet.getString("index");
-                Address address = new Address(country, city, theAddress, index);
+                Address address = new Address(country, city, street, house, flat, index);
 
                 Contact tempContact = new Contact(contactId, firstName, middleName, lastName, birthday, address, company);
                 contacts.add(tempContact);
@@ -68,7 +71,6 @@ public class ContactDAOImpl implements DAO{
             close(connection, statement, resultSet);
 
         }
-
         return contacts;
     }
 
@@ -112,12 +114,14 @@ public class ContactDAOImpl implements DAO{
             try {
                 connection = source.getConnection();
                 statement = connection.prepareStatement("INSERT INTO address " +
-                                "(country, city, address, `index`) VALUES (?, ?, ?, ?)",
+                                "(country, city, street, house, flat, `index`) VALUES (?, ?, ?, ?, ?, ?)",
                         Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, address.getCountry());
                 statement.setString(2, address.getCity());
-                statement.setString(3, address.getAddress());
-                statement.setString(4, address.getIndex());
+                statement.setString(3, address.getStreet());
+                statement.setString(4, address.getHouse());
+                statement.setString(5, address.getFlat());
+                statement.setString(6, address.getIndex());
 
                 statement.executeUpdate();
                 generatedKeys = statement.getGeneratedKeys();
@@ -135,13 +139,15 @@ public class ContactDAOImpl implements DAO{
             try {
                 connection = source.getConnection();
                 statement = connection.prepareStatement("UPDATE address " +
-                         "SET country = ? , city = ?, address = ?, `index` = ?" +
+                         "SET country = ? , city = ?, street = ?, house = ?, flat = ?, `index` = ?" +
                          " WHERE idAddress = ?");
                 statement.setString(1, address.getCountry());
                 statement.setString(2, address.getCity());
-                statement.setString(3, address.getAddress());
-                statement.setString(4, address.getIndex());
-                statement.setLong(5, idAddress);
+                statement.setString(3, address.getStreet());
+                statement.setString(4, address.getHouse());
+                statement.setString(5, address.getFlat());
+                statement.setString(6, address.getIndex());
+                statement.setLong(7, idAddress);
 
                 statement.executeUpdate();
 
@@ -220,7 +226,7 @@ public class ContactDAOImpl implements DAO{
         try {
 
             connection = source.getConnection();
-            statement = connection.prepareStatement("SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.address, `address`.`index`, `contact`.company, `contact`.idAddress FROM `contact` \n" +
+            statement = connection.prepareStatement("SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.street, `address`.house, `address`.flat, `address`.`index`, `contact`.company, `contact`.idAddress FROM `contact` \n" +
                     "JOIN `address` ON contact.idAddress=address.idAddress WHERE id = ?");
 
             statement.setLong(1,id);
@@ -242,10 +248,12 @@ public class ContactDAOImpl implements DAO{
                 Long idAddress = resultSet.getLong("idAddress");
                 String country = resultSet.getString("country");
                 String city = resultSet.getString("city");
-                String theAddress = resultSet.getString("address");
+                String street = resultSet.getString("street");
+                String house = resultSet.getString("house");
+                String flat = resultSet.getString("flat");
                 String index = resultSet.getString("index");
 
-                Address address = new Address(idAddress, country, city, theAddress, index);
+                Address address = new Address(idAddress, country, city, street, house, flat, index);
                 tempContact = new Contact(contactId, firstName, middleName, lastName, birthday, citizenship, sex, status, photo, site, email, company, address);
 
             }
@@ -603,9 +611,9 @@ public class ContactDAOImpl implements DAO{
 
 
     public List<Contact> searchContacts(Map<String, String> params) {
-        logger.info("searching contact");
+        logger.info("searching contacts");
         DbSpec spec = new DbSpec();
-        DbSchema contacts = new DbSchema(spec, "contacts");
+        DbSchema contacts = new DbSchema(spec, "kutash_galina");
         SelectQuery sql = new SelectQuery();
 
 
@@ -618,7 +626,6 @@ public class ContactDAOImpl implements DAO{
         sql.addJoin(SelectQuery.JoinType.INNER,contactTable,addressTable,idAddressCont,idAddress);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 String param = entry.getKey();
@@ -635,7 +642,7 @@ public class ContactDAOImpl implements DAO{
             throw new DAOException(e);
         }
         String query = sql.validate().toString();
-
+        System.out.println(query);
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -660,14 +667,16 @@ public class ContactDAOImpl implements DAO{
 
                 String country = resultSet.getString("country");
                 String city = resultSet.getString("city");
-                String addr = resultSet.getString("address");
+                String street = resultSet.getString("street");
+                String house = resultSet.getString("house");
+                String flat = resultSet.getString("flat");
                 String index = resultSet.getString("index");
-                Address address = new Address(country, city, addr, index);
+                Address address = new Address(country, city, street, house, flat, index);
 
 
                 Contact contact = new Contact(contactId, firstName,  middleName, lastName, birthday, citizenship, sex, status,
                         photo, webSite, email, company, address);
-                System.out.println(contact);
+
                 searchResult.add(contact);
             }
         } catch (SQLException e) {

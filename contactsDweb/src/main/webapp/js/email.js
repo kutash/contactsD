@@ -32,6 +32,9 @@ window.onload = function () {
         form.idContact.value = "";
         form.submit();
     });
-}
+
+
+
+};
 
 
