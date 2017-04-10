@@ -1,0 +1,170 @@
+.nav{
+    background-color: #30adc7;
+    height: 100px;
+
+}
+
+ul li{
+    display: inline-block;
+    padding-right:  20px;
+    padding-left: 10px;
+    float: left;
+    padding-top: 30px;
+    padding-bottom: 20px;
+
+}
+
+li > a{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+
+.edit-hr{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+}
+.edit-href {
+    text-decoration: none;
+    color: black;
+}
+
+
+.nav-ul{
+    margin-left: 50px;
+    margin: auto;
+}
+
+.label{
+    font-size: 20px;
+    font-family: "Arial Black";
+    color: black;
+}
+
+.small-label{
+    font-size: 15px;
+    font-family: Broadway;
+    color: black;
+}
+
+.input-txt {
+    height: 30px;
+    width: 400px;
+    background-color: whitesmoke;
+}
+.small-input {
+    width: 400px;
+    height: 25px;
+    border:solid 1px lightgray;
+}
+
+.button-save{
+    border: 1px solid #888888;
+    font-size: 2.0rem;
+    height: 60px;
+    width: 130px;
+    background-color: #30adc7;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 25px;
+}
+
+.button-cancel{
+    border: 1px solid #888888;
+    font-size: 2.0rem;
+    height: 60px;
+    width: 130px;
+    background-color: #30adc7;
+    color: white;
+    cursor: pointer;
+    float: left;
+    margin-bottom: 25px;
+}
+
+.div-but{
+    width: 350px;
+    padding-left: 22%;
+    padding-top: 30px;
+}
+
+.content {
+    padding-top: 30px;
+    margin: 0px auto;
+    width: 600px;
+    padding-bottom: 20px;
+}
+
+.cont-div{
+    margin-bottom: 5px;
+    overflow: hidden;
+    padding-bottom: 5px;
+}
+
+.cont-div input {
+    float: right;
+    height: 30px;
+    width: 450px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+.cont-div select{
+    float: right;
+    height: 30px;
+    width: 450px;
+    background-color: whitesmoke;
+    line-height: 19px;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+
+.cont-div textarea {
+    float: right;
+    padding: 0px 5px;
+    border: 1px solid lightgray;
+}
+
+.submit-button{
+    border: 1px solid #888888;
+    font-size: 1.5rem;
+    background-color:#30adc7;
+    color: white;
+    float: right;
+    cursor: pointer;
+}
+.error-img{
+    padding-left: 100px;
+    padding-top: 80px;
+}
+
+.button-error{
+    color: white;
+    background-color: black;
+    margin-left: 42%;
+    width: 150px;
+    height: 70px;
+    font-size:50px;
+}
+
+.searchForm {
+    padding-top: 30px;
+    margin: 0px auto;
+    width: 700px;
+    padding-bottom: 20px;
+}
+
+h2{
+    padding-left: 40%;
+    color: black;
+}
+
+.div-but2{
+    width: 350px;
+    padding-left: 37%;
+    padding-top: 30px;
+}

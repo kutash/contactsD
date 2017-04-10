@@ -1,0 +1,104 @@
+.nav{
+    background-color: #30adc7;
+    height: 100px;
+}
+
+ ul li{
+    display: inline-block;
+    padding-right:  20px;
+    padding-left: 10px;
+     float: left;
+    padding-top: 30px;
+    padding-bottom: 20px;
+
+ }
+
+ li > a{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+ }
+
+ .edit-hr{
+    font-family: Arial;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+ }
+ .edit-href {
+    text-decoration: none;
+    color: black;
+ }
+
+.edit-href:hover{
+    text-decoration: underline;
+}
+
+
+ .label{
+    font-size: 20px;
+    font-family: "Arial Black";
+    color: black;
+ }
+
+ .table-show {
+     width: 100%;
+    border-collapse: collapse;
+ }
+
+ tr {
+    border-bottom: solid lightgray 1px;
+
+ }
+
+ th {
+       border-bottom: solid lightgray 1px;
+       font-family: "Arial";
+       font-size: 25px;
+       padding-bottom: 20px;
+       padding-top: 12px;
+ }
+
+ td {
+     font-family: "Arial Narrow";
+     font-size: 20px;
+     padding-bottom: 20px;
+     padding-top: 20px;
+ }
+
+
+
+ .input-page{
+     border: 2px solid lightgray;
+     border-radius: 4px;
+     width: 45px;
+     height: 25px;
+ }
+
+ .page-href{
+     text-decoration: none;
+     color: #30adc7;
+     font-size: 2rem;
+ }
+
+ .pag {
+     padding-left:670px;
+     padding-top: 18px;
+ }
+
+.total{
+    float: left;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+.t-body{
+    text-align: center;
+}
+
+
+
+
+
+
