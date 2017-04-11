@@ -613,45 +613,77 @@ public class ContactDAOImpl implements DAO{
 
     public List<Contact> searchContacts(Map<String, String> params, int page) {
         logger.info("searching contacts");
-        DbSpec spec = new DbSpec();
-        DbSchema contacts = new DbSchema(spec, "kutash_galina");
-        SelectQuery sql = new SelectQuery();
-        DbTable contactTable = new DbTable(contacts, "contact");
-        DbTable addressTable = new DbTable(contacts, "address");
-        DbColumn idAddressCont = new DbColumn(contactTable,"idAddress","INT",10);
-        DbColumn idAddress = new DbColumn(addressTable,"idAddress", "INT", 10);
-        int offset = 10 * (page - 1);
-        MysLimitClause limitClause = new MysLimitClause(offset, 10);
-        sql.addAllTableColumns(contactTable);
-        sql.addAllTableColumns(addressTable);
-        sql.addJoin(SelectQuery.JoinType.INNER,contactTable,addressTable,idAddressCont,idAddress);
-        sql.addCustomization(limitClause);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
-                String param = entry.getKey();
-                if(param.equals("birthSince")) {
-                    sql.addCondition(BinaryCondition.greaterThan(new CustomSql("birthday"), JdbcEscape.date(format.parse(entry.getValue())), true));
-                }else if (param.equals("birthUpto")) {
-                    sql.addCondition(BinaryCondition.lessThan(new CustomSql("birthday"), JdbcEscape.date(format.parse(entry.getValue())), true));
-                }else {
-                    String value = "%" + entry.getValue() + "%";
-                    sql.addCondition(BinaryCondition.like(new CustomSql(param), value));
-                }
-            }
-        } catch (ParseException e) {
-            throw new DAOException(e);
+
+        String query = "SELECT * from contact AS c INNER JOIN address AS a ON c.idAddress = a.idAddress";
+
+        String s=" where ";
+        if (params.get("firstName") !=null && !equals("")){
+            query+=" firstName like '"+params.get("firstName")+"'";
+            s = " and ";
         }
-        String query = sql.validate().toString();
+        if (params.get("middleName") !=null && !equals("")){
+            query+=s+"middleName like '"+params.get("middleName")+"'";
+            s = " and ";
+        }
+        if (params.get("lastName") !=null && !equals("")){
+            query+=s+"lastName like '"+params.get("lastName")+"'";
+            s = " and ";
+        }
+        if (params.get("sex") !=null && !equals("")){
+            query+=s+"sex like '"+params.get("sex")+"'";
+            s = " and ";
+        }
+        if (params.get("status") !=null && !equals("")){
+            query+=s+"status like '"+params.get("status")+"'";
+        }
+        if (params.get("citizenship") !=null && !equals("")){
+            query+=s+"citizenship like '"+params.get("citizenship")+"'";
+            s = " and ";
+        }
+        if (params.get("country") !=null && !equals("")){
+            query+=s+"country like '"+params.get("country")+"'";
+            s = " and ";
+        }
+        if (params.get("city") !=null && !equals("")){
+            query+=s+"city like '"+params.get("city")+"'";
+            s = " and ";
+        }
+        if (params.get("street") !=null && !equals("")){
+            query+=s+"street like '"+params.get("street")+"'";
+            s = " and ";
+        }
+        if (params.get("house") !=null && !equals("")){
+            query+=s+"house like '"+params.get("house")+"'";
+            s = " and ";
+        }
+        if (params.get("flat") !=null && !equals("")){
+            query+=s+"flat like '"+params.get("flat")+"'";
+            s = " and ";
+        }
+        if (params.get("index") !=null && !equals("")){
+            query+=s+"`index` like '"+params.get("index")+"'";
+            s = " and ";
+        }
+        if ((params.get("birthSince") !=null && !equals("")) && (params.get("birthUpto") !=null && !equals(""))){
+            query += s + "birthday BETWEEN '"+params.get("birthSince")+"' AND '"+params.get("birthUpto")+"'";
+        } else if ((params.get("birthSince") !=null && !equals(""))){
+            query+=s+"birthday >= '"+params.get("birthSince")+"'";
+        }else if ((params.get("birthUpto") !=null && !equals(""))){
+            query+=s+"birthday <= '"+params.get("birthUpto")+"'";
+        }
+
+        query+=" limit 10 offset ?";
+
         System.out.println(query);
         Connection connection = null;
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
         List<Contact> searchResult = new ArrayList<Contact>();
         try {
             connection = source.getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, 10 * (page - 1));
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Long contactId = resultSet.getLong("id");
                 String firstName = resultSet.getString("firstName");
@@ -677,7 +709,7 @@ public class ContactDAOImpl implements DAO{
 
                 Contact contact = new Contact(contactId, firstName,  middleName, lastName, birthday, citizenship, sex, status,
                         photo, webSite, email, company, address);
-                System.out.println(contact);
+
                 searchResult.add(contact);
             }
         } catch (SQLException e) {
@@ -687,6 +719,8 @@ public class ContactDAOImpl implements DAO{
         }
         return searchResult;
     }
+
+
 
 
     public int countForSearch(Map<String, String> params){
@@ -749,7 +783,7 @@ public class ContactDAOImpl implements DAO{
             query+=s+"birthday <= '"+params.get("birthUpto")+"'";
         }
 
-        System.out.println(query);
+
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;

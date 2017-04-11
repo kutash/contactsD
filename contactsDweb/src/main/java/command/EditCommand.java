@@ -26,6 +26,8 @@ public class EditCommand implements Command {
 
         HttpSession session = request.getSession();
         session.removeAttribute("attaches");
+        session.removeAttribute("temp_photo_path");
+        session.removeAttribute("isSearch");
         Long contactId = Long.parseLong(request.getParameter("idContact"));
         Contact contact = contactService.getById(contactId);
         List<Attachment> attachments = contactService.getAttaches(contactId);

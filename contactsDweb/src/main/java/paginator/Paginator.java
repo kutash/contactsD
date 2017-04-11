@@ -14,7 +14,7 @@ public class Paginator {
     private int currentPage;
     private int totalPages;
 
-    private final int MAX_DISPLAYED_PAGES = 9; //MUST BE ODD!!!
+    private final int MAX_PAGES = 9;
 
     private Paginator(int targetPage, int totalPages) {
         this.totalPages = totalPages;
@@ -34,24 +34,24 @@ public class Paginator {
 
     private Set<Integer> getPages(int targetPage, int totalPages) {
         Set<Integer> pagesList = new TreeSet<Integer>();
-        if (totalPages < MAX_DISPLAYED_PAGES + 1) {
+        if (totalPages < MAX_PAGES + 1) {
             for (int i = 1; i <= totalPages; i++) {
                 pagesList.add(i);
             }
             return pagesList;
         } else {
-            if (targetPage > totalPages - MAX_DISPLAYED_PAGES / 2) {
-                for (int i = totalPages; i > totalPages - MAX_DISPLAYED_PAGES; i--) {
+            if (targetPage > totalPages - MAX_PAGES / 2) {
+                for (int i = totalPages; i > totalPages - MAX_PAGES; i--) {
                     pagesList.add(i);
                 }
                 return pagesList;
-            } else if (targetPage < Math.ceil(MAX_DISPLAYED_PAGES / 2) + 1) {
-                for (int i = 1; i <= MAX_DISPLAYED_PAGES; i++) {
+            } else if (targetPage < Math.ceil(MAX_PAGES / 2) + 1) {
+                for (int i = 1; i <= MAX_PAGES; i++) {
                     pagesList.add(i);
                 }
                 return pagesList;
             }
-            for (int i = targetPage - MAX_DISPLAYED_PAGES / 2; i <= targetPage + MAX_DISPLAYED_PAGES / 2; i++) {
+            for (int i = targetPage - MAX_PAGES / 2; i <= targetPage + MAX_PAGES / 2; i++) {
                 pagesList.add(i);
             }
             return pagesList;

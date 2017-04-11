@@ -78,17 +78,6 @@
                 </c:forEach>
                 </tbody>
             </table>
-            <!--<span class="total">
-                 Total pages: ${pages}
-            </span>
-            <div class="pag">
-                <a href="javascript:{}" class="prev page-href">prev</a>
-                <span>
-                    <input type="number" name="currentPage" min="1"
-                           max="${pages}" value="${currentPage}" class="str input-page"/>
-                </span>
-                <a href="javascript:{}" class="next page-href">next</a>
-            </div>-->
         </form>
 
 

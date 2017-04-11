@@ -294,6 +294,16 @@ window.onload = function () {
     }
 
 
+    var cancelButton = document.querySelector(".button-cancel");
+    cancelButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        var form = document.getElementById('chosen');
+        form.command.value = 'cancel';
+        form.idChosen.value = '';
+        form.submit();
+    })
+
+
 };
 
 

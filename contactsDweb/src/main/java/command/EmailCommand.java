@@ -26,6 +26,9 @@ public class EmailCommand implements Command {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
             session = request.getSession();
+            session.removeAttribute("attaches");
+            session.removeAttribute("temp_photo_path");
+            session.removeAttribute("isSearch");
             String [] chosen = request.getParameterValues("idContact");
             if (chosen==null || chosen[0].equals("")){
                 STGroup group = new STGroupFile("emailTemplates.stg");

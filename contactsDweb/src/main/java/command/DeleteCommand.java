@@ -28,6 +28,7 @@ public class DeleteCommand implements Command {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
+        request.getSession().removeAttribute("isSearch");
         String [] chosen = request.getParameterValues("idContact");
         logger.info("deleting contacts with id {}", Arrays.toString(chosen));
         for(String c : chosen) {

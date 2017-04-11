@@ -41,7 +41,7 @@ public class SaveCommand implements Command {
         logger.info("saving contact");
         this.request = request;
         session= request.getSession();
-
+        session.removeAttribute("isSearch");
         Contact contact = contactService.validateAndMake(request);
         if (contact==null){
             return "/error.jspx";

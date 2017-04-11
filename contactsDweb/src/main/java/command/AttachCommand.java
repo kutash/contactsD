@@ -39,7 +39,7 @@ public class AttachCommand implements Command {
         }
         HttpSession session = request.getSession();
         Contact contact = contactService.makeContact(request);
-        request.setAttribute("contact", contact);
+        request.setAttribute("contacts", contact);
 
         List<Attachment> attachList = (List<Attachment>) session.getAttribute("attaches");
 
@@ -176,7 +176,7 @@ public class AttachCommand implements Command {
                     fileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
                 }
             }
-            //fileName = fileName.substring(fileName.indexOf("."));
+
             photoPath += File.separator + fileName;
             photoPart.write(photoPath);
 

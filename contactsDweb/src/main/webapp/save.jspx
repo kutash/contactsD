@@ -159,14 +159,14 @@
             <div class="inp-div">
                 <label class="label" for="email">Email:</label>
 
-                <input type="email" value="${contacts.email}" pattern="^[-\w.]+/+*+[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
+                <input type="email" value="${contacts.email}" pattern="^[-._'a-z0-9]+\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$"
                        maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email" required="required"/>
             </div>
 
             <div class="inp-div">
                 <label class="label" for="company">Company:</label>
 
-                <input type="text" value="${contacts.company}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" class="input-txt"
+                <input type="text" value="${contacts.company}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*+\s?+([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" class="input-txt"
                        maxlength="40"  id="company" name="company" placeholder="Enter company"/>
             </div>
 
@@ -232,7 +232,7 @@
                     <tr>
                         <td><input type="checkbox" form="saveForm" id="table_checkboxes" name="attach_checkbox" value="${attach.attachName}"/></td>
                         <td>
-                            <a href= "/my-servlet?command=getattach&amp;idContact=${contact.id}&amp;name=${attach.attachName}" class="edit-href">${attach.attachName}</a>
+                            <a href= "/my-servlet?command=getattach&amp;idContact=${contacts.id}&amp;name=${attach.attachName}" class="edit-href">${attach.attachName}</a>
                         </td>
                         <td><input type="date" class="input-small" value="${attach.date}" id="table_date" readonly="readonly"/></td>
                         <td><input type="text" class="input-small comment_table" id="table_comment" value="${attach.comment}" readonly="readonly"/></td>
@@ -277,12 +277,7 @@
         </div>
         <div class="div-but">
             <input type="submit" value="save" class="button-save" form="saveForm"/>
-            <input type="submit" value="cancel" class="button-cancel" form="cancelForm"/>
-        </div>
-        <div>
-            <form action="/my-servlet" id="cancelForm">
-                <input type="hidden" name="command" value="cancel"/>
-            </form>
+            <input type="submit" value="cancel" class="button-cancel" form="choosen"/>
         </div>
     </div>
 

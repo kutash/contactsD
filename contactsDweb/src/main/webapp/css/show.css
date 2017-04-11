@@ -67,25 +67,16 @@
      padding-top: 20px;
  }
 
-
-
- /*.input-page{
-     border: 2px solid lightgray;
-     border-radius: 4px;
-     width: 45px;
-     height: 25px;
- }*/
-
  .page-href{
      text-decoration: none;
      color: #30adc7;
      font-size: 2rem;
      font-family: sans-serif;
-     border: 1px solid lightgray;
-     padding-left: 10px;
+
+     /*padding-left: 10px;
      padding-right: 10px;
      padding-top: 5px;
-     padding-bottom: 5px;
+     padding-bottom: 5px;*/
  }
 
  .page-nav{
@@ -93,30 +84,23 @@
      color: #30adc7;
      font-size: 2rem;
      font-family: sans-serif;
-     border: 1px solid lightgray;
-     padding-left: 20px;
+     /*padding-left: 20px;
      padding-right: 20px;
      padding-top: 5px;
-     padding-bottom: 5px;
+     padding-bottom: 5px;*/
 
  }
 
  .pag {
      align-content: center;
      padding-top: 20px;
-     padding-left: 35%;
+     padding-left: 39%;
 
  }
 
-/*.total{
-    float: left;
-    font-size: 20px;
-    padding-top: 20px;
-}*/
-
-.t-body{
+ .t-body{
     text-align: center;
-}
+ }
 
 a:active,
 a:hover {

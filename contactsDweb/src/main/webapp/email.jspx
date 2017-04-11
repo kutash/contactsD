@@ -41,11 +41,13 @@
                 <div class="cont-div">
                     <label for="whom" class="label">To:</label>
                     <c:if test="${emailContacts == null}">
-                        <input type="text" name="whom" class="whom"/>
+                        <input type="text" name="whom" class="whom" pattern="^[-._'a-z0-9]+\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$"
+                               maxlength="60"/>
                     </c:if>
                     <c:if test="${emailContacts != null}">
                         <c:forEach items="${emailContacts}" var="contact" varStatus="num">
-                            <input type="text" value="${contact.email}" name="whom" class="whom"/>
+                            <input type="text" value="${contact.email}" name="whom" class="whom"  pattern="^[-\w.]+/+*+[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$"
+                                   maxlength="60"/>
                         </c:forEach>
                     </c:if>
                 </div>
@@ -63,7 +65,7 @@
                 </div>
                 <div class="cont-div">
                     <label for="letter" class="label">Text:</label>
-                    <textarea rows="10" name="letter" id="textarea" cols="59" class="com"
+                    <textarea rows="15" name="letter" id="textarea" cols="54" class="com"
                               placeholder="Type your letter..."><jsp:text/></textarea>
                 </div>
             </form>

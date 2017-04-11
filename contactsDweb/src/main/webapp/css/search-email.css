@@ -92,10 +92,10 @@ li > a{
 }
 
 .content {
-    padding-top: 30px;
+    padding-top: 50px;
     margin: 0px auto;
     width: 600px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
 }
 
 .cont-div{
@@ -138,7 +138,7 @@ li > a{
     cursor: pointer;
 }
 .error-img{
-    padding-left: 100px;
+    padding-left: 450px;
     padding-top: 80px;
 }
 

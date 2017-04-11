@@ -84,7 +84,7 @@
             <select name="status" class="sel" id="status">
                 <option value="">not chosen</option>
                 <option value="single">single</option>
-                <option value="marride">married</option>
+                <option value="married">married</option>
                 <option value="divorced">divorced</option>
             </select>
         </div>

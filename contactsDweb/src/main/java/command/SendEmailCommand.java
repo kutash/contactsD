@@ -19,6 +19,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Galina on 02.04.2017.
@@ -34,6 +36,15 @@ public class SendEmailCommand implements Command {
         session.removeAttribute("emailContacts");
         String[] addresses = request.getParameterValues("whom");
         logger.info("sending emails to contacts {}", Arrays.toString(addresses));
+        Pattern patternEmail = Pattern.compile("^[-._'a-z0-9]+\\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
+        for (String address : addresses){
+            Matcher m = patternEmail.matcher(address);
+            if (!m.matches()){
+                return "/error.jspx";
+            }
+        }
+
+
         String theme = request.getParameter("theme");
         String text = request.getParameter("letter");
 
