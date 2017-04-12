@@ -49,7 +49,7 @@
         <form action="/my-servlet" id="showForm" >
             <input type="hidden" name="command"/>
                 <div class="crit">
-                    <h2>Criteries:</h2><br/>
+
                     <c:forEach var="criteria" items="${criteries}">
                         <c:if test="${criteria.key=='firstName'}">
                         <div class="cont-div"><label class="label">First name:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
@@ -84,11 +84,11 @@
                         <c:if test="${criteria.key=='index'}">
                             <div class="cont-div"><label class="label">Index:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
                         </c:if>
-                        <c:if test="${criteria.key=='index'}">
-                            <div class="cont-div"><label class="label">Index:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
+                        <c:if test="${criteria.key=='birthSince'}">
+                            <div class="cont-div"><label class="label">Birthday from:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
                         </c:if>
-                        <c:if test="${criteria.key=='index'}">
-                            <div class="cont-div"><label class="label">Index:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
+                        <c:if test="${criteria.key=='birthUpto'}">
+                            <div class="cont-div"><label class="label">Birthday to:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
                         </c:if>
                     </c:forEach>
                 </div>
