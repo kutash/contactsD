@@ -68,13 +68,8 @@ CREATE TABLE `kutash_galina`.`contact` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_contact_address1_idx` (`idAddress`),
-  key `fk_contact_phone_idx` (`idPhone`),
   FOREIGN KEY (`idAddress` )
   REFERENCES `kutash_galina`.`address` (`idAddress` )
-    ON DELETE RESTRICT
-    ON UPDATE RESTRICT,
-    FOREIGN KEY (`idPhone` )
-  REFERENCES `kutash_galina`.`telephone` (`idPhone` )
     ON DELETE RESTRICT
     ON UPDATE RESTRICT
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

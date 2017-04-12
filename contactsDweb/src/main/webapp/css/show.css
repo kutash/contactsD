@@ -14,14 +14,14 @@
  }
 
  li > a{
-    font-family: Arial;
+     font-family: TREBUCHET MS, serif;;
     color: white;
     text-decoration: none;
     font-size: 30px;
  }
 
  .edit-hr{
-    font-family: Arial;
+     font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
@@ -71,7 +71,7 @@
      text-decoration: none;
      color: #30adc7;
      font-size: 2rem;
-     font-family: sans-serif;
+     font-family: TREBUCHET MS, serif;
 
      /*padding-left: 10px;
      padding-right: 10px;
@@ -83,7 +83,7 @@
      text-decoration: none;
      color: #30adc7;
      font-size: 2rem;
-     font-family: sans-serif;
+     font-family: TREBUCHET MS, serif;
      /*padding-left: 20px;
      padding-right: 20px;
      padding-top: 5px;

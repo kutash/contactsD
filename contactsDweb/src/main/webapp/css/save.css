@@ -18,14 +18,14 @@ ul li{
 }
 
 li > a{
-    font-family: Arial;
+    font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
 }
 
 .edit-hr{
-    font-family: Arial;
+    font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
@@ -45,6 +45,7 @@ li > a{
     float: right;
     cursor: pointer;
     margin-right: 3px;
+    font-family: TREBUCHET MS, serif;
 }
 
 .button-save{
@@ -52,7 +53,7 @@ li > a{
     font-size: 2.0rem;
     height: 60px;
     width: 200px;
-    font-family: oblique serif;
+    font-family:TREBUCHET MS, serif;
     background-color: #30adc7;
     color: white;
     cursor: pointer;
@@ -70,7 +71,7 @@ li > a{
     cursor: pointer;
     float: left;
     margin-bottom: 25px;
-    font-family: oblique serif;
+    font-family: TREBUCHET MS, serif;
 }
 
 .div-but{
@@ -80,7 +81,7 @@ li > a{
 
 .table-attach{
     width: 100%;
-    /*border-collapse: collapse;*/
+
     border: solid lightgray 1px;
     margin-top: 2px;
 }
@@ -170,7 +171,7 @@ li > a{
 .container div {
     margin: 1rem 0;
     font-size: 1rem;
-    /*font-family: "Arial Black", serif;*/
+
     color: gray;
 
 }

@@ -229,18 +229,18 @@ public class ContactService {
 
 
         Pattern patternNull = Pattern.compile("");
-        Pattern patternName = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])*");
+        Pattern patternName = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])+");
         Pattern patternDate = Pattern.compile("(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
-        Pattern patternEmail = Pattern.compile("^[-._'a-z0-9]+\\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
+        Pattern patternEmail = Pattern.compile("^([-._'a-z0-9])+(\\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
         Pattern patternSite = Pattern.compile("^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$");
         Pattern patternIndex = Pattern.compile("\\d*");
-        Pattern patternCompany = Pattern.compile("\\s*([a-z]|[A-Z]|[а-я]|[А-Я])*+\\s?+([a-z]|[A-Z]|[а-я]|[А-Я])*\\s*");
+        Pattern patternCompany = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])+(\\s)?([a-z]|[A-Z]|[а-я]|[А-Я])*");
         Matcher m1 = patternName.matcher(firstName);
         Matcher m2 = patternName.matcher(middleName);
         Matcher m22 = patternNull.matcher(middleName);
         Matcher m3 = patternName.matcher(lastName);
         Matcher m4 = patternName.matcher(citizenship);
-        Matcher m5 = patternName.matcher(company);
+        Matcher m5 = patternNull.matcher(company);
         Matcher m55 = patternCompany.matcher(company);
         Matcher m6 = patternName.matcher(street);
         Matcher m7 = patternName.matcher(country);

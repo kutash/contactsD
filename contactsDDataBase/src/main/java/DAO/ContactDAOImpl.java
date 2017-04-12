@@ -618,7 +618,7 @@ public class ContactDAOImpl implements DAO{
 
         String s=" where ";
         if (params.get("firstName") !=null && !equals("")){
-            query+=" firstName like '"+params.get("firstName")+"'";
+            query+=s+"firstName like '"+params.get("firstName")+"'";
             s = " and ";
         }
         if (params.get("middleName") !=null && !equals("")){
@@ -729,7 +729,7 @@ public class ContactDAOImpl implements DAO{
 
         String s=" where ";
         if (params.get("firstName") !=null && !equals("")){
-            query+=" firstName like '"+params.get("firstName")+"'";
+            query+=s+"firstName like '"+params.get("firstName")+"'";
             s = " and ";
         }
         if (params.get("middleName") !=null && !equals("")){

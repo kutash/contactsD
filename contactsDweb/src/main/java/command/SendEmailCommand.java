@@ -35,6 +35,9 @@ public class SendEmailCommand implements Command {
         List<Contact> emailContact = (List<Contact>) session.getAttribute("emailContacts");
         session.removeAttribute("emailContacts");
         String[] addresses = request.getParameterValues("whom");
+        if(addresses==null){
+            return "/error.jspx";
+        }
         logger.info("sending emails to contacts {}", Arrays.toString(addresses));
         Pattern patternEmail = Pattern.compile("^[-._'a-z0-9]+\\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
         for (String address : addresses){

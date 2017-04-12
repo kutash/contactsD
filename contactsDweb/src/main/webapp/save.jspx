@@ -60,7 +60,7 @@
             <div class="inp-div">
                 <label class="label" for="firstName">Name:</label>
 
-                <input type="text" name="firstName" value="${contacts.firstName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"
+                <input type="text" name="firstName" value="${contacts.firstName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        id="name" placeholder="Enter name"  maxlength="20" required="required"/>
             </div>
 
@@ -68,7 +68,7 @@
             <div class="inp-div">
                 <label class="label" for="middleName">Middle name:</label>
 
-                <input type="text" name="middleName" value="${contacts.middleName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"
+                <input type="text" name="middleName" value="${contacts.middleName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        id="middname" maxlength="30" placeholder="Enter middle name"/>
             </div>
 
@@ -77,7 +77,7 @@
             <div class="inp-div">
                 <label class="label" for="surname">Last name:</label>
 
-                <input type="text" name="lastName" value="${contacts.lastName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"
+                <input type="text" name="lastName" value="${contacts.lastName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        id="surname" placeholder="Enter surname" maxlength="40" required="required"/>
             </div>
 
@@ -114,7 +114,7 @@
                 <label class="label" for="citizenship">Citizenship:</label>
 
                 <input type="text" value="${contacts.citizen}" class="input-txt"
-                       maxlength="20"   pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" id="national" name="citizenship"
+                       maxlength="20"   pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" id="national" name="citizenship"
                        placeholder="Enter citizenship" required="required"/>
             </div>
 
@@ -159,14 +159,14 @@
             <div class="inp-div">
                 <label class="label" for="email">Email:</label>
 
-                <input type="email" value="${contacts.email}" pattern="^[-._'a-z0-9]+\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$"
+                <input type="email" value="${contacts.email}" pattern="^([-._'a-z0-9])+(\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$"
                        maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email" required="required"/>
             </div>
 
             <div class="inp-div">
                 <label class="label" for="company">Company:</label>
 
-                <input type="text" value="${contacts.company}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*+\s?+([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" class="input-txt"
+                <input type="text" value="${contacts.company}" pattern="(\s)*([a-z]|[A-Z]|[а-я]|[А-Я])+(\s)?([a-z]|[A-Z]|[а-я]|[А-Я])*(\s)*" class="input-txt"
                        maxlength="40"  id="company" name="company" placeholder="Enter company"/>
             </div>
 
@@ -177,29 +177,29 @@
                 <label class="label" for="country">Contry:</label>
 
                 <input type="text" value="${contacts.address.country}"
-                       pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*" class="input-txt" id="country" name="country"
+                       pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" class="input-txt" id="country" name="country"
                        maxlength="30"   placeholder="Enter country" required="required"/>
             </div>
 
             <div class="inp-div">
                 <label class="label" for="city">City:</label>
 
-                <input type="text" value="${contacts.address.city}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"
+                <input type="text" value="${contacts.address.city}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        maxlength="20"  class="input-txt"  name="city" placeholder="Enter city" required="required"/>
             </div>
 
             <div class="inp-div">
                 <label class="label" for="street">Street:</label>
-                <input type="text" value="${contacts.address.street}" name="street" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])*\s*"
+                <input type="text" value="${contacts.address.street}" name="street" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        maxlength="80"  placeholder="Enter street" required="required"/>
             </div>
             <div class="inp-div">
                 <label class="label" for="house">House:</label>
-                <input type="number" value="${contacts.address.house}" min="0" max="32000" name="house" placeholder="Enter house" required="required"/>
+                <input type="number" value="${contacts.address.house}" min="1" max="32000" name="house" placeholder="Enter house" required="required"/>
             </div>
             <div class="inp-div">
                 <label class="label" for="flat">Flat:</label>
-                <input type="number" value="${contacts.address.flat}" min="0" max="32000" name="flat" placeholder="Enter flat" required="required"/>
+                <input type="number" value="${contacts.address.flat}" min="1" max="32000" name="flat" placeholder="Enter flat" required="required"/>
             </div>
 
             <div class="inp-div">

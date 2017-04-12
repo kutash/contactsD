@@ -28,6 +28,7 @@ public class ShowCommand implements Command {
         session = request.getSession();
         session.removeAttribute("attaches");
         session.removeAttribute("temp_photo_path");
+        session.removeAttribute("emailContacts");
         Map<String, String> params = (Map<String, String>) session.getAttribute("params");
         List<Contact> contacts;
         int targetPage = 1;
