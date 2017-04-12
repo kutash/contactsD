@@ -88,9 +88,11 @@ public class BirthdayMailing {
             letter = "Некого поздравлять.";
         } else {
             letter="Сегодня дни рождения у: ";
+            int count = 1;
             for (Contact contact : contacts) {
 
-                letter += contact.getFullName()+", ";
+                letter +=count+")"+contact.getFullName()+" ";
+                count++;
             }
         }
         return letter;

@@ -308,11 +308,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
     <div class="modalPones" id="phonePopUp" style="display: none;">
         <form id="telForm" accept-charset="utf-8" role="form">
             <div class="header">
@@ -322,17 +317,17 @@
             <div class="body">
                 <div class="field" id="div_countryCode">
                     <label for="countryCode">Country code:</label>
-                    <input  type="number" min="0" name="countryCode" id="popUp_countryCode" class="countryCode" placeholder="Country code"/>
+                    <input  type="number" min="0" name="countryCode" id="popUp_countryCode" class="countryCode" placeholder="Country code" pattern="\d*"/>
                     <span class="error">&#10033;</span>
                 </div>
                 <div class="field" id="div_operatorCode">
                     <label for="operatorCode">Operator code:</label>
-                    <input  type="number" min="0" name="operatorCode" id="popUp_operatorCode" class="operatorCode" placeholder="Operator code" />
+                    <input  type="number" min="0" name="operatorCode" id="popUp_operatorCode" class="operatorCode" placeholder="Operator code" pattern="\d*" />
                     <span class="error">&#10033;</span>
                 </div>
                 <div class="field" id="div_telephone">
                     <label for="telephone">Telephone:</label>
-                    <input  type="number" min="0" name="telephone" id="popUp_telephone" class="telephone" placeholder="Telephone" />
+                    <input  type="number" min="0" name="telephone" id="popUp_telephone" class="telephone" placeholder="Telephone" pattern="\d*"/>
                     <span class="error">&#10033;</span>
                 </div>
                 <div class="field2" id="div_type">

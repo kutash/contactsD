@@ -39,7 +39,7 @@ public class SendEmailCommand implements Command {
             return "/error.jspx";
         }
         logger.info("sending emails to contacts {}", Arrays.toString(addresses));
-        Pattern patternEmail = Pattern.compile("^[-._'a-z0-9]+\\+?+[-._'a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
+        Pattern patternEmail = Pattern.compile("^([-._'a-z0-9])+(\\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
         for (String address : addresses){
             Matcher m = patternEmail.matcher(address);
             if (!m.matches()){

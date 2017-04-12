@@ -4,7 +4,7 @@
 
 .nav{
     background-color: #30adc7;
-    height: 100px;
+    height: 110px;
 }
 
 ul li{
@@ -12,7 +12,7 @@ ul li{
     padding-right:  20px;
     padding-left: 10px;
     float: left;
-    padding-top: 30px;
+    padding-top: 35px;
     padding-bottom: 20px;
 
 }
@@ -23,6 +23,10 @@ li > a{
     text-decoration: none;
     font-size: 30px;
 }
+
+ li > a:hover{
+     opacity: 0.7;
+ }
 
 .edit-hr{
     font-family: TREBUCHET MS, serif;
@@ -48,6 +52,10 @@ li > a{
     font-family: TREBUCHET MS, serif;
 }
 
+ .buttons:hover{
+     opacity: 0.7;
+ }
+
 .button-save{
     border: 1px solid #888888;
     font-size: 2.0rem;
@@ -59,7 +67,16 @@ li > a{
     cursor: pointer;
     float: right;
     margin-bottom: 25px;
+    cursor: pointer;
 }
+
+.button-save:hover{
+    opacity: 0.7;
+}
+
+ .button-cancel:hover{
+     opacity: 0.7;
+ }
 
 .button-cancel{
     border: 1px solid #888888;
@@ -145,6 +162,7 @@ li > a{
     color: white;
     float: right;
     cursor: pointer;
+    font-family: TREBUCHET MS, serif;
 }
 
 .modal .submit button:hover {
@@ -162,6 +180,7 @@ li > a{
     color: white;
     float: left;
     cursor: pointer;
+    font-family: TREBUCHET MS, serif;
 }
 
 .modal .submit .cancel:hover {
@@ -263,6 +282,7 @@ li > a{
     color: white;
     float: right;
     cursor: pointer;
+    font-family: TREBUCHET MS, serif;
 }
 
 .modalPones .submit button:hover {
@@ -280,6 +300,7 @@ li > a{
     color: white;
     float: left;
     cursor: pointer;
+    font-family: TREBUCHET MS, serif;
 }
 
 .modalPones .submit .cancelPhone:hover {

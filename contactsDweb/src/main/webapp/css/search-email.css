@@ -1,6 +1,6 @@
 .nav{
     background-color: #30adc7;
-    height: 100px;
+    height: 110px;
 
 }
 
@@ -9,7 +9,7 @@ ul li{
     padding-right:  20px;
     padding-left: 10px;
     float: left;
-    padding-top: 30px;
+    padding-top: 35px;
     padding-bottom: 20px;
 
 }
@@ -21,6 +21,10 @@ li > a{
     font-size: 30px;
 }
 
+li > a:hover{
+    opacity: 0.7;
+}
+
 .edit-hr{
     font-family: TREBUCHET MS, serif;
     color: white;
@@ -30,12 +34,6 @@ li > a{
 .edit-href {
     text-decoration: none;
     color: black;
-}
-
-
-.nav-ul{
-    /*margin-left: 50px;
-    margin: auto;*/
 }
 
 .label{
@@ -74,6 +72,10 @@ li > a{
     font-family: TREBUCHET MS, serif;
 }
 
+.button-save:hover{
+    opacity: 0.7;
+}
+
 .button-cancel{
     border: 1px solid #888888;
     font-size: 2.0rem;
@@ -85,6 +87,10 @@ li > a{
     float: left;
     margin-bottom: 25px;
     font-family: TREBUCHET MS, serif;;
+}
+
+.button-cancel:hover{
+    opacity: 0.7;
 }
 
 .div-but{
@@ -139,6 +145,11 @@ li > a{
     float: right;
     cursor: pointer;
 }
+
+.submit-button:hover{
+    opacity: 0.7;
+}
+
 .error-img{
     padding-left: 450px;
     padding-top: 80px;
@@ -151,6 +162,10 @@ li > a{
     width: 150px;
     height: 70px;
     font-size:50px;
+}
+
+.button-error:hover{
+    opacity: 0.7;
 }
 
 .searchForm {

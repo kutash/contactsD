@@ -46,7 +46,7 @@ public class AttachCommand implements Command {
         Map<String,Attachment> attachMap = new HashMap<String, Attachment>();
         if (attachList == null) {
             attachList = new ArrayList<Attachment>();
-            Long idContact = contact.getId();
+            idContact = contact.getId();
             if(idContact != null) {
                 for (Attachment attach : contactService.getAttaches(idContact)) {
                     attachMap.put(attach.getAttachName(),attach);
@@ -63,12 +63,7 @@ public class AttachCommand implements Command {
             Attachment attachment = getAttachment(attachMap);
             attachMap.put(attachment.getAttachName(),attachment);
         } else if (attachButton.equals("delete")){
-            String [] chosen =  request.getParameterValues("attach_checkbox");
-            if(chosen != null) {
-                for (String item : chosen) {
-                    attachMap.remove(item);
-                }
-            }
+            deleteAttach(attachMap);
         } else if (attachButton.equals("edit")){
             Attachment attachment = editAttachment();
             attachMap.put(attachment.getAttachName(), attachment);
@@ -93,7 +88,20 @@ public class AttachCommand implements Command {
     }
 
 
-
+    private void deleteAttach(Map<String,Attachment> attachMap){
+        String [] chosen =  request.getParameterValues("attach_checkbox");
+        if(chosen != null) {
+            for (String item : chosen) {
+               Attachment attachment = attachMap.get(item);
+               String attachPath = attachment.getAttachPath();
+                File file = new File(attachPath);
+                if (file.canWrite() && file.exists()) {
+                    file.delete();
+                }
+                attachMap.remove(item);
+            }
+        }
+    }
 
 
     private Attachment getAttachment(Map<String,Attachment> attachMap){
@@ -117,8 +125,6 @@ public class AttachCommand implements Command {
                     attachName = s.substring(s.indexOf("=") + 2, s.length() - 1);
                 }
             }
-
-
             for (Map.Entry<String, Attachment> entry :  attachMap.entrySet()) {
 
                 if (entry.getKey().equals(attachName)){
@@ -128,8 +134,6 @@ public class AttachCommand implements Command {
 
                 }
             }
-
-
             if (attachPart.getSize() > 0) {
 
                 savePath += File.separator + attachName;

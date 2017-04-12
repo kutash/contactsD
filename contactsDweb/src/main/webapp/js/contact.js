@@ -41,6 +41,8 @@ window.onload = function () {
         var btn = closeButtons[i];
         btn.addEventListener("click", function (event) {
             event.preventDefault();
+            var inp = document.getElementById("attach");
+            inp.value = "";
             var modalWindow = document.querySelector(".modal");
             modalWindow.style.display = "none";
         });
@@ -127,7 +129,7 @@ window.onload = function () {
         for (var i2 = 0, length22 = fields.length; i2 < length22; i2++) {
             var field = fields[i2];
             var inputField = field.querySelector("input");
-            if (inputField.value) {
+            if (inputField.value && isFinite(inputField.value)) {
                 field.classList.remove("invalid");
             } else {
                 field.classList.add("invalid");

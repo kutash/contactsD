@@ -35,7 +35,7 @@ public class MyServlet extends HttpServlet {
 
     public void init() throws ServletException{
         try {
-            //birthdayMailing.startService();
+            birthdayMailing.startService();
         } catch (Exception e) {
             logger.error("Error in init method", e);
         }
@@ -45,7 +45,7 @@ public class MyServlet extends HttpServlet {
     @Override
     public void destroy() {
         try {
-            //birthdayMailing.stopService();
+            birthdayMailing.stopService();
         } catch (Exception e) {
             logger.error("Error in destroy method", e);
         }

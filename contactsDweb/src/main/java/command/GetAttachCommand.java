@@ -52,9 +52,11 @@ public class GetAttachCommand implements Command{
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
 
+        OutputStream out = null;
+        FileInputStream in = null;
         try {
-            OutputStream out = response.getOutputStream();
-            FileInputStream in = new FileInputStream(file);
+            out = response.getOutputStream();
+            in = new FileInputStream(file);
             byte[] buffer = new byte[buffSize];
             int length;
             while ((length = in.read(buffer)) > 0) {
@@ -63,7 +65,14 @@ public class GetAttachCommand implements Command{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        finally {
+            try {
+                out.close();
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 }

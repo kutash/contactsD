@@ -1,6 +1,6 @@
 .nav{
     background-color: #30adc7;
-    height: 100px;
+    height: 110px;
 }
 
  ul li{
@@ -8,7 +8,7 @@
     padding-right:  20px;
     padding-left: 10px;
      float: left;
-    padding-top: 30px;
+    padding-top: 35px;
     padding-bottom: 20px;
 
  }
@@ -20,12 +20,21 @@
     font-size: 30px;
  }
 
+li > a:hover{
+    opacity: 0.7;
+}
+
  .edit-hr{
      font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
  }
+
+.edit-hr:hover{
+    opacity: 0.7;
+}
+
  .edit-href {
     text-decoration: none;
     color: black;
@@ -62,9 +71,9 @@
 
  td {
      font-family: "Arial Narrow";
-     font-size: 20px;
-     padding-bottom: 20px;
-     padding-top: 20px;
+     font-size: 23px;
+     padding-bottom: 25px;
+     padding-top: 25px;
  }
 
  .page-href{
@@ -72,30 +81,27 @@
      color: #30adc7;
      font-size: 2rem;
      font-family: TREBUCHET MS, serif;
-
-     /*padding-left: 10px;
-     padding-right: 10px;
-     padding-top: 5px;
-     padding-bottom: 5px;*/
  }
+
+.page-href:hover{
+    opacity: 0.7;
+}
 
  .page-nav{
      text-decoration: none;
      color: #30adc7;
      font-size: 2rem;
      font-family: TREBUCHET MS, serif;
-     /*padding-left: 20px;
-     padding-right: 20px;
-     padding-top: 5px;
-     padding-bottom: 5px;*/
-
  }
+
+.page-nav:hover{
+    opacity: 0.7;
+}
 
  .pag {
      align-content: center;
-     padding-top: 20px;
+     padding-top: 5px;
      padding-left: 39%;
-
  }
 
  .t-body{
