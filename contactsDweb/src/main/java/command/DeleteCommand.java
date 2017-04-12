@@ -49,7 +49,7 @@ public class DeleteCommand implements Command {
             contactService.deleteAddress(idAddress);
         }
 
-        return "/my-servlet?command=show";
+        return "my-servlet?command=show";
     }
 
 
@@ -59,7 +59,7 @@ public class DeleteCommand implements Command {
         if (path != null){
             File file = new File(path);
             if (file.canWrite() && file.exists()) {
-                System.out.println(file.delete());
+                file.delete();
             }
         }
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));

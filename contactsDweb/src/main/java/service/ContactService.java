@@ -222,13 +222,14 @@ public class ContactService {
         String country = request.getParameter("country").trim();
         String city = request.getParameter("city").trim();
         String street = request.getParameter("street").trim();
-        String house = request.getParameter("house");
-        String flat = request.getParameter("flat");
+        String house = request.getParameter("house").trim();
+        String flat = request.getParameter("flat").trim();
         String index = request.getParameter("index").trim();
         String date = request.getParameter("birthday").trim();
 
 
         Pattern patternNull = Pattern.compile("");
+        Pattern patternFlat = Pattern.compile("\\d*([a-z]|[A-Z])?");
         Pattern patternName = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])+");
         Pattern patternDate = Pattern.compile("(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
         Pattern patternEmail = Pattern.compile("^([-._'a-z0-9])+(\\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
@@ -251,8 +252,8 @@ public class ContactService {
         Matcher m11 = patternSite.matcher(site);
         Matcher m111 = patternNull.matcher(site);
         Matcher m12 = patternIndex.matcher(index);
-        Matcher m13 = patternIndex.matcher(house);
-        Matcher m14 = patternIndex.matcher(flat);
+        Matcher m13 = patternFlat.matcher(house);
+        Matcher m14 = patternFlat.matcher(flat);
 
 
         if (m1.matches() && (m2.matches() || m22.matches()) && m3.matches() && m4.matches() && (m5.matches() || m55.matches()) && m6.matches() && m7.matches() && m8.matches() && (m9.matches() || m99.matches()) && m10.matches() && (m11.matches() || m111.matches()) && m12.matches() && m13.matches() && m14.matches()) {

@@ -62,7 +62,7 @@ public class ShowCommand implements Command {
                 try {
                     targetPage = Integer.parseInt(targetPageParam);
                 } catch (NumberFormatException e) {
-                    logger.error("Target page is not number! Unable to parse.");
+                    logger.error("Target page is not number.");
                     return "error";
                 }
                 if (targetPage < 1 || (targetPage > pagesCount && pagesCount != 0)) {
@@ -77,6 +77,7 @@ public class ShowCommand implements Command {
 
         } else {
             contacts = contactService.searchContacts(params, targetPage);
+            request.setAttribute("criteries",params);
         }
 
         request.setAttribute("CONTACTS_COUNT", contactsCount);

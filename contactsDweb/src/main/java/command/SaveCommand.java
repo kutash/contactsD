@@ -56,7 +56,7 @@ public class SaveCommand implements Command {
             } catch (ServletException e) {
                 e.printStackTrace();
             }
-            return "/my-servlet?command=show";
+            return "my-servlet?command=show";
         }
 
     }
@@ -139,8 +139,6 @@ public class SaveCommand implements Command {
             for (Attachment attach : attaches) {
                 fileNames.add(attach.getAttachName());
             }
-
-
             String path = properties.getProperty("TEMP_DIR");
             File tempDir = new File(path);
             String[] tempFiles = tempDir.list();

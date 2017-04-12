@@ -618,50 +618,50 @@ public class ContactDAOImpl implements DAO{
 
         String s=" where ";
         if (params.get("firstName") !=null && !equals("")){
-            query+=s+"firstName like '"+params.get("firstName")+"'";
+            query+=s+"firstName like '%"+params.get("firstName")+"%'";
             s = " and ";
         }
         if (params.get("middleName") !=null && !equals("")){
-            query+=s+"middleName like '"+params.get("middleName")+"'";
+            query+=s+"middleName like '%"+params.get("middleName")+"%'";
             s = " and ";
         }
         if (params.get("lastName") !=null && !equals("")){
-            query+=s+"lastName like '"+params.get("lastName")+"'";
+            query+=s+"lastName like '%"+params.get("lastName")+"%'";
             s = " and ";
         }
         if (params.get("sex") !=null && !equals("")){
-            query+=s+"sex like '"+params.get("sex")+"'";
+            query+=s+"sex like '%"+params.get("sex")+"%'";
             s = " and ";
         }
         if (params.get("status") !=null && !equals("")){
-            query+=s+"status like '"+params.get("status")+"'";
+            query+=s+"status like '%"+params.get("status")+"%'";
         }
         if (params.get("citizenship") !=null && !equals("")){
-            query+=s+"citizenship like '"+params.get("citizenship")+"'";
+            query+=s+"citizenship like '%"+params.get("citizenship")+"%'";
             s = " and ";
         }
         if (params.get("country") !=null && !equals("")){
-            query+=s+"country like '"+params.get("country")+"'";
+            query+=s+"country like '%"+params.get("country")+"%'";
             s = " and ";
         }
         if (params.get("city") !=null && !equals("")){
-            query+=s+"city like '"+params.get("city")+"'";
+            query+=s+"city like '%"+params.get("city")+"%'";
             s = " and ";
         }
         if (params.get("street") !=null && !equals("")){
-            query+=s+"street like '"+params.get("street")+"'";
+            query+=s+"street like '%"+params.get("street")+"%'";
             s = " and ";
         }
         if (params.get("house") !=null && !equals("")){
-            query+=s+"house like '"+params.get("house")+"'";
+            query+=s+"house like '%"+params.get("house")+"%'";
             s = " and ";
         }
         if (params.get("flat") !=null && !equals("")){
-            query+=s+"flat like '"+params.get("flat")+"'";
+            query+=s+"flat like '%"+params.get("flat")+"%'";
             s = " and ";
         }
         if (params.get("index") !=null && !equals("")){
-            query+=s+"`index` like '"+params.get("index")+"'";
+            query+=s+"`index` like '%"+params.get("index")+"%'";
             s = " and ";
         }
         if ((params.get("birthSince") !=null && !equals("")) && (params.get("birthUpto") !=null && !equals(""))){
@@ -729,50 +729,50 @@ public class ContactDAOImpl implements DAO{
 
         String s=" where ";
         if (params.get("firstName") !=null && !equals("")){
-            query+=s+"firstName like '"+params.get("firstName")+"'";
+            query+=s+"firstName like '%"+params.get("firstName")+"%'";
             s = " and ";
         }
         if (params.get("middleName") !=null && !equals("")){
-            query+=s+"middleName like '"+params.get("middleName")+"'";
+            query+=s+"middleName like '%"+params.get("middleName")+"%'";
             s = " and ";
         }
         if (params.get("lastName") !=null && !equals("")){
-            query+=s+"lastName like '"+params.get("lastName")+"'";
+            query+=s+"lastName like '%"+params.get("lastName")+"%'";
             s = " and ";
         }
         if (params.get("sex") !=null && !equals("")){
-            query+=s+"sex like '"+params.get("sex")+"'";
+            query+=s+"sex like '%"+params.get("sex")+"%'";
             s = " and ";
         }
         if (params.get("status") !=null && !equals("")){
-            query+=s+"status like '"+params.get("status")+"'";
+            query+=s+"status like '%"+params.get("status")+"%'";
         }
         if (params.get("citizenship") !=null && !equals("")){
-            query+=s+"citizenship like '"+params.get("citizenship")+"'";
+            query+=s+"citizenship like '%"+params.get("citizenship")+"%'";
             s = " and ";
         }
         if (params.get("country") !=null && !equals("")){
-            query+=s+"country like '"+params.get("country")+"'";
+            query+=s+"country like '%"+params.get("country")+"%'";
             s = " and ";
         }
         if (params.get("city") !=null && !equals("")){
-            query+=s+"city like '"+params.get("city")+"'";
+            query+=s+"city like '%"+params.get("city")+"%'";
             s = " and ";
         }
         if (params.get("street") !=null && !equals("")){
-            query+=s+"street like '"+params.get("street")+"'";
+            query+=s+"street like '%"+params.get("street")+"%'";
             s = " and ";
         }
         if (params.get("house") !=null && !equals("")){
-            query+=s+"house like '"+params.get("house")+"'";
+            query+=s+"house like '%"+params.get("house")+"%'";
             s = " and ";
         }
         if (params.get("flat") !=null && !equals("")){
-            query+=s+"flat like '"+params.get("flat")+"'";
+            query+=s+"flat like '%"+params.get("flat")+"%'";
             s = " and ";
         }
         if (params.get("index") !=null && !equals("")){
-            query+=s+"`index` like '"+params.get("index")+"'";
+            query+=s+"`index` like '%"+params.get("index")+"%'";
             s = " and ";
         }
         if ((params.get("birthSince") !=null && !equals("")) && (params.get("birthUpto") !=null && !equals(""))){

@@ -322,7 +322,8 @@ li > a{
     padding: 0px 5px;
     border: 1px solid lightgray;
 }
-.inp-div select{
+
+ .inp-div select{
     float: right;
     height: 40px;
     width: 500px;
@@ -336,8 +337,7 @@ li > a{
     margin: 0px auto;
     width: 700px;
     padding-bottom: 20px;
-
-}
+ }
 
 h2{
     text-align: center;
@@ -348,7 +348,6 @@ h2{
     padding-top: 20px;
     padding-bottom: 20px;
     width: 900px;
-    /*text-align: center;*/
     padding-left: 28%;
 }
 
@@ -375,8 +374,6 @@ table{
 }
 
 th {
-    /*border-right: solid lightgray 1px;*/
-    /*border-top: solid lightgray 1px;*/
     text-align: left;
     font-family: "Arial";
     font-size: 25px;
@@ -391,3 +388,43 @@ td {
     padding-bottom: 20px;
     padding-top: 20px;
 }
+ #reqName{
+    color: black;
+    padding-left: 115px;
+ }
+ #reqSurName{
+     color: black;
+     padding-left: 64px;
+ }
+ #reqCitizen{
+     color: black;
+     padding-left: 58px;
+ }
+ #reqEmail{
+     color: black;
+     padding-left: 117px;
+ }
+ #reqCountry{
+     color: black;
+     padding-left: 105px;
+ }
+ #reqCity{
+     color: black;
+     padding-left: 135px;
+ }
+ #reqStreet{
+     color: black;
+     padding-left: 111px;
+ }
+ #reqHouse{
+     color: black;
+     padding-left:110px;
+ }
+ #reqFlat{
+     color: black;
+     padding-left: 137px;
+ }
+ #reqIndex{
+     color: black;
+     padding-left: 118px;
+ }

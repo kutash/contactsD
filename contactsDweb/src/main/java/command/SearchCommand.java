@@ -27,7 +27,7 @@ public class SearchCommand implements Command {
                 params.put(param, value);
             }
         }
-        System.out.println(params.get("firstName"));
+
         request.getSession().setAttribute("params",params);
         request.getSession().setAttribute("isSearch",true);
         return "/my-servlet?command=show";
