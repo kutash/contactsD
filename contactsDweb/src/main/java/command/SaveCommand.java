@@ -56,7 +56,7 @@ public class SaveCommand implements Command {
             } catch (ServletException e) {
                 e.printStackTrace();
             }
-            return "my-servlet?command=show";
+            return "/my-servlet?command=show";
         }
 
     }

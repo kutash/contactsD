@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="css/search-email.css"/></head>
     <body>
     <img src="images/error.png" class="error-img"/>
-    <form action="/my-servlet">
+    <form action="my-servlet">
         <input type="hidden" name="command" value="show"/>
         <input type="submit" value="home" class="button-error"/>
     </form>

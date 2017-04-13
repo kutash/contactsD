@@ -35,7 +35,7 @@
             <input type="hidden" value="${temp}" id="ST${i}"/>
         </c:forEach>
         <div class="content">
-            <form action="/my-servlet" id="emailForm">
+            <form action="my-servlet" id="emailForm">
                 <input type="hidden" name="idContact"/>
                 <input type="hidden" name="command" value="sendemail"/>
                 <div class="cont-div">

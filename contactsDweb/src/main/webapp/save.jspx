@@ -28,7 +28,7 @@
                     <a href="javascript:{}" class="email-but edit-hr">Email</a>
                 </li>
 
-                <form action="/my-servlet" id="chosen">
+                <form action="my-servlet" id="chosen">
                     <input type="hidden" name="command"/>
                     <input type="hidden" name="idChosen"/>
                 </form>
@@ -43,7 +43,7 @@
 
 
 
-        <form action="/my-servlet" method="post" enctype="multipart/form-data" id="saveForm" class="form">
+        <form action="my-servlet" method="post" enctype="multipart/form-data" id="saveForm" class="form">
             <input type="hidden" name="command"  value="save"/>
             <input type="hidden" name="idContact" value="${contacts.id}"/>
             <input type="hidden" name="idContact" value="${contacts.id}" form="chosen"/>
@@ -234,7 +234,7 @@
                     <tr>
                         <td><input type="checkbox" form="saveForm" id="table_checkboxes" name="attach_checkbox" value="${attach.attachName}"/></td>
                         <td>
-                            <a href= "/my-servlet?command=getattach&amp;idContact=${contacts.id}&amp;name=${attach.attachName}" class="edit-href">${attach.attachName}</a>
+                            <a href= "my-servlet?command=getattach&amp;idContact=${contacts.id}&amp;name=${attach.attachName}" class="edit-href">${attach.attachName}</a>
                         </td>
                         <td><input type="date" class="input-small" value="${attach.date}" id="table_date" readonly="readonly"/></td>
                         <td><input type="text" class="input-small comment_table" id="table_comment" value="${attach.comment}" readonly="readonly"/></td>

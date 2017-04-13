@@ -23,7 +23,7 @@
             <li>
                 <a href="javascript:{}" class="email-but edit-hr">Email</a>
             </li>
-                <form action="/my-servlet" id="chosen">
+                <form action="my-servlet" id="chosen">
                     <input type="hidden" name="command"/>
                 </form>
             <li>
@@ -33,7 +33,7 @@
         </ul>
     </div>
 
-    <form action="/my-servlet" method="post" class="searchForm" id="searchForm">
+    <form action="my-servlet" method="post" class="searchForm" id="searchForm">
         <input type="hidden" name="command" value="search"/>
         <div class="cont-div">
             <label class="label" for="firstName">Name:</label>

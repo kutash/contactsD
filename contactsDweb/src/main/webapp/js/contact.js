@@ -310,8 +310,9 @@ window.onload = function () {
     saveBut.addEventListener("click", function (event) {
         event.preventDefault();
         var input = document.getElementById("birthday");
-        if(input.value != '') {
-          var bool = validate_date(input.value);
+        var bool = true;
+        if(input.value) {
+          bool = validate_date(input.value);
         }
         if(!bool){
             alert("Invalid date entered!");
@@ -329,7 +330,7 @@ window.onload = function () {
 
 function validate_date(value)
 {
-    var arrD = value.split(".");
+    var arrD = value.split("-");
     arrD[1] -= 1;
     var d = new Date(arrD[0], arrD[1], arrD[2]);
     var today = new Date();

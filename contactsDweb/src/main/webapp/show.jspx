@@ -29,7 +29,7 @@
                 <a href="javascript:{}" class="email-but edit-hr">Email</a>
             </li>
             <li class="edit-hr">
-                <form action="/my-servlet" id="chosen">
+                <form action="my-servlet" id="chosen">
                     <input type="hidden" name="command"/>
                     <input type="hidden" name="idChosen"/>
                     <input type="hidden" name="mode"/>
@@ -46,7 +46,7 @@
         </ul>
     </div>
     <div>
-        <form action="/my-servlet" id="showForm" >
+        <form action="my-servlet" id="showForm" >
             <input type="hidden" name="command"/>
                 <div class="crit">
 
@@ -109,7 +109,7 @@
                             <input type="checkbox" form="chosen" name="idContact" value="${contact.id}"/>
                         </td>
                         <td>
-                            <c:url var="edit" value="/my-servlet">
+                            <c:url var="edit" value="my-servlet">
                                 <c:param name="command" value="edit"/>
                                 <c:param name="idContact" value="${contact.id}"/>
                             </c:url>
@@ -132,7 +132,7 @@
                 <c:choose>
                     <c:when test="${PAGINATOR.prevPageActive}">
                         <li>
-                            <a href="/my-servlet?command=show&amp;targetPage=prev" aria-label="Previous">
+                            <a href="my-servlet?command=show&amp;targetPage=prev" aria-label="Previous">
                                 <span aria-hidden="true" class="page-href">prev</span>
                             </a>
                         </li>
@@ -144,7 +144,7 @@
                     </c:when>
                 </c:choose>
                 <c:forEach var="i" items="${PAGINATOR.pages}">
-                    <c:url var="targetPage" value="/my-servlet">
+                    <c:url var="targetPage" value="my-servlet">
                         <c:param name="command" value="show"/>
                         <c:param name="targetPage" value="${i}"/>
                     </c:url>
@@ -160,7 +160,7 @@
                 <c:choose>
                     <c:when test="${PAGINATOR.nextPageActive}">
                         <li>
-                            <a href="/my-servlet?command=show&amp;targetPage=next" aria-label="Next">
+                            <a href="my-servlet?command=show&amp;targetPage=next" aria-label="Next">
                                 <span aria-hidden="true" class="page-href">next</span>
                             </a>
                         </li>
