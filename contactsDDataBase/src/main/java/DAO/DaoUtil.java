@@ -1,19 +1,14 @@
 package DAO;
 
-/**
- * Created by Galina on 10.03.2017.
- */
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
-
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
-public class DaoUtil {
-    private static final DataSource dataSource = initDataSource();
+class DaoUtil {
 
-    public static DataSource getDataSource() {
+    private static final DataSource dataSource = initDataSource();
+    static DataSource getDataSource() {
         return dataSource;
     }
 

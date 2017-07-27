@@ -17,14 +17,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
-/**
- * Created by Galina on 08.04.2017.
- */
 public class CancelCommand implements Command {
 
     private Logger logger = LogManager.getLogger(CancelCommand.class);
     private ContactService contactService = ServiceFactory.getContactService();
-    HttpSession session;
+    private HttpSession session;
     private Properties properties = new Properties();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -33,7 +30,7 @@ public class CancelCommand implements Command {
         try {
             properties.load(CancelCommand.class.getResourceAsStream("/attachment.properties"));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CommandException("Exception while loading properties", e);
         }
         String attachPath = properties.getProperty("TEMP_DIR");
         String photoPath = properties.getProperty("TEMP_PHOTO_DIR");
@@ -63,7 +60,7 @@ public class CancelCommand implements Command {
     }
 
 
-    public static void deleteAllFilesFolder(String path) {
+    private static void deleteAllFilesFolder(String path) {
         for (File myFile : new File(path).listFiles())
             if (myFile.isFile()) myFile.delete();
     }

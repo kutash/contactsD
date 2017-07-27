@@ -13,6 +13,7 @@
     <head><title>Contact</title>
         <link rel="stylesheet" href="css/save.css"/>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/contact.js">;</script>
+
     </head>
     <body>
     <div class="container">
@@ -51,23 +52,21 @@
 
             <div class="inp-div">
                 <a href="javascript:{}" onclick="document.getElementById('photo').click()">
-                    <img id="image" src="${pageContext.request.contextPath}/my-servlet?command=photo&amp;idContact=${contacts.id}" width="300" height="300"  alt="Image preview..."/>
+                    <img id="image" src="${pageContext.request.contextPath}/my-servlet?command=photo&amp;idContact=${contacts.id}" width="250" height="250"  alt="Image preview..."/>
                 </a>
                 <input id="photo" form="saveForm" style="display: none" onchange="previewFile()" type="file" name="photo" accept="image/*" />
             </div>
 
 
             <div class="inp-div">
-                <label class="label" for="firstName">Name:</label>
-                <span id="reqName">&#10033;</span>
-                <span><input type="text" name="firstName" value="${contacts.firstName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
-                       id="name" placeholder="Enter name"  maxlength="20" required="required"/></span>
+                <label class="label required" for="firstName">Name:</label>
+                <span><input type="text" name="firstName" value="${contacts.firstName}"
+                       id="name" placeholder="Enter name"  maxlength="20" required="required" class="name"/></span>
             </div>
 
 
             <div class="inp-div">
                 <label class="label" for="middleName">Middle name:</label>
-
                 <input type="text" name="middleName" value="${contacts.middleName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        id="middname" maxlength="30" placeholder="Enter middle name"/>
             </div>
@@ -75,15 +74,13 @@
 
 
             <div class="inp-div">
-                <label class="label" for="surname">Last name:</label>
-                <span id="reqSurName">&#10033;</span>
+                <label class="label required" for="surname">Last name:</label>
                 <input type="text" name="lastName" value="${contacts.lastName}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        id="surname" placeholder="Enter surname" maxlength="40" required="required"/>
             </div>
 
             <div class="inp-div">
                 <label class="label" for="birthday">Birthday:</label>
-
                 <input type="text" value="${contacts.birthday}"  id="birthday" name="birthday" placeholder="YYYY-MM-DD"/>
             </div>
 
@@ -110,8 +107,7 @@
             </div>
 
             <div class="inp-div">
-                <label class="label" for="citizenship">Citizenship:</label>
-                <span id="reqCitizen">&#10033;</span>
+                <label class="label required" for="citizenship">Citizenship:</label>
                 <input type="text" value="${contacts.citizen}" class="input-txt"
                        maxlength="20"   pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" id="national" name="citizenship"
                        placeholder="Enter citizenship" required="required"/>
@@ -156,15 +152,13 @@
             </div>
 
             <div class="inp-div">
-                <label class="label" for="email">Email:</label>
-                <span id="reqEmail">&#10033;</span>
+                <label class="label required" for="email">Email:</label>
                 <input type="email" value="${contacts.email}" pattern="^([-._'a-z0-9])+(\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$"
                        maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email" required="required"/>
             </div>
 
             <div class="inp-div">
                 <label class="label" for="company">Company:</label>
-
                 <input type="text" value="${contacts.company}" pattern="(\s)*([a-z]|[A-Z]|[а-я]|[А-Я])+(\s)?([a-z]|[A-Z]|[а-я]|[А-Я])*(\s)*" class="input-txt"
                        maxlength="40"  id="company" name="company" placeholder="Enter company"/>
             </div>
@@ -173,40 +167,34 @@
             <h2>Address</h2>
 
             <div class="inp-div">
-                <label class="label" for="country">Contry:</label>
-                <span id="reqCountry">&#10033;</span>
+                <label class="label required" for="country">Contry:</label>
                 <input type="text" value="${contacts.address.country}"
                        pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" class="input-txt" id="country" name="country"
                        maxlength="30"   placeholder="Enter country" required="required"/>
             </div>
 
             <div class="inp-div">
-                <label class="label" for="city">City:</label>
-                <span id="reqCity">&#10033;</span>
+                <label class="label required" for="city">City:</label>
                 <input type="text" value="${contacts.address.city}" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
                        maxlength="20"  class="input-txt"  name="city" placeholder="Enter city" required="required"/>
             </div>
 
             <div class="inp-div">
-                <label class="label" for="street">Street:</label>
-                <span id="reqStreet">&#10033;</span>
-                <input type="text" value="${contacts.address.street}" name="street" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"
+                <label class="label required" for="street">Street:</label>
+                <input type="text" value="${contacts.address.street}" name="street" pattern="^([a-z]|[A-Z]|[а-я]|[А-Я])+\s?|\-?([a-z]|[A-Z]|[а-я]|[А-Я])+"
                        maxlength="80"  placeholder="Enter street" required="required"/>
             </div>
             <div class="inp-div">
-                <label class="label" for="house">House:</label>
-                <span id="reqHouse">&#10033;</span>
+                <label class="label required" for="house">House:</label>
                 <input type="text" value="${contacts.address.house}" name="house" placeholder="Enter house" required="required" pattern="\d*([a-z]|[A-Z])?"/>
             </div>
             <div class="inp-div">
-                <label class="label" for="flat">Flat:</label>
-                <span id="reqFlat">&#10033;</span>
+                <label class="label required" for="flat">Flat:</label>
                 <input type="text" value="${contacts.address.flat}" name="flat" placeholder="Enter flat" required="required" pattern="\d*([a-z]|[A-Z])?"/>
             </div>
 
             <div class="inp-div">
-                <label class="label" for="index">Index:</label>
-                <span id="reqIndex">&#10033;</span>
+                <label class="label required" for="index">Index:</label>
                 <input type="text" maxlength="10" value="${contacts.address.index}" pattern="\d*" class="input-txt"
                        name="index" placeholder="Enter index" required="required"/>
             </div>
@@ -352,6 +340,9 @@
         </form>
     </div>
 
+    <div class="modalVal" style="display: none;">
+        <div class="text"></div>
+    </div>
 
     </body>
     </html>

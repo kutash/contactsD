@@ -36,8 +36,8 @@ li > a{
 }
 
 .label{
-    font-size: 20px;
-    font-family: "Arial Black";
+    font-size: 21px;
+    font-family: Arial, serif;;
     color: black;
 }
 
@@ -67,7 +67,6 @@ li > a{
     cursor: pointer;
     float: right;
     margin-bottom: 25px;
-    cursor: pointer;
 }
 
 .button-save:hover{
@@ -190,7 +189,6 @@ li > a{
 .container div {
     margin: 1rem 0;
     font-size: 1rem;
-
     color: gray;
 
 }
@@ -315,8 +313,8 @@ li > a{
 
 .inp-div input {
     float: right;
-    height: 40px;
-    width: 500px;
+    height: 35px;
+    width: 400px;
     background-color: whitesmoke;
     line-height: 19px;
     padding: 0px 5px;
@@ -325,8 +323,8 @@ li > a{
 
  .inp-div select{
     float: right;
-    height: 40px;
-    width: 500px;
+    height: 35px;
+    width: 400px;
     background-color: whitesmoke;
     line-height: 19px;
     padding: 0px 5px;
@@ -335,7 +333,7 @@ li > a{
 
  .form{
     margin: 0px auto;
-    width: 700px;
+    width: 550px;
     padding-bottom: 20px;
  }
 
@@ -388,43 +386,32 @@ td {
     padding-bottom: 20px;
     padding-top: 20px;
 }
- #reqName{
-    color: black;
-    padding-left: 115px;
+
+ .required:after {
+     content: ' *';
  }
- #reqSurName{
-     color: black;
-     padding-left: 64px;
+
+ .modalVal {
+     width: 200px;
+     height: 100px;
+     padding: 1rem;
+     border: 1px solid #717171;
+     position: fixed;
+     top: 85%;
+     left: 11%;
+     transform: translate(-50%, -50%);
+     box-shadow: 5px 5px 5px #888888;
+     background-color: cornflowerblue;
+     font-family: Arial, serif;
+     border-radius: 10%;
  }
- #reqCitizen{
-     color: black;
-     padding-left: 58px;
+
+ .text{
+     text-align: center;
+     font-family: Arial, serif;
+     font-size: 25px;
  }
- #reqEmail{
-     color: black;
-     padding-left: 117px;
- }
- #reqCountry{
-     color: black;
-     padding-left: 105px;
- }
- #reqCity{
-     color: black;
-     padding-left: 135px;
- }
- #reqStreet{
-     color: black;
-     padding-left: 111px;
- }
- #reqHouse{
-     color: black;
-     padding-left:110px;
- }
- #reqFlat{
-     color: black;
-     padding-left: 137px;
- }
- #reqIndex{
-     color: black;
-     padding-left: 118px;
+
+ .err {
+     border-color: red;
  }

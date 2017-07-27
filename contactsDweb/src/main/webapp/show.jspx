@@ -61,7 +61,7 @@
                             <div class="cont-div"><label class="label">Citizenship:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
                         </c:if>
                         <c:if test="${criteria.key=='middleName'}">
-                            <div class="cont-div"><label class="label">Middle name::</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
+                            <div class="cont-div"><label class="label">Middle name:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
                         </c:if>
                         <c:if test="${criteria.key=='sex'}">
                             <div class="cont-div"><label class="label">Sex:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>

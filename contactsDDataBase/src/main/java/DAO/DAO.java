@@ -1,17 +1,13 @@
 package DAO;
 
 import model.*;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Galina on 10.03.2017.
- */
 public interface DAO {
 
-    List<Contact> getCont(int page) throws SQLException;
+    List<Contact> getContacts(int page) throws SQLException;
 
     int getContactsCount() throws SQLException;
 

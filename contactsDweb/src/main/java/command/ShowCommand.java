@@ -3,14 +3,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Contact;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import paginator.Paginator;
 import service.ContactService;
 import service.ServiceFactory;
+
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -20,7 +20,7 @@ public class ShowCommand implements Command {
 
     private Logger logger = LogManager.getLogger(ShowCommand.class);
     private ContactService contactService = ServiceFactory.getContactService();
-    HttpSession session;
+    private HttpSession session;
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         logger.info("showing contacts");
@@ -29,7 +29,7 @@ public class ShowCommand implements Command {
         session.removeAttribute("attaches");
         session.removeAttribute("temp_photo_path");
         session.removeAttribute("emailContacts");
-        Map<String, String> params = (Map<String, String>) session.getAttribute("params");
+        LinkedHashMap<String, String> params = (LinkedHashMap<String, String>) session.getAttribute("params");
         List<Contact> contacts;
         int targetPage = 1;
         int pagesCount = 0;
@@ -77,7 +77,7 @@ public class ShowCommand implements Command {
 
         } else {
             contacts = contactService.searchContacts(params, targetPage);
-            request.setAttribute("criteries",params);
+            request.setAttribute("criteries", params);
         }
 
         request.setAttribute("CONTACTS_COUNT", contactsCount);

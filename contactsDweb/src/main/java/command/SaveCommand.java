@@ -1,7 +1,8 @@
 package command;
 
 
-import model.Address;
+import builder.Builder;
+import builder.BuilderFactory;
 import model.Attachment;
 import model.Contact;
 import model.Phone;
@@ -18,9 +19,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,6 +31,7 @@ public class SaveCommand implements Command {
 
     private Logger logger = LogManager.getLogger(SaveCommand.class);
     private ContactService contactService = ServiceFactory.getContactService();
+    private Builder builder = BuilderFactory.getBuilder();
     private HttpServletRequest request;
     private HttpSession session;
 
@@ -42,28 +41,27 @@ public class SaveCommand implements Command {
         this.request = request;
         session= request.getSession();
         session.removeAttribute("isSearch");
-        Contact contact = contactService.validateAndMake(request);
+        Contact contact = builder.makeContact(request);
         if (contact==null){
             return "/error.jspx";
         }else {
             Long id = contactService.setContact(contact);
+            contact.setId(id);
+            contactService.saveAddress(contact);
             savePhones(id);
             try {
                 savePhoto(id);
                 saveAttaches(id);
-            } catch (IOException e) {
-                e.printStackTrace();
             } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return "/my-servlet?command=show";
         }
-
     }
 
-
-
-    public void savePhoto(long id) throws IOException, ServletException {
+    private void savePhoto(long id) throws IOException, ServletException {
         logger.info("saving photo");
         Properties properties = new Properties();
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
@@ -119,7 +117,6 @@ public class SaveCommand implements Command {
             if (myFile.isFile()) myFile.delete();
     }
 
-
     private void saveAttaches(long id) throws IOException {
         logger.info("saving attachments");
         List<Attachment> attaches = (List<Attachment>) session.getAttribute("attaches");
@@ -168,7 +165,7 @@ public class SaveCommand implements Command {
 
     private void savePhones(Long idContact){
         logger.info("saving phones");
-        List<Phone> listPhones = contactService.makePhone(request, idContact);
+        List<Phone> listPhones = builder.makePhone(request, idContact);
         contactService.setPhone(idContact, listPhones);
     }
 }

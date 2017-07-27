@@ -1,16 +1,16 @@
 package model;
 
-/**
- * Created by Galina on 10.03.2017.
- */
 public class Address {
     private Long addressId;
+    private Long contactId;
     private String country;
     private String city;
     private String street;
     private String house;
     private String flat;
     private String index;
+
+    public Address(){}
 
     public Address(Long addressId, String country, String city, String street, String house, String flat, String index){
         this.addressId=addressId;
@@ -38,7 +38,6 @@ public class Address {
     public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
-
 
     public String getCountry() {
         return country;
@@ -87,6 +86,14 @@ public class Address {
 
     public void setHouse(String house) {
         this.house = house;
+    }
+
+    public Long getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(Long contactId) {
+        this.contactId = contactId;
     }
 
     @Override

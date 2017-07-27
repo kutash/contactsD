@@ -23,6 +23,8 @@ public class Contact {
      private List<Phone> phoneList;
      private List<Attachment> attachments;
 
+     public Contact(){}
+
      public Contact(Long id, String firstName, String middleName, String lastName, Date birthday, Address address, String company){
          this.id=id;
          this.firstName=firstName;

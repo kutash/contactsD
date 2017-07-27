@@ -20,14 +20,13 @@ public class SearchCommand implements Command {
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         logger.info("searching contacts");
-        Map<String, String> params = new HashMap<String, String>();
-        for (String param: parametersList) {
+        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        for (String param : parametersList) {
             String value = request.getParameter(param).trim();
             if (StringUtils.isNotEmpty(value)) {
                 params.put(param, value);
             }
         }
-
         request.getSession().setAttribute("params",params);
         request.getSession().setAttribute("isSearch",true);
         return "/my-servlet?command=show";

@@ -1,106 +1,18 @@
-package service;
+package builder;
 
-import DAO.*;
-import command.ErrorCommand;
 import model.Address;
-import model.Attachment;
 import model.Contact;
 import model.Phone;
 import org.apache.commons.lang3.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
-import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Galina on 24.03.2017.
- */
-public class ContactService {
-
-    DAO contactDAO = DAOFactory.getContactDao();
-
-
-    public Long setContact(Contact contact){
-        long id2 = contactDAO.setContact(contact);
-        return id2;
-    }
-
-    public Contact getById(Long id){
-        Contact contact = contactDAO.getById(id);
-        return contact;
-    }
-
-    public List<Contact> getCont(int page) {
-        List<Contact> contacts = null;
-        try {
-            contacts = contactDAO.getCont(page);
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-        return contacts;
-    }
-
-    public int getContactsCount() {
-        int count = 0;
-        try {
-            count = contactDAO.getContactsCount();
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        }
-        return count;
-    }
-
-    public String getPhoto(long idContact) {
-        return contactDAO.getPhoto(idContact);
-    }
-
-    public void setPhoto(long idContact, String path) {
-        contactDAO.setPhoto(idContact,path);
-    }
-
-    public void deleteContact(Long id) {
-        contactDAO.deleteContact(id);
-    }
-
-    public void deleteAddress(Long idAddress){contactDAO.deleteAddress(idAddress);}
-
-    public List<Attachment> getAttaches(Long idContact){
-        return contactDAO.getAttaches(idContact);
-    }
-
-    public void setAttaches(Long idContact, List<Attachment> attachList){
-        contactDAO.setAttaches(idContact, attachList);
-    }
-
-    public Attachment getAttach(Long idContact){
-       return contactDAO.getAttach(idContact);
-    }
-
-    public void deleteAttachment(Long idContact){
-        contactDAO.deleteAttachment(idContact);
-    }
-
-    public List<Phone> getPhones(Long idContact){
-        List<Phone> listPhones = contactDAO.getPhones(idContact);
-        return listPhones;
-    }
-
-    public void deletePhones(Long idContact){
-        contactDAO.deletePhones(idContact);
-    }
-
-
-    public void setPhone(long idContact, List<Phone> phones){
-        contactDAO.setPhones(idContact, phones);
-    }
-
-
+public class Builder {
 
     public List<Phone> makePhone(HttpServletRequest request, Long idContact){
         List<Phone> phones = new ArrayList<Phone>();
@@ -112,11 +24,8 @@ public class ContactService {
             Matcher m = p.matcher(paramName);
 
             if (m.matches()) {
-
                 long i = Long.parseLong(paramName.substring(9));
-
                 String countryCode = request.getParameter("countryCode"+i);
-                System.out.println(countryCode);
                 String operatorCode = request.getParameter("operatorCode"+i);
                 String telephone = request.getParameter("telephone"+i);
                 String type = request.getParameter("type"+i);
@@ -128,29 +37,14 @@ public class ContactService {
                 phones.add(phone);
             }
         }
-
         return phones;
     }
-
-
-    public List<Contact> searchContacts(Map<String, String> params,int page){
-        List<Contact> contacts = contactDAO.searchContacts(params, page);
-        return contacts;
-    }
-
-    public int countForSearch(Map<String, String> params){
-       int count = contactDAO.countForSearch(params);
-       return count;
-    }
-
-
 
     public Contact makeContact(HttpServletRequest request){
         Long id;
         String idSt = request.getParameter("idContact");
         if (StringUtils.isNotEmpty(idSt)) {
             id = Long.parseLong(idSt);
-
         } else {
             id = null;
         }
@@ -186,27 +80,41 @@ public class ContactService {
             e.printStackTrace();
         }
 
-        Address address1 = new Address(country, city, street, house, flat, index);
-        Contact contact = new Contact(id, firstName, middleName, lastName, birthday, citizenship, sex, status, site, email, company, address1);
+        Address address1 = new Address();
+        address1.setCountry(country);
+        address1.setCity(city);
+        address1.setStreet(street);
+        address1.setHouse(house);
+        address1.setFlat(flat);
+        address1.setIndex(index);
+
+        Contact contact = new Contact();
+        contact.setId(id);
+        contact.setFirstName(firstName);
+        contact.setMiddleName(middleName);
+        contact.setLastName(lastName);
+        contact.setSex(sex);
+        contact.setCitizen(citizenship);
+        contact.setSite(site);
+        contact.setStatus(status);
+        contact.setCompany(company);
+        contact.setEmail(email);
+        contact.setBirthday(birthday);
+        contact.setAddress(address1);
         return contact;
     }
-
-
-
 
     public Contact validateAndMake(HttpServletRequest request){
         Long id;
         String idSt = request.getParameter("idContact");
         if (StringUtils.isNotEmpty(idSt)) {
             id = Long.parseLong(idSt);
-
         } else {
             id = null;
         }
         String firstName = request.getParameter("firstName").trim();
         String middleName = request.getParameter("middleName").trim();
         String lastName = request.getParameter("lastName").trim();
-
         String sex = request.getParameter("sex").trim();
         if (sex.equals("")){
              sex = null;
@@ -226,7 +134,6 @@ public class ContactService {
         String flat = request.getParameter("flat").trim();
         String index = request.getParameter("index").trim();
         String date = request.getParameter("birthday").trim();
-
 
         Pattern patternNull = Pattern.compile("");
         Pattern patternFlat = Pattern.compile("\\d*([a-z]|[A-Z])?");
@@ -255,9 +162,7 @@ public class ContactService {
         Matcher m13 = patternFlat.matcher(house);
         Matcher m14 = patternFlat.matcher(flat);
 
-
         if (m1.matches() && (m2.matches() || m22.matches()) && m3.matches() && m4.matches() && (m5.matches() || m55.matches()) && m6.matches() && m7.matches() && m8.matches() && (m9.matches() || m99.matches()) && m10.matches() && (m11.matches() || m111.matches()) && m12.matches() && m13.matches() && m14.matches()) {
-
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date birthday = null;
             try {
@@ -267,18 +172,31 @@ public class ContactService {
                 e.printStackTrace();
             }
 
-            Address address1 = new Address(country, city, street, house, flat, index);
-            Contact contact = new Contact(id, firstName, middleName, lastName, birthday, citizenship, sex, status, site, email, company, address1);
+            Address address1 = new Address();
+            address1.setCountry(country);
+            address1.setCity(city);
+            address1.setStreet(street);
+            address1.setHouse(house);
+            address1.setFlat(flat);
+            address1.setIndex(index);
+
+            Contact contact = new Contact();
+            contact.setId(id);
+            contact.setFirstName(firstName);
+            contact.setMiddleName(middleName);
+            contact.setLastName(lastName);
+            contact.setSex(sex);
+            contact.setCitizen(citizenship);
+            contact.setSite(site);
+            contact.setStatus(status);
+            contact.setCompany(company);
+            contact.setEmail(email);
+            contact.setBirthday(birthday);
+            contact.setAddress(address1);
             return contact;
         } else {
             return null;
         }
     }
 
-
-
-    public List<Contact> getContactsForBirthday(){
-       List<Contact> birthContacts = contactDAO.getContactsForBirthday();
-       return birthContacts;
-    }
 }

@@ -2,9 +2,6 @@ package command;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by Galina on 13.03.2017.
- */
 public class CommandFactory {
     public Command defineCommand(HttpServletRequest request) {
         Command current = new ErrorCommand();
@@ -16,7 +13,7 @@ public class CommandFactory {
             CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
             current = currentEnum.getCurrentCommand();
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            throw new CommandException("Exception in making new command", e);
         }
         return current;
     }

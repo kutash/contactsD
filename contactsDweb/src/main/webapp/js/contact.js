@@ -305,17 +305,20 @@ window.onload = function () {
         form.submit();
     });
 
-
     var saveBut = document.querySelector(".button-save");
     saveBut.addEventListener("click", function (event) {
         event.preventDefault();
+        console.log("hi");
         var input = document.getElementById("birthday");
         var bool = true;
-        if(input.value) {
-          bool = validate_date(input.value);
+        if (input.value) {
+            bool = validate_date(input.value);
         }
-        if(!bool){
-            alert("Invalid date entered!");
+        if (!bool) {
+            var mod = document.querySelector(".modalVal");
+            var text = document.querySelector(".text");
+            text.innerHTML = "Invalid date!";
+            mod.style.display = "block";
             return false;
         } else {
             var form = document.getElementById('saveForm');
@@ -323,23 +326,22 @@ window.onload = function () {
         }
     });
 
-
+    function validate_date(value) {
+        var arrD = value.split("-");
+        arrD[1] -= 1;
+        var d = new Date(arrD[0], arrD[1], arrD[2]);
+        var today = new Date();
+        if ((d.getFullYear() == arrD[0]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[2]) && (d <= today)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 };
 
 
-function validate_date(value)
-{
-    var arrD = value.split("-");
-    arrD[1] -= 1;
-    var d = new Date(arrD[0], arrD[1], arrD[2]);
-    var today = new Date();
-    if ((d.getFullYear() == arrD[0]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[2]) && (d<=today)) {
-        return true;
-    } else {
-        return false;
-    }
-}
+
 
 
 
