@@ -28,8 +28,6 @@ public class DeleteCommand implements Command {
         logger.info("deleting contacts with id {}", Arrays.toString(chosen));
         for(String c : chosen) {
             long id = Long.parseLong(c);
-            Contact contact = contactService.getById(id);
-            Long idAddress = contact.getAddress().getAddressId();
             try {
                 deletePhoto(id);
                 deleteAttaches(id);
@@ -38,7 +36,7 @@ public class DeleteCommand implements Command {
             }
             contactService.deletePhones(id);
             contactService.deleteContact(id);
-            contactService.deleteAddress(idAddress);
+            contactService.deleteAddress(id);
         }
         return "/my-servlet?command=show";
     }

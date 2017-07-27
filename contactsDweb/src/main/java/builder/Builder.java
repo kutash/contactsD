@@ -42,6 +42,13 @@ public class Builder {
 
     public Contact makeContact(HttpServletRequest request){
         Long id;
+        Long idAddress;
+        String idAddressSt = request.getParameter("idAddress");
+        if (StringUtils.isNotEmpty(idAddressSt)) {
+            idAddress = Long.parseLong(idAddressSt);
+        } else {
+            idAddress = null;
+        }
         String idSt = request.getParameter("idContact");
         if (StringUtils.isNotEmpty(idSt)) {
             id = Long.parseLong(idSt);
@@ -70,7 +77,6 @@ public class Builder {
         String flat = request.getParameter("flat");
         String index = request.getParameter("index");
         String date = request.getParameter("birthday");
-
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = null;
         try {
@@ -87,6 +93,7 @@ public class Builder {
         address1.setHouse(house);
         address1.setFlat(flat);
         address1.setIndex(index);
+        address1.setAddressId(idAddress);
 
         Contact contact = new Contact();
         contact.setId(id);
@@ -106,6 +113,13 @@ public class Builder {
 
     public Contact validateAndMake(HttpServletRequest request){
         Long id;
+        Long idAddress;
+        String idAddressSt = request.getParameter("idAddress");
+        if (StringUtils.isNotEmpty(idAddressSt)) {
+            idAddress = Long.parseLong(idAddressSt);
+        } else {
+            idAddress = null;
+        }
         String idSt = request.getParameter("idContact");
         if (StringUtils.isNotEmpty(idSt)) {
             id = Long.parseLong(idSt);
@@ -179,7 +193,7 @@ public class Builder {
             address1.setHouse(house);
             address1.setFlat(flat);
             address1.setIndex(index);
-
+            address1.setAddressId(idAddress);
             Contact contact = new Contact();
             contact.setId(id);
             contact.setFirstName(firstName);

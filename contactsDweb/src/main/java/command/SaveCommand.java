@@ -23,10 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-
-/**
- * Created by Galina on 14.03.2017.
- */
 public class SaveCommand implements Command {
 
     private Logger logger = LogManager.getLogger(SaveCommand.class);
@@ -41,7 +37,7 @@ public class SaveCommand implements Command {
         this.request = request;
         session= request.getSession();
         session.removeAttribute("isSearch");
-        Contact contact = builder.makeContact(request);
+        Contact contact = builder.validateAndMake(request);
         if (contact==null){
             return "/error.jspx";
         }else {
@@ -52,24 +48,22 @@ public class SaveCommand implements Command {
             try {
                 savePhoto(id);
                 saveAttaches(id);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                throw new CommandException("Exception while saving contact", e);
             }
             return "/my-servlet?command=show";
         }
     }
 
     private void savePhoto(long id) throws IOException, ServletException {
+
         logger.info("saving photo");
         Properties properties = new Properties();
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
         String photoPath = properties.getProperty("AVATARS_PATH")+File.separator+id;
-        File fileSaveDir = null;
+        File fileSaveDir;
 
         Part photoPart = request.getPart("photo");
-
         if (photoPart.getSize()>0){
             fileSaveDir = new File(photoPath);
             if (!fileSaveDir.exists()) {
@@ -99,7 +93,6 @@ public class SaveCommand implements Command {
                 session.removeAttribute("temp_photo_path");
                 File file = new File(pathTemp);
                 FileUtils.moveFileToDirectory(file,fileSaveDir,true);
-
                 photoPath += File.separator + file.getName();
                 contactService.setPhoto(id, photoPath);
             }else {
@@ -107,10 +100,7 @@ public class SaveCommand implements Command {
                 if(path == null) contactService.setPhoto(id,null);
             }
         }
-
-
     }
-
 
     public static void deleteAllFilesFolder(String path) {
         for (File myFile : new File(path).listFiles())
@@ -118,6 +108,7 @@ public class SaveCommand implements Command {
     }
 
     private void saveAttaches(long id) throws IOException {
+
         logger.info("saving attachments");
         List<Attachment> attaches = (List<Attachment>) session.getAttribute("attaches");
         if (attaches != null) {
@@ -131,7 +122,6 @@ public class SaveCommand implements Command {
             if (!saveDir.exists()) {
                 saveDir.mkdirs();
             }
-
             List<String> fileNames = new ArrayList<String>();
             for (Attachment attach : attaches) {
                 fileNames.add(attach.getAttachName());
@@ -141,10 +131,8 @@ public class SaveCommand implements Command {
             String[] tempFiles = tempDir.list();
             for (int i = 0; i < tempFiles.length; i++) {
                 File file = new File(tempDir, tempFiles[i]);
-
                 FileUtils.moveFileToDirectory(file, saveDir, true);
             }
-
 
             List<Attachment> finalList = new ArrayList<Attachment>();
             for (Attachment attachment : attaches) {
@@ -156,14 +144,12 @@ public class SaveCommand implements Command {
                     finalList.add(attachment);
                 }
             }
-
             contactService.setAttaches(id, finalList);
         }
-
     }
 
-
     private void savePhones(Long idContact){
+
         logger.info("saving phones");
         List<Phone> listPhones = builder.makePhone(request, idContact);
         contactService.setPhone(idContact, listPhones);

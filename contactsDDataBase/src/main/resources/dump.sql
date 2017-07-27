@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `contacts`.`address` (
   CONSTRAINT `fk_address_contact1`
     FOREIGN KEY (`contact_id`)
     REFERENCES `contacts`.`contact` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

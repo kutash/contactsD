@@ -101,13 +101,14 @@ public class ContactDAOImpl implements DAO {
     }
 
     public Long setAddress(Contact contact) {
+
         logger.info("saving contact address");
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet generatedKeys = null;
         Address address = contact.getAddress();
         Long idAddress = address.getAddressId();
-
+        System.out.println(idAddress);
         if(idAddress == null) {
             try {
                 connection = source.getConnection();
@@ -244,7 +245,7 @@ public class ContactDAOImpl implements DAO {
         Contact tempContact=null;
         try {
             connection = source.getConnection();
-            statement = connection.prepareStatement("SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.street, `address`.house, `address`.flat, `address`.`index`, `contact`.company FROM `contact` \n" +
+            statement = connection.prepareStatement("SELECT `contact`.id, `contact`.firstName, `contact`.middleName, `contact`.lastName, `contact`.birthday, `contact`.email, `contact`.sex, `contact`.`status`, `contact`.citizenship, `contact`.photo, `contact`.site, `address`.country, `address`.city,`address`.street, `address`.house, `address`.flat, `address`.`index`, `contact`.company, `address`.id_address FROM `contact` \n" +
                     "JOIN `address` ON contact.id=address.contact_id WHERE id = ?");
 
             statement.setLong(1,id);
@@ -269,6 +270,7 @@ public class ContactDAOImpl implements DAO {
                 String house = resultSet.getString("house");
                 String flat = resultSet.getString("flat");
                 String index = resultSet.getString("index");
+                Long idAddress = resultSet.getLong("id_address");
 
                 Address address = new Address();
                 address.setCountry(country);
@@ -277,6 +279,7 @@ public class ContactDAOImpl implements DAO {
                 address.setHouse(house);
                 address.setFlat(flat);
                 address.setIndex(index);
+                address.setAddressId(idAddress);
 
                 tempContact = new Contact();
                 tempContact.setId(contactId);

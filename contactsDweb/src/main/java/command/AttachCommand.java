@@ -28,9 +28,9 @@ public class AttachCommand implements Command {
     private Long idContact = null;
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         logger.info("setting attachments to the session");
         this.request = request;
-
         try {
             properties.load(AttachCommand.class.getResourceAsStream("/attachment.properties"));
         } catch (IOException e) {
@@ -39,9 +39,7 @@ public class AttachCommand implements Command {
         HttpSession session = request.getSession();
         Contact contact = builder.makeContact(request);
         request.setAttribute("contacts", contact);
-
         List<Attachment> attachList = (List<Attachment>) session.getAttribute("attaches");
-
         Map<String,Attachment> attachMap = new HashMap<String, Attachment>();
         if (attachList == null) {
             attachList = new ArrayList<>();
@@ -52,11 +50,9 @@ public class AttachCommand implements Command {
                 }
             }
         }
-
         for (Attachment attach: attachList) {
             attachMap.put(attach.getAttachName(),attach);
         }
-
         String attachButton =  request.getParameter("attachButton");
         Attachment attachment;
         switch (attachButton) {
@@ -101,6 +97,7 @@ public class AttachCommand implements Command {
     }
 
     private Attachment getAttachment(Map<String,Attachment> attachMap){
+
         logger.info("making attachment");
         String savePath = properties.getProperty("TEMP_DIR");
         File attachSaveDir = new File(savePath);

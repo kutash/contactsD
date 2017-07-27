@@ -333,7 +333,7 @@
                               id="popUp_phoneComment" maxlength="100" placeholder="Type your comment..."><jsp:text/></textarea>
                 </div>
                 <div class="submit">
-                    <button type="button" class="cancelPhone">Cancel</button>
+                    <button type="button" class="cancelPhone">Reset</button>
                     <button type="button" class="save_phone submit-button" id="submit-button">Save</button>
                 </div>
             </div>
