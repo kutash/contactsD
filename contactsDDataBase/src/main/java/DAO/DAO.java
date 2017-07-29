@@ -25,27 +25,27 @@ public interface DAO {
 
     void setPhoto(long idContact, String path);
 
-    void deleteContact(Long idContact);
+    void deleteContact(String contacts);
 
     void saveAttaches(Attachment attachment);
 
-    void deleteAddress(Long idAddress);
+    void deleteAddress(String idAddress);
 
     List<Attachment> getAttaches(Long idContact);
 
-    void setAttaches(Long idContact, List<Attachment> attachList);
+    void setAttaches(String idContact, List<Attachment> attachList);
 
-    Attachment getAttach(Long idContact);
+    //Attachment getAttach(Long idContact);
 
-    void deleteAttachment(Long idContact);
+    void deleteAttachment(String idContact);
 
     void savePhone(Phone phone);
 
-    void setPhones(long idContact, List<Phone> phones);
+    void setPhones(String idContact, List<Phone> phones);
 
     List<Phone> getPhones(Long idContact);
 
-    void deletePhones(Long idContact);
+    void deletePhones(String idContact);
 
     List<Contact> searchContacts(Map<String, String> params, int page);
 

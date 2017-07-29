@@ -13,6 +13,8 @@ public class Phone {
     private String phoneType;
     private String comment;
 
+    public Phone(){}
+
     public Phone(Long phoneId, String countryCode, String operatorCode, String phoneNumber, String phoneType, String comment) {
         this.phoneId = phoneId;
         this.countryCode = countryCode;

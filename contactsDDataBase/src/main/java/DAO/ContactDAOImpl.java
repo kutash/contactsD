@@ -349,7 +349,7 @@ public class ContactDAOImpl implements DAO {
         }
     }
 
-    public void deleteContact(Long idContact) {
+    /*public void deleteContact(Long idContact) {
         logger.info("deleting contact with id {}",idContact);
         Connection connection = null;
         PreparedStatement statement = null;
@@ -364,19 +364,35 @@ public class ContactDAOImpl implements DAO {
         } finally {
             close(connection, statement, null);
         }
+    }*/
 
+
+    public void deleteContact(String contacts) {
+        logger.info("deleting contacts");
+        Connection connection = null;
+        Statement statement = null;
+        try {
+            connection = source.getConnection();
+            String sql = "DELETE FROM contact WHERE id IN (" + contacts + ")";
+            statement = connection.createStatement();
+            statement.execute(sql);
+        } catch (SQLException e) {
+
+        } finally {
+            close(connection, statement, null);
+        }
     }
 
-    public void deleteAddress(Long idContact){
-        logger.info("deleting address with id {}",idContact);
+    public void deleteAddress(String contacts){
+        logger.info("deleting address");
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = source.getConnection();
-            String sql = "DELETE FROM address WHERE contact_id = ?";
+            String sql = "DELETE FROM address WHERE contact_id IN (" + contacts + ")";
             statement = connection.prepareStatement(sql);
-            statement.setLong(1,idContact);
-            statement.executeUpdate();
+            //statement.setLong(1,idContact);
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             throw new DAOException("Exception in deleteAddress method", e);
         } finally {
@@ -384,7 +400,7 @@ public class ContactDAOImpl implements DAO {
         }
     }
 
-    public void setAttaches(Long idContact, List<Attachment> attachList){
+    public void setAttaches(String idContact, List<Attachment> attachList){
         deleteAttachment(idContact);
         for (Attachment attachment : attachList){
             saveAttaches(attachment);
@@ -433,10 +449,17 @@ public class ContactDAOImpl implements DAO {
                     Date attachDate = set.getDate("date");
                     String attachPath = set.getString("path");
                     Long idAttach = set.getLong("id_attach");
-                    Attachment attach = new Attachment(idCont,attachName,attachPath,comment,attachDate,idAttach);
-                    listAttaches.add(attach);
-                }
 
+                    Attachment attachment = new Attachment();
+                    attachment.setAttachName(attachName);
+                    attachment.setComment(comment);
+                    attachment.setDate(attachDate);
+                    attachment.setContactId(idCont);
+                    attachment.setAttachId(idAttach);
+                    attachment.setContactId(idContact);
+                    attachment.setAttachPath(attachPath);
+                    listAttaches.add(attachment);
+                }
         } catch (SQLException e) {
             throw new DAOException("Exception in getAttaches method",e);
         }
@@ -446,7 +469,7 @@ public class ContactDAOImpl implements DAO {
         return listAttaches;
     }
 
-    public Attachment getAttach(Long idContact){
+    /*public Attachment getAttach(Long idContact){
         logger.info("getting attachment from contact id {}",idContact);
         Connection connection = null;
         PreparedStatement statement = null;
@@ -466,7 +489,6 @@ public class ContactDAOImpl implements DAO {
                 Long idAttach = set.getLong("id_attach");
                 attach = new Attachment(idCont,attachName,attachPath,comment,attachDate,idAttach);
             }
-
         } catch (SQLException e) {
             throw new DAOException("Exception in getAttach method",e);
         }
@@ -474,18 +496,17 @@ public class ContactDAOImpl implements DAO {
             close(connection,statement,set);
         }
         return attach;
-    }
+    }*/
 
-    public void deleteAttachment(Long idContact) {
-        logger.info("deleting attachment contact id {}",idContact);
+    public void deleteAttachment(String contacts) {
+        logger.info("deleting attachments contacts id {}",contacts);
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = source.getConnection();
-            String sql = "DELETE FROM attachment WHERE contact_id = ?";
+            String sql = "DELETE FROM attachment WHERE contact_id IN (" + contacts + ")";
             statement = connection.prepareStatement(sql);
-            statement.setLong(1,idContact);
-            statement.executeUpdate();
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             throw new DAOException("Exception in deleteAttachment method",e);
         } finally {
@@ -518,23 +539,22 @@ public class ContactDAOImpl implements DAO {
         }
     }
 
-    public void setPhones(long idContact, List<Phone> phones) {
+    public void setPhones(String idContact, List<Phone> phones) {
         deletePhones(idContact);
         for(Phone phone : phones) {
             savePhone(phone);
         }
     }
 
-    public void deletePhones(Long idContact) {
-        logger.info("deleting phones contact id {}",idContact);
+    public void deletePhones(String contacts) {
+        logger.info("deleting phones contacts id {}",contacts);
         Connection connection = null;
         PreparedStatement statement = null;
         try {
             connection = source.getConnection();
-            String sql = "DELETE FROM telephone WHERE contact_id = ?";
+            String sql = "DELETE FROM telephone WHERE contact_id IN (" + contacts + ")";
             statement = connection.prepareStatement(sql);
-            statement.setLong(1,idContact);
-            statement.executeUpdate();
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             throw new DAOException("Exception in deletePhone method",e);
         } finally {
@@ -561,7 +581,15 @@ public class ContactDAOImpl implements DAO {
                 String type = set.getString("kind");
                 String comment = set.getString("comment");
                 Long idCont = set.getLong("contact_id");
-                Phone phone = new Phone(idPhone, countryCode, operatorCode, number, type, comment, idCont);
+
+                Phone phone = new Phone();
+                phone.setPhoneId(idPhone);
+                phone.setContactId(idCont);
+                phone.setComment(comment);
+                phone.setCountryCode(countryCode);
+                phone.setOperatorCode(operatorCode);
+                phone.setPhoneNumber(number);
+                phone.setPhoneType(type);
                 listPhones.add(phone);
             }
         } catch (SQLException e) {

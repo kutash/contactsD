@@ -27,10 +27,16 @@ public class Builder {
                 long i = Long.parseLong(paramName.substring(9));
                 String countryCode = request.getParameter("countryCode"+i);
                 String operatorCode = request.getParameter("operatorCode"+i);
-                String telephone = request.getParameter("telephone"+i);
+                String number = request.getParameter("telephone"+i);
                 String type = request.getParameter("type"+i);
                 String comment = request.getParameter("comment"+i);
-                Phone phone = new Phone(countryCode, operatorCode, telephone, type, comment);
+
+                Phone phone = new Phone();
+                phone.setComment(comment);
+                phone.setCountryCode(countryCode);
+                phone.setOperatorCode(operatorCode);
+                phone.setPhoneNumber(number);
+                phone.setPhoneType(type);
 
                 if (idContact != null)
                     phone.setContactId(idContact);

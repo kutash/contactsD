@@ -14,6 +14,8 @@ public class Attachment {
     private Date date;
     private Long contactId;
 
+    public Attachment(){
+    }
 
     public Attachment(Long contactId, String attachName, String attachPath, String comment, Date date,Long attachId){
         this.contactId=contactId;
@@ -24,7 +26,6 @@ public class Attachment {
         this.attachId=attachId;
     }
 
-
     public Attachment(Long contactId, String attachName, String attachPath, String comment, Date date){
         this.contactId=contactId;
         this.attachName=attachName;
@@ -33,7 +34,6 @@ public class Attachment {
         this.date=date;
 
     }
-
 
     public Attachment(Long contactId, String attachName, String comment, Date date){
         this.contactId=contactId;

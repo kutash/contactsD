@@ -144,14 +144,16 @@ public class SaveCommand implements Command {
                     finalList.add(attachment);
                 }
             }
-            contactService.setAttaches(id, finalList);
+            String idContact = String.valueOf(id);
+            contactService.setAttaches(idContact, finalList);
         }
     }
 
-    private void savePhones(Long idContact){
+    private void savePhones(Long id){
 
         logger.info("saving phones");
-        List<Phone> listPhones = builder.makePhone(request, idContact);
+        List<Phone> listPhones = builder.makePhone(request, id);
+        String idContact = String.valueOf(id);
         contactService.setPhone(idContact, listPhones);
     }
 }

@@ -82,6 +82,7 @@ public class AttachCommand implements Command {
     }
 
     private void deleteAttach(Map<String,Attachment> attachMap){
+
         String [] chosen =  request.getParameterValues("attach_checkbox");
         if(chosen != null) {
             for (String item : chosen) {
@@ -96,7 +97,7 @@ public class AttachCommand implements Command {
         }
     }
 
-    private Attachment getAttachment(Map<String,Attachment> attachMap){
+    private Attachment getAttachment(Map<String,Attachment> attachMap) {
 
         logger.info("making attachment");
         String savePath = properties.getProperty("TEMP_DIR");
@@ -130,7 +131,12 @@ public class AttachCommand implements Command {
         } catch (Exception e){
             throw  new CommandException("Exception in making attachment",e);
         }
-        return new Attachment(idContact, attachName, comment, date);
+        Attachment attachment = new Attachment();
+        attachment.setAttachName(attachName);
+        attachment.setComment(comment);
+        attachment.setDate(date);
+        attachment.setContactId(idContact);
+        return attachment;
     }
 
     private Attachment editAttachment(){
@@ -138,31 +144,39 @@ public class AttachCommand implements Command {
         String attachName = request.getParameter("file_name");
         java.sql.Date date = new java.sql.Date(new Date().getTime());
         String comment = request.getParameter("comment");
-
-        return new Attachment(idContact, attachName, comment, date);
+        Attachment attachment = new Attachment();
+        attachment.setAttachName(attachName);
+        attachment.setComment(comment);
+        attachment.setDate(date);
+        return attachment;
     }
 
-    private void savePhoto() throws IOException, ServletException {
+    private void savePhoto() {
+
         logger.info("saving photo in the temporary directory");
         String photoPath = properties.getProperty("TEMP_PHOTO_DIR");
         File fileSaveDir = new File(photoPath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
-        }
-        Part photoPart = request.getPart("photo");
-        if (photoPart.getSize() !=0){
-            String fileName = "";
-            String contentDisp = photoPart.getHeader("Content-Disposition");
-            String[] items = contentDisp.split(";");
-            for (String s : items) {
-                if (s.trim().startsWith("filename")) {
-                    fileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
-                }
+        try {
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdir();
             }
-            photoPath += File.separator + fileName;
-            photoPart.write(photoPath);
-            HttpSession session = request.getSession();
-            session.setAttribute("temp_photo_path", photoPath);
+            Part photoPart = request.getPart("photo");
+            if (photoPart.getSize() != 0) {
+                String fileName = "";
+                String contentDisp = photoPart.getHeader("Content-Disposition");
+                String[] items = contentDisp.split(";");
+                for (String s : items) {
+                    if (s.trim().startsWith("filename")) {
+                        fileName = s.substring(s.indexOf("=") + 2, s.length() - 1);
+                    }
+                }
+                photoPath += File.separator + fileName;
+                photoPart.write(photoPath);
+                HttpSession session = request.getSession();
+                session.setAttribute("temp_photo_path", photoPath);
+            }
+        } catch (Exception e){
+            throw new CommandException("Exception in savePhoto method",e);
         }
     }
 }

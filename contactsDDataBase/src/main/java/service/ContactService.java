@@ -52,20 +52,18 @@ public class ContactService {
         contactDAO.setPhoto(idContact,path);
     }
 
-    public void deleteContact(Long id) {
-
-        contactDAO.deleteContact(id);
+    public void deleteContact(String contacts) {
+        contactDAO.deleteContact(contacts);
     }
 
-    public void deleteAddress(Long idAddress){
+    public void deleteAddress(String idAddress){
         contactDAO.deleteAddress(idAddress);}
 
     public List<Attachment> getAttaches(Long idContact){
-
         return contactDAO.getAttaches(idContact);
     }
 
-    public void setAttaches(Long idContact, List<Attachment> attachList){
+    public void setAttaches(String idContact, List<Attachment> attachList){
         contactDAO.setAttaches(idContact, attachList);
     }
 
@@ -74,7 +72,7 @@ public class ContactService {
         return contactDAO.getAttach(idContact);
     }*/
 
-    public void deleteAttachment(Long idContact){
+    public void deleteAttachment(String idContact){
 
         contactDAO.deleteAttachment(idContact);
     }
@@ -83,12 +81,12 @@ public class ContactService {
         return contactDAO.getPhones(idContact);
     }
 
-    public void deletePhones(Long idContact){
+    public void deletePhones(String idContact){
 
         contactDAO.deletePhones(idContact);
     }
 
-    public void setPhone(long idContact, List<Phone> phones){
+    public void setPhone(String idContact, List<Phone> phones){
 
         contactDAO.setPhones(idContact, phones);
     }

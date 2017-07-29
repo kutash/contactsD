@@ -71,7 +71,6 @@ public class Contact {
 
     }
 
-
     public Contact(Long id, String firstName, String middleName, String lastName, String email){
         this.id=id;
         this.firstName=firstName;
@@ -80,7 +79,6 @@ public class Contact {
         this.email=email;
 
     }
-
 
     public Long getId() {
         return id;

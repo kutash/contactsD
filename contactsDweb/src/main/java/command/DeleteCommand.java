@@ -25,6 +25,11 @@ public class DeleteCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("isSearch");
         String [] chosen = request.getParameterValues("idContact");
+        String s = "";
+        for (String idContact : chosen){
+            s += idContact+", ";
+        }
+        s = s.substring(0,s.length()-2);
         logger.info("deleting contacts with id {}", Arrays.toString(chosen));
         for(String c : chosen) {
             long id = Long.parseLong(c);
@@ -34,14 +39,16 @@ public class DeleteCommand implements Command {
             } catch (IOException e) {
                 throw new CommandException("Exception in deleting photo or attaches", e);
             }
-            contactService.deletePhones(id);
-            contactService.deleteContact(id);
-            contactService.deleteAddress(id);
         }
+        contactService.deleteAttachment(s);
+        contactService.deletePhones(s);
+        contactService.deleteAddress(s);
+        contactService.deleteContact(s);
         return "/my-servlet?command=show";
     }
 
     private void deletePhoto(long idContact) throws IOException {
+
         logger.info("deleting photo contact id {}", idContact);
         String path = contactService.getPhoto(idContact);
         if (path != null){
@@ -56,11 +63,10 @@ public class DeleteCommand implements Command {
         if (file.isDirectory() && file.exists() && (file.list().length == 0)){
             file.delete();
         }
-
     }
 
     private void deleteAttaches(Long idContact) throws IOException {
-        logger.info("deletiog attachments contact id {}", idContact);
+        logger.info("deleting attachments contact id {}", idContact);
         List<Attachment> attachments = contactService.getAttaches(idContact);
         for (Attachment attachment : attachments) {
             if (attachment != null) {
@@ -79,6 +85,5 @@ public class DeleteCommand implements Command {
         if (file.isDirectory() && (file.list().length == 0)){
             file.delete();
         }
-        contactService.deleteAttachment(idContact);
     }
 }
