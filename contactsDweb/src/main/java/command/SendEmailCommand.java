@@ -22,9 +22,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Galina on 02.04.2017.
- */
+
 public class SendEmailCommand implements Command {
 
     private Logger logger = LogManager.getLogger(SendEmailCommand.class);

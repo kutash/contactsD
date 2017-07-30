@@ -1,8 +1,8 @@
 package command;
 
 
-import builder.Builder;
-import builder.BuilderFactory;
+import utils.Builder;
+import utils.BuilderFactory;
 import model.Attachment;
 import model.Contact;
 import model.Phone;
@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
 import service.ServiceFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +29,10 @@ public class SaveCommand implements Command {
     private Builder builder = BuilderFactory.getBuilder();
     private HttpServletRequest request;
     private HttpSession session;
-
+    private Properties properties = new Properties();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         logger.info("saving contact");
         this.request = request;
         session= request.getSession();
@@ -58,7 +58,6 @@ public class SaveCommand implements Command {
     private void savePhoto(long id) throws IOException, ServletException {
 
         logger.info("saving photo");
-        Properties properties = new Properties();
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
         String photoPath = properties.getProperty("AVATARS_PATH")+File.separator+id;
         File fileSaveDir;
@@ -66,7 +65,10 @@ public class SaveCommand implements Command {
         if (photoPart.getSize()>0){
             fileSaveDir = new File(photoPath);
             if (!fileSaveDir.exists()) {
-                fileSaveDir.mkdirs();
+                boolean created = fileSaveDir.mkdirs();
+                if (!created){
+                    logger.debug("Directory wasn't created");
+                }
             }
             deleteAllFilesFolder(photoPath);
             String fileName = "";
@@ -86,7 +88,10 @@ public class SaveCommand implements Command {
             if (pathTemp != null){
                 fileSaveDir = new File(photoPath);
                 if (!fileSaveDir.exists()) {
-                    fileSaveDir.mkdirs();
+                    boolean created = fileSaveDir.mkdirs();
+                    if (!created){
+                        logger.debug("Directory wasn't created");
+                    }
                 }
                 deleteAllFilesFolder(photoPath);
                 session.removeAttribute("temp_photo_path");
@@ -101,36 +106,54 @@ public class SaveCommand implements Command {
         }
     }
 
-    public static void deleteAllFilesFolder(String path) {
-        for (File myFile : new File(path).listFiles())
-            if (myFile.isFile()) myFile.delete();
+    private void deleteAllFilesFolder(String path) {
+        File[] files = new File(path).listFiles();
+        if (files != null) {
+            for (File myFile : files) {
+                if (myFile.isFile()) {
+                    boolean deleted = myFile.delete();
+                    if (!deleted){
+                        logger.debug("File wasn't deleted");
+                    }
+                }
+            }
+        }
     }
 
+    @SuppressWarnings("unchecked")
     private void saveAttaches(long id) throws IOException {
 
         logger.info("saving attachments");
-        List<Attachment> attaches = (List<Attachment>) session.getAttribute("attaches");
+        List<Attachment> attaches;
+        try {
+            attaches = (List<Attachment>) session.getAttribute("attaches");
+        }catch (ClassCastException e){
+            throw new CommandException("Exception in casting types", e);
+        }
         if (attaches != null) {
-            Properties properties = new Properties();
             properties.load(AttachCommand.class.getResourceAsStream("/attachment.properties"));
             String savePath = properties.getProperty("ATTACH_PATH") + File.separator + id;
             File saveDir = new File(savePath);
             if (!saveDir.exists()) {
-                saveDir.mkdirs();
+                boolean created = saveDir.mkdirs();
+                if (!created){
+                    logger.debug("Directory wasn't created");
+                }
             }
-            List<String> fileNames = new ArrayList<String>();
+            /*List<String> fileNames = new ArrayList<>();
             for (Attachment attach : attaches) {
                 fileNames.add(attach.getAttachName());
-            }
+            }*/
             String path = properties.getProperty("TEMP_DIR");
             File tempDir = new File(path);
             String[] tempFiles = tempDir.list();
-            for (int i = 0; i < tempFiles.length; i++) {
-                File file = new File(tempDir, tempFiles[i]);
-                FileUtils.moveFileToDirectory(file, saveDir, true);
+            if (tempFiles != null) {
+                for (String tempFile : tempFiles) {
+                    File file = new File(tempDir, tempFile);
+                    FileUtils.moveFileToDirectory(file, saveDir, true);
+                }
             }
-
-            List<Attachment> finalList = new ArrayList<Attachment>();
+            List<Attachment> finalList = new ArrayList<>();
             for (Attachment attachment : attaches) {
                 if (attachment.getAttachId() == null) {
                     attachment.setAttachPath(savePath + File.separator + attachment.getAttachName());

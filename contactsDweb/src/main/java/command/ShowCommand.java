@@ -1,4 +1,5 @@
 package command;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,24 +9,18 @@ import org.apache.logging.log4j.Logger;
 import paginator.Paginator;
 import service.ContactService;
 import service.ServiceFactory;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 
-
-/**
- * Created by Galina on 14.03.2017.
- */
 public class ShowCommand implements Command {
 
     private Logger logger = LogManager.getLogger(ShowCommand.class);
     private ContactService contactService = ServiceFactory.getContactService();
-    private HttpSession session;
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         logger.info("showing contacts");
         Boolean isSearch = false;
-        session = request.getSession();
+        HttpSession session = request.getSession();
         session.removeAttribute("attaches");
         session.removeAttribute("temp_photo_path");
         session.removeAttribute("emailContacts");

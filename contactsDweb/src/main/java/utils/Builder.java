@@ -1,4 +1,4 @@
-package builder;
+package utils;
 
 import model.Address;
 import model.Contact;
@@ -211,7 +211,7 @@ public class Builder {
                 java.util.Date birthdayUtil = format.parse(date);
                 birthday = new Date(birthdayUtil.getTime());
             } catch (ParseException e) {
-                throw new ObjectBuilderException("Exception in parsing date",e);
+                throw new UtilException("Exception in parsing date",e);
             }
         } else {
             birthday = null;

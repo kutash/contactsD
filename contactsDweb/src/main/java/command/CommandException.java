@@ -1,11 +1,6 @@
 package command;
 
-public class CommandException extends RuntimeException {
-
-    public CommandException(Exception e) {
-
-        super(e);
-    }
+class CommandException extends RuntimeException {
 
     CommandException(String message, Exception e) {
 

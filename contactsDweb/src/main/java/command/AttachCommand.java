@@ -1,7 +1,7 @@
 package command;
 
-import builder.Builder;
-import builder.BuilderFactory;
+import utils.Builder;
+import utils.BuilderFactory;
 import model.Attachment;
 import model.Contact;
 import model.Phone;
@@ -43,7 +43,7 @@ public class AttachCommand implements Command {
         try {
             attachments = (List<Attachment>) session.getAttribute("attaches");
         }catch (ClassCastException e){
-            throw new CommandException("Exception while casting types", e);
+            throw new CommandException("Exception in casting types", e);
         }
         Map<String,Attachment> attachMap = new HashMap<>();
         if (attachments == null) {

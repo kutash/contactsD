@@ -1,4 +1,4 @@
-package builder;
+package utils;
 
 public class BuilderFactory {
     public static Builder getBuilder(){

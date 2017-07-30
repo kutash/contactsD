@@ -1,9 +1,7 @@
 package command;
 
 import model.Attachment;
-import model.Contact;
 import service.ContactService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -11,7 +9,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ServiceFactory;
@@ -61,12 +58,7 @@ public class DeleteCommand implements Command {
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
         String dirPath = properties.getProperty("AVATARS_PATH")+File.separator+idContact;
         File file = new File(dirPath);
-        if (file.isDirectory() && file.exists() && (file.list().length == 0)){
-            boolean deleted = file.delete();
-            if (!deleted){
-                logger.debug("Empty directory wasn't deleted");
-            }
-        }
+        deleteEmptyFolder(file);
     }
 
     private void deleteAttaches(Long idContact) throws IOException {
@@ -90,10 +82,18 @@ public class DeleteCommand implements Command {
         properties.load(AttachCommand.class.getResourceAsStream("/attachment.properties"));
         String dirPath = properties.getProperty("ATTACH_PATH")+File.separator+idContact;
         File file = new File(dirPath);
-        if (file.isDirectory() && (file.list().length == 0)){
-            boolean deleted = file.delete();
-            if (!deleted){
-                logger.debug("Empty directory wasn't deleted");
+        deleteEmptyFolder(file);
+    }
+
+    private void deleteEmptyFolder(File file){
+        String[] tempFiles = file.list();
+        if (tempFiles != null && file.isDirectory() && file.exists()) {
+            int length = tempFiles.length;
+            if (length == 0) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    logger.debug("Empty directory wasn't deleted");
+                }
             }
         }
     }

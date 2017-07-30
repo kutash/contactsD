@@ -1,8 +1,5 @@
 package paginator;
 
-/**
- * Created by Galina on 10.04.2017.
- */
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -70,7 +67,7 @@ public class Paginator {
         return nextPageActive;
     }
 
-    public void setNextPageActive(boolean nextPageActive) {
+    private void setNextPageActive(boolean nextPageActive) {
         this.nextPageActive = nextPageActive;
     }
 
@@ -78,7 +75,7 @@ public class Paginator {
         return pages;
     }
 
-    public void setPages(Set<Integer> pages) {
+    private void setPages(Set<Integer> pages) {
         this.pages = pages;
     }
 

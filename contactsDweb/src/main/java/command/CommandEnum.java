@@ -1,8 +1,5 @@
 package command;
 
-/**
- * Created by Galina on 13.03.2017.
- */
 public enum CommandEnum {
     SAVE{
         {

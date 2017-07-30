@@ -33,14 +33,14 @@ public class MyServlet extends HttpServlet {
     private Logger logger = LogManager.getLogger(MyServlet.class);
     BirthdayMailing  birthdayMailing = new BirthdayMailing();
 
-    public void init() throws ServletException{
+    /*public void init() throws ServletException{
         try {
             birthdayMailing.startService();
         } catch (Exception e) {
             logger.error("Error in init method", e);
         }
 
-    }
+    }*/
 
     @Override
     public void destroy() {
