@@ -48,8 +48,6 @@ public class EmailCommand implements Command {
                     Contact contact = contactService.getById(id);
                     emailContact.add(contact);
                 }
-
-
                 STGroup group = new STGroupFile("emailTemplates.stg");
                 List<String> templates = new ArrayList<String>();
                 ST st1 = group.getInstanceOf("template1");

@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
 import service.ServiceFactory;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,6 +26,7 @@ public class AttachCommand implements Command {
     private HttpServletRequest request = null;
     private Long idContact = null;
 
+    @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         logger.info("setting attachments to the session");
@@ -39,10 +39,15 @@ public class AttachCommand implements Command {
         HttpSession session = request.getSession();
         Contact contact = builder.makeContact(request);
         request.setAttribute("contacts", contact);
-        List<Attachment> attachList = (List<Attachment>) session.getAttribute("attaches");
-        Map<String,Attachment> attachMap = new HashMap<String, Attachment>();
-        if (attachList == null) {
-            attachList = new ArrayList<>();
+        List<Attachment> attachments;
+        try {
+            attachments = (List<Attachment>) session.getAttribute("attaches");
+        }catch (ClassCastException e){
+            throw new CommandException("Exception while casting types", e);
+        }
+        Map<String,Attachment> attachMap = new HashMap<>();
+        if (attachments == null) {
+            attachments = new ArrayList<>();
             idContact = contact.getId();
             if(idContact != null) {
                 for (Attachment attach : contactService.getAttaches(idContact)) {
@@ -50,7 +55,7 @@ public class AttachCommand implements Command {
                 }
             }
         }
-        for (Attachment attach: attachList) {
+        for (Attachment attach: attachments) {
             attachMap.put(attach.getAttachName(),attach);
         }
         String attachButton =  request.getParameter("attachButton");
@@ -68,14 +73,10 @@ public class AttachCommand implements Command {
             attachMap.put(attachment.getAttachName(), attachment);
             break;
         }
-        try {
-            savePhoto();
-        } catch (Exception e) {
-            throw new CommandException("Exception while saving photo",e);
-        }
+        savePhoto();
         List<Phone> phones = builder.makePhone(request, null);
         request.setAttribute("phones", phones);
-        List<Attachment> finalList = new ArrayList<Attachment>();
+        List<Attachment> finalList = new ArrayList<>();
         finalList.addAll(attachMap.values());
         session.setAttribute("attaches",finalList);
         return "/save.jspx";
@@ -90,7 +91,10 @@ public class AttachCommand implements Command {
                String attachPath = attachment.getAttachPath();
                 File file = new File(attachPath);
                 if (file.canWrite() && file.exists()) {
-                    file.delete();
+                    boolean deleted = file.delete();
+                    if (!deleted){
+                        logger.debug("Attachment wasn't deleted");
+                    }
                 }
                 attachMap.remove(item);
             }
@@ -103,7 +107,10 @@ public class AttachCommand implements Command {
         String savePath = properties.getProperty("TEMP_DIR");
         File attachSaveDir = new File(savePath);
         if (!attachSaveDir.exists()) {
-            attachSaveDir.mkdirs();
+            boolean created = attachSaveDir.mkdirs();
+            if (!created){
+                logger.debug("Directory wasn't created");
+            }
         }
             String attachName = null;
             java.sql.Date date = new java.sql.Date(new Date().getTime());
@@ -136,6 +143,7 @@ public class AttachCommand implements Command {
         attachment.setComment(comment);
         attachment.setDate(date);
         attachment.setContactId(idContact);
+        attachment.setAttachPath(savePath);
         return attachment;
     }
 
@@ -158,7 +166,10 @@ public class AttachCommand implements Command {
         File fileSaveDir = new File(photoPath);
         try {
             if (!fileSaveDir.exists()) {
-                fileSaveDir.mkdir();
+                boolean created = fileSaveDir.mkdir();
+                if (!created){
+                    logger.debug("Directory wasn't created");
+                }
             }
             Part photoPart = request.getPart("photo");
             if (photoPart.getSize() != 0) {

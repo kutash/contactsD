@@ -267,7 +267,7 @@
         </div>
         <div class="div-but">
             <input type="submit" value="save" class="button-save" form="saveForm"/>
-            <input type="submit" value="cancel" class="button-cancel" form="choosen"/>
+            <input type="submit" value="reset" class="button-cancel" form="choosen"/>
         </div>
     </div>
 
@@ -333,7 +333,7 @@
                               id="popUp_phoneComment" maxlength="100" placeholder="Type your comment..."><jsp:text/></textarea>
                 </div>
                 <div class="submit">
-                    <button type="button" class="cancelPhone">Reset</button>
+                    <button type="button" class="cancelPhone">Cancel</button>
                     <button type="button" class="save_phone submit-button" id="submit-button">Save</button>
                 </div>
             </div>

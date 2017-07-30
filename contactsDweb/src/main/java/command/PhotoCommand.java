@@ -49,7 +49,6 @@ public class PhotoCommand implements Command {
                 path = appPath + properties.getProperty("AVATAR");
             }
         }
-
         File file = new File(path);
         int buffSize = Integer.parseInt(properties.getProperty("BUFFER_SIZE"));
 

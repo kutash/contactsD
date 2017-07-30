@@ -65,13 +65,13 @@
                 </div>
                 <div class="cont-div">
                     <label for="letter" class="label">Text:</label>
-                    <textarea rows="15" name="letter" id="textarea" cols="54" class="com"
+                    <textarea rows="15" name="letter" id="textarea" cols="59" class="com"
                               placeholder="Type your letter..."><jsp:text/></textarea>
                 </div>
             </form>
             <div class="div-but">
                 <input type="submit" value="send" class="button-save" form="emailForm"/>
-                <input type="submit" value="cancel" class="button-cancel"/>
+                <input type="submit" value="reset" class="button-cancel"/>
 
             </div>
         </div>

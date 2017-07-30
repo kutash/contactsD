@@ -8,60 +8,58 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
 import service.ServiceFactory;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
 public class CancelCommand implements Command {
 
     private Logger logger = LogManager.getLogger(CancelCommand.class);
     private ContactService contactService = ServiceFactory.getContactService();
-    private HttpSession session;
-    private Properties properties = new Properties();
 
+    @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        logger.info("cancel saving");
-        session = request.getSession();
-        try {
-            properties.load(CancelCommand.class.getResourceAsStream("/attachment.properties"));
-        } catch (IOException e) {
-            throw new CommandException("Exception while loading properties", e);
+        logger.info("reset saving");
+        HttpSession session = request.getSession();
+        if(session.getAttribute("temp_photo_path") != null && session.getAttribute("attaches") != null) {
+            File photoPath = new File(session.getAttribute("temp_photo_path").toString());
+            List<Attachment> attachments;
+            File attachPath;
+            try {
+                attachments = (List<Attachment>) session.getAttribute("attaches");
+            }catch (ClassCastException e){
+                throw new CommandException("Exception while casting types", e);
+            }
+            if (photoPath.canWrite() && photoPath.exists()) {
+                boolean deleted = photoPath.delete();
+                if (!deleted) {
+                    logger.debug("Temporary photo wasn't deleted");
+                }
+            }
+            for (Attachment attachment : attachments) {
+                attachPath = new File(attachment.getAttachPath());
+                if (attachPath.canWrite() && attachPath.exists()) {
+                    boolean deleted = attachPath.delete();
+                    if (!deleted) {
+                        logger.debug("Temporary attaches weren't deleted");
+                    }
+                }
+            }
         }
-        String attachPath = properties.getProperty("TEMP_DIR");
-        String photoPath = properties.getProperty("TEMP_PHOTO_DIR");
-
-        if (StringUtils.isNotEmpty(request.getParameter("idContact"))){
-            session.removeAttribute("attaches");
-            session.removeAttribute("temp_photo_path");
-            session.removeAttribute("isSearch");
-            deleteAllFilesFolder(attachPath);
-            deleteAllFilesFolder(photoPath);
+        session.removeAttribute("attaches");
+        session.removeAttribute("temp_photo_path");
+        session.removeAttribute("isSearch");
+        if (StringUtils.isNotEmpty(request.getParameter("idContact"))) {
             Long contactId = Long.parseLong(request.getParameter("idContact"));
             Contact contact = contactService.getById(contactId);
-            List<Attachment> attachments = contactService.getAttaches(contactId);
+            List<Attachment> attaches = contactService.getAttaches(contactId);
             List<Phone> listPhones = contactService.getPhones(contactId);
             request.setAttribute("phones", listPhones);
-            request.setAttribute("attaches",attachments);
+            request.setAttribute("attaches", attaches);
             request.setAttribute("contacts", contact);
-            return "/save.jspx";
-        } else {
-            deleteAllFilesFolder(attachPath);
-            deleteAllFilesFolder(photoPath);
-            session.removeAttribute("attaches");
-            session.removeAttribute("temp_photo_path");
-            session.removeAttribute("isSearch");
-            return "/save.jspx";
         }
-    }
-
-
-    private static void deleteAllFilesFolder(String path) {
-        for (File myFile : new File(path).listFiles())
-            if (myFile.isFile()) myFile.delete();
+        return "/save.jspx";
     }
 }

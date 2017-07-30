@@ -62,7 +62,6 @@ public class SaveCommand implements Command {
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
         String photoPath = properties.getProperty("AVATARS_PATH")+File.separator+id;
         File fileSaveDir;
-
         Part photoPart = request.getPart("photo");
         if (photoPart.getSize()>0){
             fileSaveDir = new File(photoPath);
@@ -114,11 +113,8 @@ public class SaveCommand implements Command {
         if (attaches != null) {
             Properties properties = new Properties();
             properties.load(AttachCommand.class.getResourceAsStream("/attachment.properties"));
-
             String savePath = properties.getProperty("ATTACH_PATH") + File.separator + id;
-
             File saveDir = new File(savePath);
-
             if (!saveDir.exists()) {
                 saveDir.mkdirs();
             }

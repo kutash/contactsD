@@ -23,13 +23,11 @@ public class DeleteCommand implements Command {
     private Properties properties = new Properties();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
         request.getSession().removeAttribute("isSearch");
         String [] chosen = request.getParameterValues("idContact");
-        String s = "";
-        for (String idContact : chosen){
-            s += idContact+", ";
-        }
-        s = s.substring(0,s.length()-2);
+        String idContacts = Arrays.toString(chosen);
+        idContacts = idContacts.substring(1,idContacts.length()-1);
         logger.info("deleting contacts with id {}", Arrays.toString(chosen));
         for(String c : chosen) {
             long id = Long.parseLong(c);
@@ -40,10 +38,10 @@ public class DeleteCommand implements Command {
                 throw new CommandException("Exception in deleting photo or attaches", e);
             }
         }
-        contactService.deleteAttachment(s);
-        contactService.deletePhones(s);
-        contactService.deleteAddress(s);
-        contactService.deleteContact(s);
+        contactService.deleteAttachment(idContacts);
+        contactService.deletePhones(idContacts);
+        contactService.deleteAddress(idContacts);
+        contactService.deleteContact(idContacts);
         return "/my-servlet?command=show";
     }
 
@@ -54,18 +52,25 @@ public class DeleteCommand implements Command {
         if (path != null){
             File file = new File(path);
             if (file.canWrite() && file.exists()) {
-                file.delete();
+                boolean deleted = file.delete();
+                if (!deleted){
+                    logger.debug("Photo wasn't deleted");
+                }
             }
         }
         properties.load(PhotoCommand.class.getResourceAsStream("/photo.properties"));
         String dirPath = properties.getProperty("AVATARS_PATH")+File.separator+idContact;
         File file = new File(dirPath);
         if (file.isDirectory() && file.exists() && (file.list().length == 0)){
-            file.delete();
+            boolean deleted = file.delete();
+            if (!deleted){
+                logger.debug("Empty directory wasn't deleted");
+            }
         }
     }
 
     private void deleteAttaches(Long idContact) throws IOException {
+
         logger.info("deleting attachments contact id {}", idContact);
         List<Attachment> attachments = contactService.getAttaches(idContact);
         for (Attachment attachment : attachments) {
@@ -74,7 +79,10 @@ public class DeleteCommand implements Command {
                 if (attachPath != null) {
                     File file = new File(attachPath);
                     if (file.canWrite() && file.exists()) {
-                        file.delete();
+                        boolean deleted = file.delete();
+                        if (!deleted){
+                            logger.debug("Attachment wasn't deleted");
+                        }
                     }
                 }
             }
@@ -83,7 +91,10 @@ public class DeleteCommand implements Command {
         String dirPath = properties.getProperty("ATTACH_PATH")+File.separator+idContact;
         File file = new File(dirPath);
         if (file.isDirectory() && (file.list().length == 0)){
-            file.delete();
+            boolean deleted = file.delete();
+            if (!deleted){
+                logger.debug("Empty directory wasn't deleted");
+            }
         }
     }
 }

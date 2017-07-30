@@ -15,14 +15,13 @@ import java.util.regex.Pattern;
 public class Builder {
 
     public List<Phone> makePhone(HttpServletRequest request, Long idContact){
-        List<Phone> phones = new ArrayList<Phone>();
+        List<Phone> phones = new ArrayList<>();
         Enumeration<String> paramNames = request.getParameterNames();
 
         Pattern p = Pattern.compile("telephone\\d+");
         while(paramNames.hasMoreElements()) {
             String paramName = paramNames.nextElement();
             Matcher m = p.matcher(paramName);
-
             if (m.matches()) {
                 long i = Long.parseLong(paramName.substring(9));
                 String countryCode = request.getParameter("countryCode"+i);
@@ -83,14 +82,7 @@ public class Builder {
         String flat = request.getParameter("flat");
         String index = request.getParameter("index");
         String date = request.getParameter("birthday");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date birthday = null;
-        try {
-            java.util.Date birthdayUtil = format.parse(date);
-            birthday = new Date(birthdayUtil.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        java.util.Date birthday = parseDate(date);
 
         Address address1 = new Address();
         address1.setCountry(country);
@@ -183,15 +175,7 @@ public class Builder {
         Matcher m14 = patternFlat.matcher(flat);
 
         if (m1.matches() && (m2.matches() || m22.matches()) && m3.matches() && m4.matches() && (m5.matches() || m55.matches()) && m6.matches() && m7.matches() && m8.matches() && (m9.matches() || m99.matches()) && m10.matches() && (m11.matches() || m111.matches()) && m12.matches() && m13.matches() && m14.matches()) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date birthday = null;
-            try {
-                java.util.Date birthdayUtil = format.parse(date);
-                birthday = new Date(birthdayUtil.getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
+            java.util.Date birthday = parseDate(date);
             Address address1 = new Address();
             address1.setCountry(country);
             address1.setCity(city);
@@ -217,6 +201,22 @@ public class Builder {
         } else {
             return null;
         }
+    }
+
+    private java.util.Date parseDate(String date){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date birthday;
+        if (StringUtils.isNotEmpty(date)) {
+            try {
+                java.util.Date birthdayUtil = format.parse(date);
+                birthday = new Date(birthdayUtil.getTime());
+            } catch (ParseException e) {
+                throw new ObjectBuilderException("Exception in parsing date",e);
+            }
+        } else {
+            birthday = null;
+        }
+        return birthday;
     }
 
 }

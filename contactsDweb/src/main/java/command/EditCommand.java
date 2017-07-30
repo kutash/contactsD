@@ -1,6 +1,5 @@
 package command;
 
-
 import model.Attachment;
 import model.Contact;
 import model.Phone;
@@ -14,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-/**
- * Created by Galina on 17.03.2017.
- */
 public class EditCommand implements Command {
 
     private Logger logger = LogManager.getLogger(EditCommand.class);
