@@ -682,8 +682,9 @@ public class ContactDAOImpl implements DAO {
             s = " and ";
         }
         if (params.get("index") !=null){
+            System.out.println(params.get("index"));
             query.append(s);
-            query.append("'index' like '%");
+            query.append("`index` like '%");
             query.append(params.get("index"));
             query.append("%'");
             s = " and ";

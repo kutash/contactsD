@@ -1,12 +1,12 @@
 package mailing;
 
-
 import command.SendEmailCommand;
 import model.Contact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
 import service.ServiceFactory;
+import utils.EmailSender;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -22,9 +22,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Galina on 05.04.2017.
- */
 public class BirthdayMailing {
 
     private Logger logger = LogManager.getLogger(BirthdayMailing.class);
@@ -70,7 +67,7 @@ public class BirthdayMailing {
                     });
 
 
-                sendEmail(address, theme, letter, properties, sender, session);
+                new EmailSender().sendEmail(address, theme, letter, properties, sender, session);
 
         } catch (IOException e) {
             logger.error("error while sending birthday emails");
@@ -88,31 +85,10 @@ public class BirthdayMailing {
             letter="Сегодня дни рождения у: ";
             int count = 1;
             for (Contact contact : contacts) {
-
                 letter +=count+")"+contact.getFullName()+" ";
                 count++;
             }
         }
         return letter;
-    }
-
-
-    private void sendEmail(String address, String theme, String text, Properties properties, String sender, Session session){
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(sender, properties.getProperty("ADMIN-NAME")));
-            message.addRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(address));
-            message.setSubject(theme);
-            message.setText(text);
-
-            Transport.send(message);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
     }
 }

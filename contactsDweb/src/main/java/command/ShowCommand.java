@@ -17,18 +17,24 @@ public class ShowCommand implements Command {
     private Logger logger = LogManager.getLogger(ShowCommand.class);
     private ContactService contactService = ServiceFactory.getContactService();
 
+    @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         logger.info("showing contacts");
-        Boolean isSearch = false;
+        int targetPage = 1;
+        int pagesCount;
+        int contactsCount;
+        Boolean isSearch;
+        List<Contact> contacts;
+        LinkedHashMap<String, String> params;
         HttpSession session = request.getSession();
         session.removeAttribute("attaches");
         session.removeAttribute("temp_photo_path");
         session.removeAttribute("emailContacts");
-        LinkedHashMap<String, String> params = (LinkedHashMap<String, String>) session.getAttribute("params");
-        List<Contact> contacts;
-        int targetPage = 1;
-        int pagesCount = 0;
-        int contactsCount = 0;
+        try {
+            params = (LinkedHashMap<String, String>) session.getAttribute("params");
+        }catch (ClassCastException e){
+            throw new CommandException("Exception in casting types", e);
+        }
         isSearch = (Boolean) session.getAttribute("isSearch");
         if (isSearch == null) {
             isSearch = false;
@@ -36,24 +42,26 @@ public class ShowCommand implements Command {
         if (!isSearch) {
             contactsCount = contactService.getContactsCount();
             pagesCount = (int) Math.ceil(contactsCount / 10.0);
-        } else if (isSearch) {
+        } else {
             contactsCount = contactService.countForSearch(params);
             pagesCount = (int) Math.ceil(contactsCount / 10.0);
         }
-
         String targetPageParam = request.getParameter("targetPage");
         if (targetPageParam != null) {
-            if (targetPageParam.equals("next")) {
+            switch (targetPageParam) {
+                case "next":
                 targetPage = ((Integer) request.getSession().getAttribute("CURRENT_PAGE")) + 1;
                 if (targetPage > pagesCount) {
                     targetPage = pagesCount;
                 }
-            } else if (targetPageParam.equals("prev")) {
+                break;
+                case "prev":
                 targetPage = ((Integer) request.getSession().getAttribute("CURRENT_PAGE") - 1);
                 if (targetPage < 1) {
                     targetPage = 1;
                 }
-            } else {
+                break;
+                default:
                 try {
                     targetPage = Integer.parseInt(targetPageParam);
                 } catch (NumberFormatException e) {
@@ -69,17 +77,14 @@ public class ShowCommand implements Command {
         }
         if (!isSearch) {
             contacts = contactService.getCont(targetPage);
-
         } else {
             contacts = contactService.searchContacts(params, targetPage);
             request.setAttribute("criteries", params);
         }
-
         request.setAttribute("CONTACTS_COUNT", contactsCount);
         request.setAttribute("PAGINATOR", Paginator.getPaginator(targetPage, pagesCount));
         request.getSession().setAttribute("CURRENT_PAGE", targetPage);
         request.getSession().setAttribute("contact", contacts);
-
         return "/show.jspx";
     }
 }
