@@ -156,12 +156,13 @@
                 <input type="email" value="${contacts.email}" pattern="^([-._'a-z0-9])+(\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$"
                        maxlength="60"  class="input-txt" id="email" name="email" placeholder="Enter email" required="required"/>
             </div>
-
+            <span class="err">${validations.email}</span>
             <div class="inp-div">
                 <label class="label" for="company">Company:</label>
                 <input type="text" value="${contacts.company}" pattern="(\s)*([a-z]|[A-Z]|[а-я]|[А-Я])+(\s)?([a-z]|[A-Z]|[а-я]|[А-Я])*(\s)*" class="input-txt"
                        maxlength="40"  id="company" name="company" placeholder="Enter company"/>
             </div>
+            <span class="err">${validations.company}</span>
 
             <input type="hidden" name="idAddress" value="${contacts.address.addressId}"/>
             <h2>Address</h2>

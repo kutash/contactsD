@@ -1,4 +1,4 @@
-package paginator;
+package utils;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -11,16 +11,15 @@ public class Paginator {
     private int currentPage;
     private int totalPages;
 
-    private final int MAX_PAGES = 9;
-
     private Paginator(int targetPage, int totalPages) {
+
         this.totalPages = totalPages;
         currentPage = targetPage;
         if (targetPage == 1) {
-            setPrevPageActive(false);
+            setPrevPageActive();
         }
         if (targetPage == totalPages) {
-            setNextPageActive(false);
+            setNextPageActive();
         }
         setPages(getPages(targetPage, totalPages));
     }
@@ -30,7 +29,9 @@ public class Paginator {
     }
 
     private Set<Integer> getPages(int targetPage, int totalPages) {
-        Set<Integer> pagesList = new TreeSet<Integer>();
+
+        final int MAX_PAGES = 9;
+        Set<Integer> pagesList = new TreeSet<>();
         if (totalPages < MAX_PAGES + 1) {
             for (int i = 1; i <= totalPages; i++) {
                 pagesList.add(i);
@@ -59,16 +60,16 @@ public class Paginator {
         return prevPageActive;
     }
 
-    public void setPrevPageActive(boolean prevPageActive) {
-        this.prevPageActive = prevPageActive;
+    private void setPrevPageActive() {
+        this.prevPageActive = false;
     }
 
     public boolean isNextPageActive() {
         return nextPageActive;
     }
 
-    private void setNextPageActive(boolean nextPageActive) {
-        this.nextPageActive = nextPageActive;
+    private void setNextPageActive() {
+        this.nextPageActive = false;
     }
 
     public Set<Integer> getPages() {

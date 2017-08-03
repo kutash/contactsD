@@ -413,5 +413,6 @@ td {
  }
 
  .err {
-     border-color: red;
+     color: red;
+     margin-left: 150px;
  }

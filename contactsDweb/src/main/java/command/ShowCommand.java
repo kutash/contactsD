@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import model.Contact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import paginator.Paginator;
+import utils.Paginator;
 import service.ContactService;
 import service.ServiceFactory;
 import java.util.LinkedHashMap;

@@ -174,10 +174,6 @@
             </ul>
         </c:if>
     </div>
-
-
-
-
         <input type="hidden" id="emailMessage" value="${message}"/>
     </div>
     </body>

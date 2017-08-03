@@ -1,50 +1,46 @@
-.nav{
+.nav {
     background-color: #30adc7;
     height: 110px;
-
 }
 
-ul li{
+ul li {
     display: inline-block;
-    padding-right:  20px;
-    padding-left: 10px;
     float: left;
-    padding-top: 35px;
-    padding-bottom: 20px;
-
+    padding: 35px 20px 20px 10px;
 }
 
-li > a{
+li > a {
     font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
 }
 
-li > a:hover{
+li > a:hover {
     opacity: 0.7;
 }
 
-.edit-hr{
+.edit-hr {
     font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
 }
+
 .edit-href {
     text-decoration: none;
     color: black;
 }
 
-.label{
+.label {
     font-size: 20px;
-    font-family: "Arial Black";
+    font-family: "Arial Black", serif;
     color: black;
 }
 
-.small-label{
+.small-label {
     font-size: 15px;
-    font-family: Broadway;
+    font-family: Broadway, serif;
     color: black;
 }
 
@@ -53,13 +49,14 @@ li > a:hover{
     width: 400px;
     background-color: whitesmoke;
 }
+
 .small-input {
     width: 400px;
     height: 25px;
     border:solid 1px lightgray;
 }
 
-.button-save{
+.button-save {
     border: 1px solid #888888;
     font-size: 2.0rem;
     height: 60px;
@@ -72,11 +69,11 @@ li > a:hover{
     font-family: TREBUCHET MS, serif;
 }
 
-.button-save:hover{
+.button-save:hover {
     opacity: 0.7;
 }
 
-.button-cancel{
+.button-cancel {
     border: 1px solid #888888;
     font-size: 2.0rem;
     height: 60px;
@@ -89,11 +86,11 @@ li > a:hover{
     font-family: TREBUCHET MS, serif;;
 }
 
-.button-cancel:hover{
+.button-cancel:hover {
     opacity: 0.7;
 }
 
-.div-but{
+.div-but {
     width: 350px;
     padding-left: 22%;
     padding-top: 30px;
@@ -101,12 +98,12 @@ li > a:hover{
 
 .content {
     padding-top: 50px;
-    margin: 0px auto;
+    margin: auto;
     width: 600px;
     padding-bottom: 30px;
 }
 
-.cont-div{
+.cont-div {
     margin-bottom: 5px;
     overflow: hidden;
     padding-bottom: 5px;
@@ -118,26 +115,28 @@ li > a:hover{
     width: 450px;
     background-color: whitesmoke;
     line-height: 19px;
-    padding: 0px 5px;
+    padding: 5px;
     border: 1px solid lightgray;
 }
-.cont-div select{
+
+.cont-div select {
     float: right;
     height: 30px;
     width: 450px;
     background-color: whitesmoke;
     line-height: 19px;
-    padding: 0px 5px;
+    padding: 5px;
     border: 1px solid lightgray;
 }
 
 .cont-div textarea {
     float: right;
-    padding: 0px 5px;
+    padding:5px;
     border: 1px solid lightgray;
+    margin-top: 5px;
 }
 
-.submit-button{
+.submit-button {
     border: 1px solid #888888;
     font-size: 1.5rem;
     background-color:#30adc7;
@@ -146,16 +145,16 @@ li > a:hover{
     cursor: pointer;
 }
 
-.submit-button:hover{
+.submit-button:hover {
     opacity: 0.7;
 }
 
-.error-img{
+.error-img {
     padding-left: 450px;
     padding-top: 80px;
 }
 
-.button-error{
+.button-error {
     color: white;
     background-color: black;
     margin-left: 42%;
@@ -164,23 +163,23 @@ li > a:hover{
     font-size:50px;
 }
 
-.button-error:hover{
+.button-error:hover {
     opacity: 0.7;
 }
 
 .searchForm {
     padding-top: 30px;
-    margin: 0px auto;
+    margin: auto;
     width: 700px;
     padding-bottom: 20px;
 }
 
-h2{
+h2 {
     padding-left: 40%;
     color: black;
 }
 
-.div-but2{
+.div-but2 {
     width: 350px;
     padding-left: 37%;
     padding-top: 30px;

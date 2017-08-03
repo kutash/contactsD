@@ -109,98 +109,45 @@ public class Builder {
         return contact;
     }
 
-    public Contact validateAndMake(HttpServletRequest request){
-        Long id;
-        Long idAddress;
-        String idAddressSt = request.getParameter("idAddress");
-        if (StringUtils.isNotEmpty(idAddressSt)) {
-            idAddress = Long.parseLong(idAddressSt);
-        } else {
-            idAddress = null;
-        }
-        String idSt = request.getParameter("idContact");
-        if (StringUtils.isNotEmpty(idSt)) {
-            id = Long.parseLong(idSt);
-        } else {
-            id = null;
-        }
-        String firstName = request.getParameter("firstName").trim();
-        String middleName = request.getParameter("middleName").trim();
-        String lastName = request.getParameter("lastName").trim();
-        String sex = request.getParameter("sex").trim();
-        if (sex.equals("")){
-             sex = null;
-        }
-        String citizenship = request.getParameter("citizenship").trim();
-        String status = request.getParameter("status");
-        if (status.equals("")){
-            status=null;
-        }
-        String site = request.getParameter("site").trim();
-        String email = request.getParameter("email").trim();
-        String company = request.getParameter("company").trim();
-        String country = request.getParameter("country").trim();
-        String city = request.getParameter("city").trim();
-        String street = request.getParameter("street").trim();
-        String house = request.getParameter("house").trim();
-        String flat = request.getParameter("flat").trim();
-        String index = request.getParameter("index").trim();
-        String date = request.getParameter("birthday").trim();
+    public Map<String, String> validateAndMake(Contact contact){
 
         Pattern patternNull = Pattern.compile("");
-        Pattern patternFlat = Pattern.compile("\\d*([a-z]|[A-Z])?");
+        Pattern patternFlat = Pattern.compile("^[a-zA-Z][a-zA-Z0-9-\\.\\/]{1,45}$");
         Pattern patternName = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])+");
-        Pattern patternDate = Pattern.compile("(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))");
         Pattern patternEmail = Pattern.compile("^([-._'a-z0-9])+(\\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
         Pattern patternSite = Pattern.compile("^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$");
-        Pattern patternIndex = Pattern.compile("\\d*");
-        Pattern patternCompany = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я])+(\\s)?([a-z]|[A-Z]|[а-я]|[А-Я])*");
-        Matcher m1 = patternName.matcher(firstName);
+        Pattern patternIndex = Pattern.compile("\\d{1,45}");
+        Pattern patternCompany = Pattern.compile("^[a-zA-Z][a-zA-Z0-9-_\\.\\s]{0,45}$");
+        /*Matcher m1 = patternName.matcher(firstName);
         Matcher m2 = patternName.matcher(middleName);
         Matcher m22 = patternNull.matcher(middleName);
         Matcher m3 = patternName.matcher(lastName);
-        Matcher m4 = patternName.matcher(citizenship);
-        Matcher m5 = patternNull.matcher(company);
-        Matcher m55 = patternCompany.matcher(company);
-        Matcher m6 = patternName.matcher(street);
+        Matcher m4 = patternName.matcher(citizenship);*/
+        Matcher companyMatcher = patternCompany.matcher(contact.getCompany());
+        /*Matcher m6 = patternName.matcher(street);
         Matcher m7 = patternName.matcher(country);
-        Matcher m8 = patternName.matcher(city);
-        Matcher m9 = patternDate.matcher(date);
-        Matcher m99 = patternNull.matcher(date);
-        Matcher m10 = patternEmail.matcher(email);
-        Matcher m11 = patternSite.matcher(site);
+        Matcher m8 = patternName.matcher(city);*/
+        Matcher emailMathcer = patternEmail.matcher(contact.getEmail());
+        /*Matcher m11 = patternSite.matcher(site);
         Matcher m111 = patternNull.matcher(site);
         Matcher m12 = patternIndex.matcher(index);
         Matcher m13 = patternFlat.matcher(house);
-        Matcher m14 = patternFlat.matcher(flat);
+        Matcher m14 = patternFlat.matcher(flat);*/
 
-        if (m1.matches() && (m2.matches() || m22.matches()) && m3.matches() && m4.matches() && (m5.matches() || m55.matches()) && m6.matches() && m7.matches() && m8.matches() && (m9.matches() || m99.matches()) && m10.matches() && (m11.matches() || m111.matches()) && m12.matches() && m13.matches() && m14.matches()) {
-            java.util.Date birthday = parseDate(date);
-            Address address1 = new Address();
-            address1.setCountry(country);
-            address1.setCity(city);
-            address1.setStreet(street);
-            address1.setHouse(house);
-            address1.setFlat(flat);
-            address1.setIndex(index);
-            address1.setAddressId(idAddress);
-            Contact contact = new Contact();
-            contact.setId(id);
-            contact.setFirstName(firstName);
-            contact.setMiddleName(middleName);
-            contact.setLastName(lastName);
-            contact.setSex(sex);
-            contact.setCitizen(citizenship);
-            contact.setSite(site);
-            contact.setStatus(status);
-            contact.setCompany(company);
-            contact.setEmail(email);
-            contact.setBirthday(birthday);
-            contact.setAddress(address1);
-            return contact;
-        } else {
-            return null;
+        Map<String, String> map = new HashMap<>();
+        if (!companyMatcher.matches()){
+            map.put("company", "Allowable characters: letters, digits, spaces, dash, underscore!");
         }
+        if (!emailMathcer.matches()){
+            map.put("email", "Invalid email!");
+        }
+        return map;
+
+    }
+
+    private boolean checkBirthday(java.util.Date birthday) {
+        java.util.Date now = new java.util.Date();
+        return !birthday.after(now);
     }
 
     private java.util.Date parseDate(String date){

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class SaveCommand implements Command {
@@ -37,9 +38,12 @@ public class SaveCommand implements Command {
         this.request = request;
         session= request.getSession();
         session.removeAttribute("isSearch");
-        Contact contact = builder.validateAndMake(request);
-        if (contact==null){
-            return "/error.jspx";
+        Contact contact = builder.makeContact(request);
+        Map<String, String> map = builder.validateAndMake(contact);
+        if (map.size()!=0){
+            request.setAttribute("contacts", contact);
+            request.setAttribute("validations", map);
+            return "/save.jspx";
         }else {
             Long id = contactService.setContact(contact);
             contact.setId(id);

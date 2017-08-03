@@ -1,13 +1,9 @@
 package controller;
 
-
-
 import command.*;
 import mailing.BirthdayMailing;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,13 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-
-
-
-/**
- * Created by Galina on 13.03.2017.
- */
 @WebServlet(value = "/m")
 @MultipartConfig(fileSizeThreshold=1024*1024*2,
         maxFileSize=1024*1024*10,
@@ -31,16 +20,16 @@ import java.io.IOException;
 public class MyServlet extends HttpServlet {
 
     private Logger logger = LogManager.getLogger(MyServlet.class);
-    BirthdayMailing  birthdayMailing = new BirthdayMailing();
+    private BirthdayMailing  birthdayMailing = new BirthdayMailing();
 
-    /*public void init() throws ServletException{
+    public void init() throws ServletException{
         try {
             birthdayMailing.startService();
         } catch (Exception e) {
             logger.error("Error in init method", e);
         }
 
-    }*/
+    }
 
     @Override
     public void destroy() {
@@ -68,8 +57,6 @@ public class MyServlet extends HttpServlet {
             if (page != null) {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
                 dispatcher.forward(request, response);
-            } else {
-
             }
         } catch (Exception e) {
             logger.error("Error in processRequest method", e);
