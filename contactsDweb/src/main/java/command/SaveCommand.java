@@ -39,7 +39,7 @@ public class SaveCommand implements Command {
         session= request.getSession();
         session.removeAttribute("isSearch");
         Contact contact = builder.makeContact(request);
-        Map<String, String> map = builder.validateAndMake(contact);
+        Map<String, String> map = builder.validateContact(contact);
         if (map.size()!=0){
             request.setAttribute("contacts", contact);
             request.setAttribute("validations", map);

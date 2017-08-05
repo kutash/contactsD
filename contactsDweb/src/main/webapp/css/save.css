@@ -186,12 +186,12 @@ li > a{
     opacity: 0.7;
 }
 
-.container div {
+/*.container div {
     margin: 1rem 0;
     font-size: 1rem;
     color: gray;
 
-}
+}*/
 
 .modalPones {
     width: 600px;
@@ -308,7 +308,7 @@ li > a{
 .inp-div{
     margin-bottom: 5px;
     overflow: hidden;
-
+    margin-top:15px;
 }
 
 .inp-div input {

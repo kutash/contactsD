@@ -308,12 +308,11 @@ window.onload = function () {
     var saveBut = document.querySelector(".button-save");
     saveBut.addEventListener("click", function (event) {
         event.preventDefault();
-        console.log("hi");
         var input = document.getElementById("birthday");
         var bool = true;
-        if (input.value) {
+        /*if (input.value) {
             bool = validate_date(input.value);
-        }
+        }*/
         if (!bool) {
             var mod = document.querySelector(".modalVal");
             var text = document.querySelector(".text");
