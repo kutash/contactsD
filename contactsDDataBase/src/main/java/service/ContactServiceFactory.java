@@ -1,9 +1,8 @@
 package service;
 
-public class ServiceFactory {
+public class ContactServiceFactory {
 
         public static ContactService getContactService(){
-
             return new ContactService();
         }
 }

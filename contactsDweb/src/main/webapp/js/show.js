@@ -1,13 +1,8 @@
-/**
- * Created by Galina on 03.04.2017.
- */
-
 
 window.onload = function () {
 
-
-    var modalButton = document.querySelector(".edit-but");
-    modalButton.addEventListener("click", function (event) {
+    var modalButtonEdit = document.querySelector(".edit-but");
+    modalButtonEdit.addEventListener("click", function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'edit';
@@ -23,22 +18,22 @@ window.onload = function () {
         form.submit();
     });
 
-
-
-
-    var modalButton = document.querySelector(".delete-but");
-    modalButton.addEventListener("click", function (event) {
+    var modalButtonDelete = document.querySelector(".delete-but");
+    modalButtonDelete.addEventListener("click", function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'delete';
-        /*form.mode.value = 'delete';*/
         if (countCont() > 0) {
-            form.submit();
+            var doDelete = confirm("Are you sure you want to delete this contacts?");
+            if(doDelete == false) {
+                event.preventDefault();
+            }else {
+                form.submit();
+            }
         } else {
             alert("Choose contacts");
         }
     });
-
 
     var modalButton = document.querySelector(".email-but");
     modalButton.addEventListener("click", function (event) {
@@ -50,10 +45,9 @@ window.onload = function () {
 
     });
 
-
     function countCont() {
         "use strict";
-        var checkboxes = document.getElementsByName("idContact")
+        var checkboxes = document.getElementsByName("idContact");
         var length = checkboxes.length;
         var count = 0;
         for (var i = 0; i < length; i++)
@@ -61,51 +55,13 @@ window.onload = function () {
         return count;
     }
 
-
-    /*var modalButton = document.querySelector(".next");
-    modalButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        var form = document.getElementById("showForm");
-        form.command.value="show";
-        if( form.currentPage.value < form.currentPage.max){
-            form.currentPage.value ++ ;
-            form.submit();
-        }
-    });
-
-
-
-    var modalButton = document.querySelector(".prev");
-    modalButton.addEventListener("click", function (event) {
-        event.preventDefault();
-        var form = document.getElementById("showForm");
-        form.command.value="show";
-        if( form.currentPage.value > 1) {
-            form.currentPage.value -- ;
-            form.submit();
-        }
-    });
-
-
-    var modalButton = document.querySelector(".str");
-    modalButton.addEventListener("change", function (event) {
-        event.preventDefault();
-        var form = document.getElementById("showForm");
-        form.command.value="show";
-        form.submit();
-    });*/
-
-
-
-
-
 };
 
-    window.addEventListener("load", function (event) {
-        event.preventDefault();
-        var message = document.getElementById("emailMessage").value;
-        if(message !== "")  alert(message);
-    });
+window.addEventListener("load", function (event) {
+    event.preventDefault();
+    var message = document.getElementById("emailMessage").value;
+    if(message !== "")  alert(message);
+});
 
 
 

@@ -1,14 +1,13 @@
 package command;
 
+import service.AttachmentService;
+import service.AttachmentServiceFactory;
 import utils.Builder;
-import utils.BuilderFactory;
 import model.Attachment;
 import model.Contact;
 import model.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.ContactService;
-import service.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,8 +20,8 @@ public class AttachCommand implements Command {
 
     private Logger logger = LogManager.getLogger(AttachCommand.class);
     private Properties properties = new Properties();
-    private ContactService contactService = ServiceFactory.getContactService();
-    private Builder builder = BuilderFactory.getBuilder();
+    private AttachmentService attachmentService = AttachmentServiceFactory.getAttachmentService();
+    private Builder builder = new Builder();
     private HttpServletRequest request = null;
     private Long idContact = null;
 
@@ -50,7 +49,7 @@ public class AttachCommand implements Command {
             attachments = new ArrayList<>();
             idContact = contact.getId();
             if(idContact != null) {
-                for (Attachment attach : contactService.getAttaches(idContact)) {
+                for (Attachment attach : attachmentService.getAttaches(idContact)) {
                     attachMap.put(attach.getAttachName(),attach);
                 }
             }

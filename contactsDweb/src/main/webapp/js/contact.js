@@ -1,7 +1,3 @@
-/**
- * Created by Galina on 19.03.2017.
- */
-
 
 function previewFile() {
     var preview = document.getElementById('image');
@@ -19,7 +15,6 @@ function previewFile() {
     }
 }
 
-
 window.onload = function () {
 
     var modalButton = document.querySelector(".show-modal");
@@ -35,7 +30,6 @@ window.onload = function () {
         form.attachButton.value = 'add';
     });
 
-
     var closeButtons = document.querySelectorAll(".cancel");
     for (var i = 0, length = closeButtons.length; i < length; i++) {
         var btn = closeButtons[i];
@@ -47,7 +41,6 @@ window.onload = function () {
             modalWindow.style.display = "none";
         });
     }
-
 
     var submitButton = document.querySelector(".submit-button");
     submitButton.addEventListener("click", function (event) {
@@ -64,7 +57,6 @@ window.onload = function () {
         modalWindow.style.display = "none";
     });
 
-
     var deleteButton = document.querySelector(".delete_attach");
     deleteButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -74,7 +66,6 @@ window.onload = function () {
         form.submit();
 
     });
-
 
     var editButton = document.querySelector(".edit_attach");
     editButton.addEventListener("click", function (event) {
@@ -102,13 +93,8 @@ window.onload = function () {
 
     });
 
-
-
-
     var rowCount = 0;
     var flag = 0;
-
-
 
     var phoneShow = document.querySelector(".show-modalphone");
     phoneShow.addEventListener("click", function (event) {
@@ -117,8 +103,6 @@ window.onload = function () {
         var modalWindow = document.querySelector(".modalPones");
         modalWindow.style.display = "block";
     });
-
-
 
     var phoneSubmit = document.querySelector(".save_phone");
     phoneSubmit.addEventListener("click", function (event) {
@@ -180,8 +164,6 @@ window.onload = function () {
         }
     });
 
-
-
     var phoneEdit = document.querySelector(".edit");
     phoneEdit.addEventListener("click", function (event) {
         event.preventDefault();
@@ -212,19 +194,15 @@ window.onload = function () {
 
     });
 
-
-
     function phoneCount() {
         "use strict";
-        var checkboxes = document.getElementsByName("phone_checkbox")
+        var checkboxes = document.getElementsByName("phone_checkbox");
         var length = checkboxes.length;
         var count = 0;
         for (var i = 0; i < length; i++)
             if (checkboxes[i].checked) count++;
         return count;
     }
-
-
 
     var phoneDelete = document.querySelector(".delete_phone");
     phoneDelete.addEventListener("click", function (event) {
@@ -237,8 +215,6 @@ window.onload = function () {
             }
         }
     });
-
-
 
     var phoneClose = document.querySelectorAll(".cancelPhone");
     for (var j = 0, length2 = phoneClose.length; j < length2; j++) {
@@ -257,8 +233,6 @@ window.onload = function () {
         });
     }
 
-
-
     var modalButton1 = document.querySelector(".delete-but");
     modalButton1.addEventListener("click", function (event) {
         event.preventDefault();
@@ -267,12 +241,15 @@ window.onload = function () {
             alert("You must choose valid contact");
             return false;
         }
-        form.command.value = 'delete';
-        form.idChosen.value = '';
-        form.submit();
-
+        var doDelete = confirm("Are you sure you want to delete this contacts?");
+        if(doDelete == false) {
+            event.preventDefault();
+        }else {
+            form.command.value = 'delete';
+            form.idChosen.value = '';
+            form.submit();
+        }
     });
-
 
     var emailButton = document.querySelector(".email-but");
     emailButton.addEventListener("click", function (event) {
@@ -284,7 +261,6 @@ window.onload = function () {
 
     });
 
-
     function countCont() {
         "use strict";
         var checkboxes = document.getElementsByName("idContact");
@@ -294,7 +270,6 @@ window.onload = function () {
             if (checkboxes[i].checked) count++;
         return count;
     }
-
 
     var cancelButton = document.querySelector(".button-cancel");
     cancelButton.addEventListener("click", function (event) {
@@ -310,14 +285,11 @@ window.onload = function () {
         event.preventDefault();
         var input = document.getElementById("birthday");
         var bool = true;
-        /*if (input.value) {
+        if (input.value) {
             bool = validate_date(input.value);
-        }*/
+        }
         if (!bool) {
-            var mod = document.querySelector(".modalVal");
-            var text = document.querySelector(".text");
-            text.innerHTML = "Invalid date!";
-            mod.style.display = "block";
+            alert("Invalid date");
             return false;
         } else {
             var form = document.getElementById('saveForm');
@@ -330,11 +302,7 @@ window.onload = function () {
         arrD[1] -= 1;
         var d = new Date(arrD[0], arrD[1], arrD[2]);
         var today = new Date();
-        if ((d.getFullYear() == arrD[0]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[2]) && (d <= today)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (d.getFullYear() == arrD[0]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[2]) && (d <= today);
     }
 
 };

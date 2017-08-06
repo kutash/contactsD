@@ -1,11 +1,11 @@
 package command;
 
+import service.ContactServiceFactory;
 import utils.FileLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
-import service.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,7 +16,7 @@ import java.util.Properties;
 public class PhotoCommand implements Command {
 
     private Logger logger = LogManager.getLogger(PhotoCommand.class);
-    private ContactService contactService = ServiceFactory.getContactService();
+    private ContactService contactService = ContactServiceFactory.getContactService();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 

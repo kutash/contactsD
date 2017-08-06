@@ -5,7 +5,7 @@ import model.Contact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
-import service.ServiceFactory;
+import service.ContactServiceFactory;
 import utils.EmailSender;
 import javax.mail.Session;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class BirthdayMailing {
 
     private Logger logger = LogManager.getLogger(BirthdayMailing.class);
-    private ContactService contactService = ServiceFactory.getContactService();
+    private ContactService contactService = ContactServiceFactory.getContactService();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public void startService() {
@@ -57,7 +57,7 @@ public class BirthdayMailing {
     private String makeLetter(){
         List<Contact> contacts = contactService.getContactsForBirthday();
         String letter;
-        if (contacts.size()==0){
+        if (contacts.size() == 0){
             letter = "Некого поздравлять.";
         } else {
             letter="Сегодня дни рождения у: ";

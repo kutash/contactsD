@@ -1,7 +1,7 @@
 package command;
 
 import model.Attachment;
-import service.ContactService;
+import service.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.ServiceFactory;
 
 public class DeleteCommand implements Command {
 
-    private ContactService contactService = ServiceFactory.getContactService();
     private Logger logger = LogManager.getLogger(DeleteCommand.class);
     private Properties properties = new Properties();
+    private ContactService contactService = ContactServiceFactory.getContactService();
+    private AttachmentService attachmentService = AttachmentServiceFactory.getAttachmentService();
+    private PhoneService phoneService = PhoneServiceFactory.getPhoneService();
+    private AddressService addressService = AddressServiceFactory.getAddressService();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -35,9 +37,9 @@ public class DeleteCommand implements Command {
                 throw new CommandException("Exception in deleting photo or attaches", e);
             }
         }
-        contactService.deleteAttachment(idContacts);
-        contactService.deletePhones(idContacts);
-        contactService.deleteAddress(idContacts);
+        attachmentService.deleteAttachment(idContacts);
+        phoneService.deletePhones(idContacts);
+        addressService.deleteAddress(idContacts);
         contactService.deleteContact(idContacts);
         return "/my-servlet?command=show";
     }
@@ -64,7 +66,7 @@ public class DeleteCommand implements Command {
     private void deleteAttaches(Long idContact) throws IOException {
 
         logger.info("deleting attachments contact id {}", idContact);
-        List<Attachment> attachments = contactService.getAttaches(idContact);
+        List<Attachment> attachments = attachmentService.getAttaches(idContact);
         for (Attachment attachment : attachments) {
             if (attachment != null) {
                 String attachPath = attachment.getAttachPath();

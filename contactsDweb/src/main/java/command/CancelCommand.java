@@ -6,8 +6,7 @@ import model.Phone;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.ContactService;
-import service.ServiceFactory;
+import service.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,7 +16,9 @@ import java.util.List;
 public class CancelCommand implements Command {
 
     private Logger logger = LogManager.getLogger(CancelCommand.class);
-    private ContactService contactService = ServiceFactory.getContactService();
+    private ContactService contactService = ContactServiceFactory.getContactService();
+    private AttachmentService attachmentService = AttachmentServiceFactory.getAttachmentService();
+    private PhoneService phoneService = PhoneServiceFactory.getPhoneService();
 
     @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -54,8 +55,8 @@ public class CancelCommand implements Command {
         if (StringUtils.isNotEmpty(request.getParameter("idContact"))) {
             Long contactId = Long.parseLong(request.getParameter("idContact"));
             Contact contact = contactService.getById(contactId);
-            List<Attachment> attaches = contactService.getAttaches(contactId);
-            List<Phone> listPhones = contactService.getPhones(contactId);
+            List<Attachment> attaches = attachmentService.getAttaches(contactId);
+            List<Phone> listPhones = phoneService.getPhones(contactId);
             request.setAttribute("phones", listPhones);
             request.setAttribute("attaches", attaches);
             request.setAttribute("contacts", contact);

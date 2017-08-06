@@ -1,30 +1,24 @@
 package DAO;
 
 import model.Address;
-import model.Attachment;
 import model.Contact;
-import model.Phone;
-
 import java.sql.*;
-import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+public class ContactDaoImpl extends AbstractDao implements ContactDao {
 
-public class ContactDAOImpl implements DAO {
+    private Logger logger = LogManager.getLogger(ContactDaoImpl.class);
+    static final ContactDao INSTANCE = new ContactDaoImpl();
 
-    private Logger logger = LogManager.getLogger(ContactDAOImpl.class);
-    static final DAO INSTANCE = new ContactDAOImpl();
-    private DataSource source = DaoUtil.getDataSource();
-
-    private ContactDAOImpl() {}
+    private ContactDaoImpl() {}
 
     public List<Contact> getContacts(int page) {
         logger.info("getting contacts from page {}", page);
-        List<Contact> contacts = new ArrayList<Contact>();
+        List<Contact> contacts = new ArrayList<>();
         Connection connection=null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -83,7 +77,7 @@ public class ContactDAOImpl implements DAO {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        int result = 0;
+        int result;
         try {
             connection = source.getConnection();
             statement = connection.createStatement();
@@ -98,66 +92,6 @@ public class ContactDAOImpl implements DAO {
             close(connection, statement, resultSet);
         }
         return result;
-    }
-
-    public Long setAddress(Contact contact) {
-
-        logger.info("saving contact address");
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet generatedKeys = null;
-        Address address = contact.getAddress();
-        Long idAddress = address.getAddressId();
-        System.out.println(idAddress);
-        if(idAddress == null) {
-            try {
-                connection = source.getConnection();
-                statement = connection.prepareStatement("INSERT INTO address " +
-                                "(contact_id, country, city, street, house, flat, `index`) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                        Statement.RETURN_GENERATED_KEYS);
-                statement.setLong(1, contact.getId());
-                statement.setString(2, address.getCountry());
-                statement.setString(3, address.getCity());
-                statement.setString(4, address.getStreet());
-                statement.setString(5, address.getHouse());
-                statement.setString(6, address.getFlat());
-                statement.setString(7, address.getIndex());
-
-                statement.executeUpdate();
-                generatedKeys = statement.getGeneratedKeys();
-                generatedKeys.next();
-
-                return generatedKeys.getLong(1);
-
-            } catch (SQLException e) {
-                throw new DAOException("Exception in setAddress method",e);
-            } finally {
-                close(connection, statement, generatedKeys);
-            }
-        } else {
-            try {
-                connection = source.getConnection();
-                statement = connection.prepareStatement("UPDATE address " +
-                         "SET country = ? , city = ?, street = ?, house = ?, flat = ?, `index` = ?" +
-                         " WHERE id_address = ?");
-                statement.setString(1, address.getCountry());
-                statement.setString(2, address.getCity());
-                statement.setString(3, address.getStreet());
-                statement.setString(4, address.getHouse());
-                statement.setString(5, address.getFlat());
-                statement.setString(6, address.getIndex());
-                statement.setLong(7, idAddress);
-
-                statement.executeUpdate();
-
-                return idAddress;
-
-            } catch (SQLException e) {
-                throw new DAOException("Exception in setAddress method",e);
-            } finally {
-                close(connection, statement, null);
-            }
-        }
     }
 
     public Long setContact(Contact contact) {
@@ -381,224 +315,6 @@ public class ContactDAOImpl implements DAO {
         } finally {
             close(connection, statement, null);
         }
-    }
-
-    public void deleteAddress(String contacts){
-        logger.info("deleting address");
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = source.getConnection();
-            String sql = "DELETE FROM address WHERE contact_id IN (" + contacts + ")";
-            statement = connection.prepareStatement(sql);
-            //statement.setLong(1,idContact);
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new DAOException("Exception in deleteAddress method", e);
-        } finally {
-            close(connection, statement, null);
-        }
-    }
-
-    public void setAttaches(String idContact, List<Attachment> attachList){
-        deleteAttachment(idContact);
-        for (Attachment attachment : attachList){
-            saveAttaches(attachment);
-        }
-    }
-
-    public void saveAttaches(Attachment attachment){
-        logger.info("saving attachments");
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = source.getConnection();
-            statement = connection.prepareStatement("INSERT INTO attachment(path,`name`," +
-                    "`date`,comment, contact_id ) VALUES (?,?,?,?,?)");
-                statement.setString(1, attachment.getAttachPath());
-                statement.setString(2, attachment.getAttachName());
-                java.sql.Date d = (java.sql.Date) attachment.getDate();
-                statement.setDate(3, (java.sql.Date) attachment.getDate());
-                statement.setString(4, attachment.getComment());
-                statement.setLong(5,attachment.getContactId());
-                statement.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DAOException("Exception in saveAttaches method",e);
-        }
-        finally {
-            close(connection, statement, null);
-        }
-    }
-
-    public List<Attachment> getAttaches(Long idContact){
-        logger.info("getting List of attachments from contact id {}",idContact);
-        List<Attachment> listAttaches = new ArrayList<Attachment>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
-        try {
-             connection = source.getConnection();
-             statement = connection.prepareStatement("SELECT * FROM attachment WHERE contact_id = ?");
-             statement.setLong(1, idContact);
-             set = statement.executeQuery();
-                while (set.next()) {
-                    Long idCont = set.getLong("contact_id");
-                    String comment = set.getString("comment");
-                    String attachName = set.getString("name");
-                    Date attachDate = set.getDate("date");
-                    String attachPath = set.getString("path");
-                    Long idAttach = set.getLong("id_attach");
-
-                    Attachment attachment = new Attachment();
-                    attachment.setAttachName(attachName);
-                    attachment.setComment(comment);
-                    attachment.setDate(attachDate);
-                    attachment.setContactId(idCont);
-                    attachment.setAttachId(idAttach);
-                    attachment.setContactId(idContact);
-                    attachment.setAttachPath(attachPath);
-                    listAttaches.add(attachment);
-                }
-        } catch (SQLException e) {
-            throw new DAOException("Exception in getAttaches method",e);
-        }
-        finally {
-            close(connection,statement,set);
-        }
-        return listAttaches;
-    }
-
-    /*public Attachment getAttach(Long idContact){
-        logger.info("getting attachment from contact id {}",idContact);
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
-        Attachment attach = null;
-        try {
-            connection = source.getConnection();
-            statement = connection.prepareStatement("SELECT * FROM attachment WHERE contact_id = ?");
-            statement.setLong(1, idContact);
-            set = statement.executeQuery();
-            while (set.next()) {
-                Long idCont = set.getLong("contact_id");
-                String comment = set.getString("comment");
-                String attachName = set.getString("name");
-                Date attachDate = set.getDate("date");
-                String attachPath = set.getString("path");
-                Long idAttach = set.getLong("id_attach");
-                attach = new Attachment(idCont,attachName,attachPath,comment,attachDate,idAttach);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Exception in getAttach method",e);
-        }
-        finally {
-            close(connection,statement,set);
-        }
-        return attach;
-    }*/
-
-    public void deleteAttachment(String contacts) {
-        logger.info("deleting attachments contacts id {}",contacts);
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = source.getConnection();
-            String sql = "DELETE FROM attachment WHERE contact_id IN (" + contacts + ")";
-            statement = connection.prepareStatement(sql);
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new DAOException("Exception in deleteAttachment method",e);
-        } finally {
-            close(connection, statement, null);
-        }
-    }
-
-    public void savePhone(Phone phone){
-        logger.info("saving phone contact id {}",phone.getContactId());
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = source.getConnection();
-            statement = connection.prepareStatement("INSERT INTO telephone(countryCode," +
-                    "operatorCode,`number`,kind,comment,contact_id ) VALUES (?,?,?,?,?,?)");
-                statement.setString(1,phone.getCountryCode());
-                statement.setString(2,phone.getOperatorCode());
-                statement.setString(3,phone.getPhoneNumber());
-                statement.setString(4,phone.getPhoneType());
-                statement.setString(5,phone.getComment());
-                statement.setLong(6,phone.getContactId());
-
-                statement.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DAOException("Exception in savePhone method",e);
-        }
-        finally {
-            close(connection, statement, null);
-        }
-    }
-
-    public void setPhones(String idContact, List<Phone> phones) {
-        deletePhones(idContact);
-        for(Phone phone : phones) {
-            savePhone(phone);
-        }
-    }
-
-    public void deletePhones(String contacts) {
-        logger.info("deleting phones contacts id {}",contacts);
-        Connection connection = null;
-        PreparedStatement statement = null;
-        try {
-            connection = source.getConnection();
-            String sql = "DELETE FROM telephone WHERE contact_id IN (" + contacts + ")";
-            statement = connection.prepareStatement(sql);
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new DAOException("Exception in deletePhone method",e);
-        } finally {
-            close(connection, statement, null);
-        }
-    }
-
-    public List<Phone> getPhones(Long idContact){
-        logger.info("getting phones contact id {}",idContact);
-        List<Phone> listPhones = new ArrayList<Phone>();
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet set = null;
-        try {
-            connection = source.getConnection();
-            statement = connection.prepareStatement("SELECT * FROM telephone WHERE contact_id = ?");
-            statement.setLong(1, idContact);
-            set = statement.executeQuery();
-            while (set.next()) {
-                Long idPhone = set.getLong("id_phone");
-                String countryCode = set.getString("countryCode");
-                String operatorCode = set.getString("operatorCode");
-                String number = set.getString("number");
-                String type = set.getString("kind");
-                String comment = set.getString("comment");
-                Long idCont = set.getLong("contact_id");
-
-                Phone phone = new Phone();
-                phone.setPhoneId(idPhone);
-                phone.setContactId(idCont);
-                phone.setComment(comment);
-                phone.setCountryCode(countryCode);
-                phone.setOperatorCode(operatorCode);
-                phone.setPhoneNumber(number);
-                phone.setPhoneType(type);
-                listPhones.add(phone);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Exception in getPhones method",e);
-        }
-        finally {
-            close(connection,statement,set);
-        }
-        return listPhones;
     }
 
     private String buildQuery(Map<String, String> params){
@@ -842,20 +558,4 @@ public class ContactDAOImpl implements DAO {
         return contacts;
     }
 
-    private static void close(Connection connection, Statement statement, ResultSet resultSet) {
-
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException se) {
-            throw new DAOException("Exception in close method", se);
-        }
-    }
 }

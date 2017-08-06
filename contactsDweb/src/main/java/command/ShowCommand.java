@@ -6,16 +6,16 @@ import javax.servlet.http.HttpSession;
 import model.Contact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import service.ContactServiceFactory;
 import utils.Paginator;
 import service.ContactService;
-import service.ServiceFactory;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ShowCommand implements Command {
 
     private Logger logger = LogManager.getLogger(ShowCommand.class);
-    private ContactService contactService = ServiceFactory.getContactService();
+    private ContactService contactService = ContactServiceFactory.getContactService();
 
     @SuppressWarnings("unchecked")
     public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -1,16 +1,12 @@
 package command;
 
-
+import service.*;
 import utils.Builder;
-import utils.BuilderFactory;
-import model.Attachment;
-import model.Contact;
-import model.Phone;
+import model.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.ContactService;
-import service.ServiceFactory;
+import utils.Validator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,11 +22,14 @@ import java.util.Properties;
 public class SaveCommand implements Command {
 
     private Logger logger = LogManager.getLogger(SaveCommand.class);
-    private ContactService contactService = ServiceFactory.getContactService();
-    private Builder builder = BuilderFactory.getBuilder();
+    private ContactService contactService = ContactServiceFactory.getContactService();
+    private AttachmentService attachmentService = AttachmentServiceFactory.getAttachmentService();
+    private PhoneService phoneService = PhoneServiceFactory.getPhoneService();
+    private AddressService addressService = AddressServiceFactory.getAddressService();
     private HttpServletRequest request;
     private HttpSession session;
     private Properties properties = new Properties();
+    private Builder builder = new Builder();
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
@@ -39,15 +38,15 @@ public class SaveCommand implements Command {
         session= request.getSession();
         session.removeAttribute("isSearch");
         Contact contact = builder.makeContact(request);
-        Map<String, String> map = builder.validateContact(contact);
-        if (map.size()!=0){
+        Map<String, String> map = new Validator().validateContact(contact);
+        if (map.size()!= 0){
             request.setAttribute("contacts", contact);
             request.setAttribute("validations", map);
             return "/save.jspx";
         }else {
             Long id = contactService.setContact(contact);
             contact.setId(id);
-            contactService.saveAddress(contact);
+            addressService.saveAddress(contact);
             savePhones(id);
             try {
                 savePhoto(id);
@@ -168,7 +167,7 @@ public class SaveCommand implements Command {
                 }
             }
             String idContact = String.valueOf(id);
-            contactService.setAttaches(idContact, finalList);
+            attachmentService.setAttaches(idContact, finalList);
         }
     }
 
@@ -177,6 +176,6 @@ public class SaveCommand implements Command {
         logger.info("saving phones");
         List<Phone> listPhones = builder.makePhone(request, id);
         String idContact = String.valueOf(id);
-        contactService.setPhone(idContact, listPhones);
+        phoneService.setPhone(idContact, listPhones);
     }
 }
