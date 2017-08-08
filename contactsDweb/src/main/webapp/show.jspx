@@ -12,170 +12,204 @@
     <jsp:directive.page contentType="text/html; charset=Utf-8" isELIgnored="false"/>
 
     <html>
-    <head><title>List of contacts</title>
-        <link rel="stylesheet" href="css/show.css"/>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/show.js">;</script>
-    </head>
-    <body>
-    <div class="nav">
-        <ul class="nav-ul" >
-            <li>
-                <a href="index.jsp">Contacts</a>
-            </li>
-            <li>
-                <a href="search.jspx">Search</a>
-            </li>
-            <li>
-                <a href="javascript:{}" class="email-but edit-hr">Email</a>
-            </li>
-            <li class="edit-hr">
-                <form action="my-servlet" id="chosen">
+        <head><title>List of contacts</title>
+            <link rel="stylesheet" href="css/show.css"/>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/show.js">;</script>
+        </head>
+        <body>
+            <div class="nav">
+                <ul class="nav-ul" >
+                    <li>
+                        <a href="index.jsp">Contacts</a>
+                    </li>
+                    <li>
+                        <a href="search.jspx">Search</a>
+                    </li>
+                    <li>
+                        <a href="javascript:{}" class="email-but edit-hr">Email</a>
+                    </li>
+                    <li class="edit-hr">
+                        <form action="my-servlet" id="chosen">
+                            <input type="hidden" name="command"/>
+                            <input type="hidden" name="idChosen"/>
+                            <input type="hidden" name="mode"/>
+                            <a href="javascript:{}" class="edit-but edit-hr">Edit</a>
+                        </form>
+                    </li>
+                    <li>
+                        <a href="javascript:{}" class="delete-but">Delete</a>
+                    </li>
+                    <li>
+                        <a href="save.jspx">Add</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <form action="my-servlet" id="showForm" >
                     <input type="hidden" name="command"/>
-                    <input type="hidden" name="idChosen"/>
-                    <input type="hidden" name="mode"/>
-                    <a href="javascript:{}" class="edit-but edit-hr">Edit</a>
+                        <div class="crit">
+                            <c:forEach var="criteria" items="${criteries}">
+                                <c:if test="${criteria.key=='firstName'}">
+                                    <div class="cont-div">
+                                        <label class="label">First name:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='lastName'}">
+                                    <div class="cont-div">
+                                        <label class="label">Last name:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='citizenship'}">
+                                    <div class="cont-div">
+                                        <label class="label">Citizenship:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='middleName'}">
+                                    <div class="cont-div">
+                                        <label class="label">Middle name:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='sex'}">
+                                    <div class="cont-div">
+                                        <label class="label">Sex:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='country'}">
+                                    <div class="cont-div">
+                                        <label class="label">Country:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='city'}">
+                                    <div class="cont-div">
+                                        <label class="label">City:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='street'}">
+                                    <div class="cont-div">
+                                        <label class="label">Street:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='house'}">
+                                    <div class="cont-div">
+                                        <label class="label">House:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='flat'}">
+                                    <div class="cont-div">
+                                        <label class="label">Flat:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='index'}">
+                                    <div class="cont-div">
+                                        <label class="label">Index:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='birthSince'}">
+                                    <div class="cont-div">
+                                        <label class="label">Birthday from:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${criteria.key=='birthUpto'}">
+                                    <div class="cont-div">
+                                        <label class="label">Birthday to:</label>
+                                        <input class="input-txt" value="${criteria.value}" readonly="readonly"/>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                        <table class="table-show">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Full name</th>
+                                    <th>Birthday</th>
+                                    <th>Address</th>
+                                    <th>Company</th>
+                                </tr>
+                            </thead>
+                            <tbody class="t-body">
+                                <c:forEach var="contact" items="${contact}" >
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" form="chosen" name="idContact" value="${contact.id}"/>
+                                        </td>
+                                        <td>
+                                            <c:url var="edit" value="my-servlet">
+                                                <c:param name="command" value="edit"/>
+                                                <c:param name="idContact" value="${contact.id}"/>
+                                            </c:url>
+                                            <a href="${edit}" class="edit-href" ><c:out value="${contact.getFullName()}"/></a>
+                                        </td>
+                                        <td><c:out value="${contact.birthday}"/></td>
+                                        <td><c:out value="${contact.address}"/></td>
+                                        <td><c:out value="${contact.company}"/></td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                 </form>
-            </li>
-
-            <li>
-                <a href="javascript:{}" class="delete-but">Delete</a>
-            </li>
-            <li>
-                <a href="save.jspx">Add</a>
-            </li>
-        </ul>
-    </div>
-    <div>
-        <form action="my-servlet" id="showForm" >
-            <input type="hidden" name="command"/>
-                <div class="crit">
-
-                    <c:forEach var="criteria" items="${criteries}">
-                        <c:if test="${criteria.key=='firstName'}">
-                        <div class="cont-div"><label class="label">First name:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='lastName'}">
-                            <div class="cont-div"><label class="label">Last name:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='citizenship'}">
-                            <div class="cont-div"><label class="label">Citizenship:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='middleName'}">
-                            <div class="cont-div"><label class="label">Middle name:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='sex'}">
-                            <div class="cont-div"><label class="label">Sex:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='country'}">
-                            <div class="cont-div"><label class="label">Country:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='city'}">
-                            <div class="cont-div"><label class="label">City:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='street'}">
-                            <div class="cont-div"><label class="label">Street:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='house'}">
-                            <div class="cont-div"><label class="label">House:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='flat'}">
-                            <div class="cont-div"><label class="label">Flat:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='index'}">
-                            <div class="cont-div"><label class="label">Index:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='birthSince'}">
-                            <div class="cont-div"><label class="label">Birthday from:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                        <c:if test="${criteria.key=='birthUpto'}">
-                            <div class="cont-div"><label class="label">Birthday to:</label><input class="input-txt" value="${criteria.value}" readonly="readonly"/></div>
-                        </c:if>
-                    </c:forEach>
-                </div>
-            <table class="table-show">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Full name</th>
-                    <th>Birthday</th>
-                    <th>Address</th>
-                    <th>Company</th>
-                </tr>
-                </thead>
-                <tbody class="t-body">
-                <c:forEach var="contact" items="${contact}" >
-                    <tr>
-                        <td>
-                            <input type="checkbox" form="chosen" name="idContact" value="${contact.id}"/>
-                        </td>
-                        <td>
-                            <c:url var="edit" value="my-servlet">
-                                <c:param name="command" value="edit"/>
-                                <c:param name="idContact" value="${contact.id}"/>
+                <div class="pag">
+                    <c:if test="${PAGINATOR.totalPages > 1}">
+                        <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${PAGINATOR.prevPageActive}">
+                                <li>
+                                    <a href="my-servlet?command=show&amp;targetPage=prev" aria-label="Previous">
+                                        <span aria-hidden="true" class="page-href">prev</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when test="${!PAGINATOR.prevPageActive}">
+                                <li class="disabled">
+                                    <span aria-hidden="true" class="page-href">prev</span>
+                                </li>
+                            </c:when>
+                        </c:choose>
+                        <c:forEach var="i" items="${PAGINATOR.pages}">
+                            <c:url var="targetPage" value="my-servlet">
+                                <c:param name="command" value="show"/>
+                                <c:param name="targetPage" value="${i}"/>
                             </c:url>
-                            <a href="${edit}" class="edit-href" ><c:out value="${contact.getFullName()}"/></a>
-                        </td>
-                        <td><c:out value="${contact.birthday}"/></td>
-                        <td><c:out value="${contact.address}"/></td>
-                        <td><c:out value="${contact.company}"/></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </form>
-
-
-
-    <div class="pag">
-        <c:if test="${PAGINATOR.totalPages > 1}">
-            <ul class="pagination">
-                <c:choose>
-                    <c:when test="${PAGINATOR.prevPageActive}">
-                        <li>
-                            <a href="my-servlet?command=show&amp;targetPage=prev" aria-label="Previous">
-                                <span aria-hidden="true" class="page-href">prev</span>
-                            </a>
-                        </li>
-                    </c:when>
-                    <c:when test="${!PAGINATOR.prevPageActive}">
-                        <li class="disabled">
-                            <span aria-hidden="true" class="page-href">prev</span>
-                        </li>
-                    </c:when>
-                </c:choose>
-                <c:forEach var="i" items="${PAGINATOR.pages}">
-                    <c:url var="targetPage" value="my-servlet">
-                        <c:param name="command" value="show"/>
-                        <c:param name="targetPage" value="${i}"/>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${PAGINATOR.currentPage == i}">
-                            <li class="active"><a href="${targetPage}" class="page-nav">${i}</a></li>
-                        </c:when>
-                        <c:when test="${PAGINATOR.currentPage != i}">
-                            <li><a href="${targetPage}" class="page-nav">${i}</a></li>
-                        </c:when>
-                    </c:choose>
-                </c:forEach>
-                <c:choose>
-                    <c:when test="${PAGINATOR.nextPageActive}">
-                        <li>
-                            <a href="my-servlet?command=show&amp;targetPage=next" aria-label="Next">
-                                <span aria-hidden="true" class="page-href">next</span>
-                            </a>
-                        </li>
-                    </c:when>
-                    <c:when test="${!PAGINATOR.nextPageActive}">
-                        <li class="disabled">
-                            <span aria-hidden="true" class="page-href">next</span>
-                        </li>
-                    </c:when>
-                </c:choose>
-            </ul>
-        </c:if>
-    </div>
-        <input type="hidden" id="emailMessage" value="${message}"/>
-    </div>
-    </body>
+                            <c:choose>
+                                <c:when test="${PAGINATOR.currentPage == i}">
+                                    <li class="active"><a href="${targetPage}" class="page-nav">${i}</a></li>
+                                </c:when>
+                                <c:when test="${PAGINATOR.currentPage != i}">
+                                    <li><a href="${targetPage}" class="page-nav">${i}</a></li>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${PAGINATOR.nextPageActive}">
+                                <li>
+                                    <a href="my-servlet?command=show&amp;targetPage=next" aria-label="Next">
+                                        <span aria-hidden="true" class="page-href">next</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when test="${!PAGINATOR.nextPageActive}">
+                                <li class="disabled">
+                                    <span aria-hidden="true" class="page-href">next</span>
+                                </li>
+                            </c:when>
+                        </c:choose>
+                        </ul>
+                    </c:if>
+                </div>
+                <input type="hidden" id="emailMessage" value="${message}"/>
+            </div>
+        </body>
     </html>
 </jsp:root>

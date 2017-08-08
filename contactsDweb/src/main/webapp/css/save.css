@@ -1,13 +1,9 @@
- body{
-
- }
-
-.nav{
+ .nav{
     background-color: #30adc7;
     height: 110px;
-}
+ }
 
-ul li{
+ ul li{
     display: inline-block;
     padding-right:  20px;
     padding-left: 10px;
@@ -15,33 +11,33 @@ ul li{
     padding-top: 35px;
     padding-bottom: 20px;
 
-}
+ }
 
-li > a{
+ li > a{
     font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
-}
+ }
 
  li > a:hover{
      opacity: 0.7;
  }
 
-.edit-hr{
+ .edit-hr{
     font-family: TREBUCHET MS, serif;
     color: white;
     text-decoration: none;
     font-size: 30px;
-}
+ }
 
-.label{
+ .label{
     font-size: 21px;
     font-family: Arial, serif;;
     color: black;
-}
+ }
 
-.buttons{
+ .buttons{
     border: 1px solid #888888;
     font-size: 25px;
     background-color: #30adc7;
@@ -50,13 +46,13 @@ li > a{
     cursor: pointer;
     margin-right: 3px;
     font-family: TREBUCHET MS, serif;
-}
+ }
 
  .buttons:hover{
      opacity: 0.7;
  }
 
-.button-save{
+ .button-save{
     border: 1px solid #888888;
     font-size: 2.0rem;
     height: 60px;
@@ -67,17 +63,17 @@ li > a{
     cursor: pointer;
     float: right;
     margin-bottom: 25px;
-}
+ }
 
-.button-save:hover{
+ .button-save:hover{
     opacity: 0.7;
-}
+ }
 
  .button-cancel:hover{
      opacity: 0.7;
  }
 
-.button-cancel{
+ .button-cancel{
     border: 1px solid #888888;
     font-size: 2.0rem;
     height: 60px;
@@ -88,21 +84,21 @@ li > a{
     float: left;
     margin-bottom: 25px;
     font-family: TREBUCHET MS, serif;
-}
+ }
 
-.div-but{
+ .div-but{
     width: 450px;
     padding-left: 37%;
-}
+ }
 
-.table-attach{
+ .table-attach{
     width: 100%;
 
     border: solid lightgray 1px;
     margin-top: 2px;
-}
+ }
 
-.modal {
+ .modal {
     width: 600px;
     padding: 1rem;
     border: 1px solid #717171;
@@ -113,34 +109,34 @@ li > a{
     box-shadow: 5px 5px 5px #888888;
     background-color: white;
     font-family: Arial, serif;
-}
+ }
 
-.modal .header {
+ .modal .header {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #888888;
     font-family: Arial, serif;
     color: black;
-}
+ }
 
-.modal .header .close:hover:after {
+ .modal .header .close:hover:after {
     opacity: 0.6;
-}
+ }
 
-.modal .body .field {
+ .modal .body .field {
     margin: 15px 0;
-}
+ }
 
-.modal input {
+ .modal input {
     font-size: 1rem;
     height: 30px;
     padding-left: 10px;
     width: 400px;
-}
+ }
 
 
-.modal label {
+ .modal label {
     width: 150px;
     display: inline-block;
     text-align: right;
@@ -148,13 +144,13 @@ li > a{
     font-family: Arial, serif;
     font-size: 20px;
     color: black;
-}
+ }
 
-.modal .submit {
+ .modal .submit {
     padding-top: 1rem;
-}
+ }
 
-.modal .submit button {
+ .modal .submit button {
     border: 1px solid #888888;
     font-size: 1.5rem;
     background-color: #30adc7;
@@ -162,17 +158,17 @@ li > a{
     float: right;
     cursor: pointer;
     font-family: TREBUCHET MS, serif;
-}
+ }
 
-.modal .submit button:hover {
+ .modal .submit button:hover {
     opacity: 0.7;
-}
+ }
 
-.modal .submit button:active {
+ .modal .submit button:active {
     opacity: 0.9;
-}
+ }
 
-.modal .submit .cancel {
+ .modal .submit .cancel {
     border: 1px solid #888888;
     font-size: 1.5rem;
     background-color: #30adc7;
@@ -180,20 +176,13 @@ li > a{
     float: left;
     cursor: pointer;
     font-family: TREBUCHET MS, serif;
-}
+ }
 
-.modal .submit .cancel:hover {
+ .modal .submit .cancel:hover {
     opacity: 0.7;
-}
+ }
 
-/*.container div {
-    margin: 1rem 0;
-    font-size: 1rem;
-    color: gray;
-
-}*/
-
-.modalPones {
+ .modalPones {
     width: 600px;
     padding: 1rem;
     border: 1px solid #717171;
@@ -206,49 +195,49 @@ li > a{
     font-family: Arial, serif;
 }
 
-.modalPones .header {
+ .modalPones .header {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #888888;
     font-family: Arial, serif;
     color: black;
-}
+ }
 
-.close{
+ .close{
     float: right;
     color: #717171;
     text-decoration: none;
-}
+ }
 
 
-.modalPones .header .close:hover:after {
+ .modalPones .header .close:hover:after {
     opacity: 0.6;
-}
+ }
 
-.modalPones .body .field {
+ .modalPones .body .field {
     margin: 15px 0;
-}
+ }
 
-.modalPones .body .field2 {
+ .modalPones .body .field2 {
     margin: 15px 0;
-}
+ }
 
-.modalPones input {
+ .modalPones input {
     font-size: 1rem;
     height: 30px;
     padding-left: 10px;
     width: 350px;
-}
+ }
 
-.modalPones select {
+ .modalPones select {
     font-size: 1rem;
     height: 25px;
     padding-left: 10px;
     width: 200px;
-}
+ }
 
-.modalPones label {
+ .modalPones label {
     width: 150px;
     display: inline-block;
     text-align: right;
@@ -256,24 +245,24 @@ li > a{
     font-family: Arial, serif;
     font-size: 20px;
     color: black;
-}
+ }
 
-.modalPones .error {
+ .modalPones .error {
     color: red;
     margin-top: 5px;
     visibility: hidden;
-}
+ }
 
-.modalPones .invalid .error {
+ .modalPones .invalid .error {
     visibility: visible;
 
-}
+ }
 
-.modalPones .submit {
+ .modalPones .submit {
     padding-top: 1rem;
-}
+ }
 
-.modalPones .submit button {
+ .modalPones .submit button {
     border: 1px solid #888888;
     font-size: 1.5rem;
     background-color: #30adc7;
@@ -281,17 +270,17 @@ li > a{
     float: right;
     cursor: pointer;
     font-family: TREBUCHET MS, serif;
-}
+ }
 
-.modalPones .submit button:hover {
+ .modalPones .submit button:hover {
     opacity: 0.7;
-}
+ }
 
-.modalPones .submit button:active {
+ .modalPones .submit button:active {
     opacity: 0.9;
-}
+ }
 
-.modalPones .submit .cancelPhone {
+ .modalPones .submit .cancelPhone {
     border: 1px solid #888888;
     font-size: 1.5rem;
     background-color: #30adc7;
@@ -299,19 +288,19 @@ li > a{
     float: left;
     cursor: pointer;
     font-family: TREBUCHET MS, serif;
-}
+ }
 
-.modalPones .submit .cancelPhone:hover {
+ .modalPones .submit .cancelPhone:hover {
     opacity: 0.7;
-}
+ }
 
-.inp-div{
+ .inp-div{
     margin-bottom: 5px;
     overflow: hidden;
     margin-top:15px;
-}
+ }
 
-.inp-div input {
+ .inp-div input {
     float: right;
     height: 35px;
     width: 400px;
@@ -319,7 +308,7 @@ li > a{
     line-height: 19px;
     padding: 0px 5px;
     border: 1px solid lightgray;
-}
+ }
 
  .inp-div select{
     float: right;
@@ -337,55 +326,55 @@ li > a{
     padding-bottom: 20px;
  }
 
-h2{
+ h2{
     text-align: center;
     color: black;
-}
+ }
 
-.tab{
+ .tab{
     padding-top: 20px;
     padding-bottom: 20px;
     width: 900px;
     padding-left: 28%;
-}
+ }
 
-.tab-label{
+ .tab-label{
     float: left;
     font-size: 35px;
     color: black;
-}
+ }
 
-.input-small {
+ .input-small {
     width: 200px;
     height: 30px;
     border: 1px solid gray;
-}
+ }
 
-tr {
+ tr {
     border-top: solid lightgray 1px;
     border-bottom: solid lightgray 1px;
 
-}
+ }
 
-table{
+ table{
     border: solid lightgray 1px;
-}
+ }
 
-th {
+ th {
     text-align: left;
     font-family: "Arial";
     font-size: 25px;
     padding-bottom: 20px;
     padding-top: 12px;
-}
+ }
 
-td {
+ td {
     border-top: solid lightgray 1px;
     font-family: "Arial Narrow";
     font-size: 20px;
     padding-bottom: 20px;
     padding-top: 20px;
-}
+ }
 
  .required:after {
      content: ' *';

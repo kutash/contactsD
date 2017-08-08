@@ -1,7 +1,7 @@
-.nav{
+ .nav{
     background-color: #30adc7;
     height: 110px;
-}
+ }
 
  ul li{
     display: inline-block;
@@ -20,9 +20,9 @@
     font-size: 30px;
  }
 
-li > a:hover{
+ li > a:hover{
     opacity: 0.7;
-}
+ }
 
  .edit-hr{
      font-family: TREBUCHET MS, serif;
@@ -31,18 +31,18 @@ li > a:hover{
     font-size: 30px;
  }
 
-.edit-hr:hover{
+ .edit-hr:hover{
     opacity: 0.7;
-}
+ }
 
  .edit-href {
     text-decoration: none;
     color: black;
  }
 
-.edit-href:hover{
+ .edit-href:hover{
     text-decoration: underline;
-}
+ }
 
 
  .label{
@@ -108,12 +108,12 @@ li > a:hover{
     text-align: center;
  }
 
-a:active,
-a:hover {
+ a:active,
+ a:hover {
     outline: 0;
-}
+ }
 
-.input-txt {
+ .input-txt {
     float: right;
     height: 30px;
     width: 350px;
@@ -121,20 +121,20 @@ a:hover {
     line-height: 19px;
     padding-bottom: 5px;
     border: 1px solid lightgray;
-}
+ }
 
-.crit{
+ .crit{
     margin: 0px auto;
     width: 550px;
     padding-bottom: 20px;
     padding-top: 30px;
-}
+ }
 
-.cont-div{
+ .cont-div{
     margin-bottom: 5px;
     overflow: hidden;
     padding-bottom: 5px;
-}
+ }
 
 
 

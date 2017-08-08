@@ -1,8 +1,3 @@
-/**
- * Created by Galina on 01.04.2017.
- */
-
-
 
 function setTemplate(t) {
     var sel = document.getElementById("template");
@@ -20,8 +15,6 @@ function setTemplate(t) {
     }
 }
 
-
-
 window.onload = function () {
 
     var button = document.querySelector(".button-cancel");
@@ -32,8 +25,6 @@ window.onload = function () {
         form.idContact.value = "";
         form.submit();
     });
-
-
 
 };
 
