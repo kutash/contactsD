@@ -13,6 +13,8 @@
         <head><title>Contact</title>
             <link rel="stylesheet" href="css/save.css"/>
             <script type="text/javascript" src="${pageContext.request.contextPath}/js/contact.js">;</script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js">;</script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/validation.js" >;</script>
         </head>
         <body>
             <div class="container">
@@ -49,6 +51,7 @@
                         </a>
                         <input id="photo" form="saveForm" style="display: none" onchange="previewFile()" type="file" name="photo" accept="image/*" />
                     </div>
+                    <div class="message js-form-message"></div>
                     <div class="inp-div">
                         <label class="label required" for="firstName">Name:</label>
                         <input type="text" name="firstName" value="${contacts.firstName}"
@@ -339,9 +342,7 @@
                     </div>
                 </form>
             </div>
-            <div class="modalVal" style="display: none;">
-                <div class="text"></div>
-             </div>
+
         </body>
     </html>
 </jsp:root>
