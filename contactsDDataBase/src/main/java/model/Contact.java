@@ -3,9 +3,6 @@ package model;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Galina on 10.03.2017.
- */
 public class Contact {
      private Long id;
      private String firstName;
@@ -63,7 +60,6 @@ public class Contact {
         this.sex=sex;
         this.citizenship=citizenship;
         this.status=status;
-        //this.photo=photo;
         this.site=site;
         this.email=email;
         this.company=company;

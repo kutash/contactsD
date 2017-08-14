@@ -4,13 +4,9 @@
  }
 
  ul li{
-    display: inline-block;
-    padding-right:  20px;
-    padding-left: 10px;
+     display: inline-block;
      float: left;
-    padding-top: 35px;
-    padding-bottom: 20px;
-
+     padding: 35px 20px 20px 10px;
  }
 
  li > a{
@@ -47,7 +43,7 @@
 
  .label{
     font-size: 20px;
-    font-family: "Arial Black";
+    font-family: "Arial Black", serif;
     color: black;
  }
 
@@ -63,14 +59,14 @@
 
  th {
        border-bottom: solid lightgray 1px;
-       font-family: "Arial";
+       font-family: "Arial",serif;
        font-size: 25px;
        padding-bottom: 40px;
        padding-top: 5px;
  }
 
  td {
-     font-family: "Arial Narrow";
+     font-family: "Arial Narrow", serif;
      font-size: 23px;
      padding-bottom: 25px;
      padding-top: 25px;
@@ -124,7 +120,7 @@
  }
 
  .crit{
-    margin: 0px auto;
+    margin: 0 auto;
     width: 550px;
     padding-bottom: 20px;
     padding-top: 30px;

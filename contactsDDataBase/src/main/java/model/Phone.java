@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Created by Galina on 10.03.2017.
- */
 public class Phone {
 
     private Long phoneId;

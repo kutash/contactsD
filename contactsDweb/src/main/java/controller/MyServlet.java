@@ -61,7 +61,5 @@ public class MyServlet extends HttpServlet {
         } catch (Exception e) {
             logger.error("Error in processRequest method", e);
         }
-
-
     }
 }

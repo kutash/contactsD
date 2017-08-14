@@ -1,6 +1,5 @@
 $(document).ready(function(){
-        console.log("here");
-    // Устанавливаем обработчик потери фокуса для всех полей ввода текста
+    
     $('input#name, input#email, input#middname, input#surname, input#national, input#site, input#company, input#country, input#city, input#street, input#house, input#flat, input#index').unbind().blur( function(){
 
         var id = $(this).attr('id');
@@ -11,7 +10,7 @@ $(document).ready(function(){
         switch(id)
         {
             case 'name':
-                console.log(!rv_name.test(val));
+                
                 if (val.length > 45) {
                     $(this).removeClass('not_error').addClass('er');
                     $('#errorName').remove();
@@ -308,50 +307,7 @@ $(document).ready(function(){
                     $(this).css('borderColor','green');
                 }
                 break;
-        } // end switch(...)
+        } 
+    }); 
 
-    }); // end blur()
-
-    /*// Теперь отправим наше письмо с помощью AJAX
-    $('form#feedback-form').submit(function(e){
-
-     // Запрещаем стандартное поведение для кнопки submit
-     e.preventDefault();
-
-     // После того, как мы нажали кнопку "Отправить", делаем проверку,
-     // если кол-во полей с классом .not_error равно 3 (так как у нас всего 3 поля), то есть все поля заполнены верно,
-     // выполняем наш Ajax сценарий и отправляем письмо адресату
-
-     if($('.not_error').length == 3)
-{
-    // Eще одним моментом является то, что в качестве указания данных для передачи обработчику send.php, мы обращаемся $(this) к нашей форме,
-    // и вызываем метод .serialize().
-    // Это очень удобно, т.к. он сразу возвращает сгенерированную строку с именами и значениями выбранных элементов формы.
-
-    $.ajax({
-    url: 'send.php',
-    type: 'post',
-    data: $(this).serialize(),
-
-    beforeSend: function(xhr, textStatus){
-    $('form#feedback-form :input').attr('disabled','disabled');
-},
-
-    success: function(response){
-    $('form#feedback-form :input').removeAttr('disabled');
-    $('form#feedback-form :text, textarea').val('').removeClass().next('.error-box').text('');
-    alert(response);
-}
-}); // end ajax({...})
-}
-
-    // Иначе, если количество полей с данным классом не равно значению 3, мы возвращаем false,
-    // останавливая отправку сообщения в невалидной форме
-    else
-{
-    return false;
-}
-
-}); // end submit()*/
-
-}); // end script
+}); 

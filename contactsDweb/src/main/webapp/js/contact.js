@@ -260,17 +260,7 @@ window.onload = function () {
         form.submit();
 
     });
-
-    function countCont() {
-        "use strict";
-        var checkboxes = document.getElementsByName("idContact");
-        var length = checkboxes.length;
-        var count = 0;
-        for (var i = 0; i < length; i++)
-            if (checkboxes[i].checked) count++;
-        return count;
-    }
-
+    
     var cancelButton = document.querySelector(".button-cancel");
     cancelButton.addEventListener("click", function (event) {
         event.preventDefault();
