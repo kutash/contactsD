@@ -283,6 +283,7 @@ window.onload = function () {
     var saveBut = document.querySelector(".button-save");
     saveBut.addEventListener("click", function (event) {
         event.preventDefault();
+        var errors = document.querySelectorAll(".er");
         var input = document.getElementById("birthday");
         var bool = true;
         if (input.value) {
@@ -291,7 +292,10 @@ window.onload = function () {
         if (!bool) {
             alert("Invalid date");
             return false;
-        } else {
+        } else if (errors.length > 0){
+            alert("Fill all fields correctly please!!!");
+        }
+        else {
             var form = document.getElementById('saveForm');
             form.submit();
         }

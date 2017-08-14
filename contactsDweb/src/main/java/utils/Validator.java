@@ -12,11 +12,11 @@ public class Validator {
     public Map<String, String> validateContact(Contact contact){
 
         Pattern patternFlatHouse = Pattern.compile("^[0-9][a-zA-Z0-9/]*");
-        Pattern patternName = Pattern.compile("([a-z]|[A-Z]|[а-я]|[А-Я]*)+");
+        Pattern patternName = Pattern.compile("^[a-zA-Zа-яА-Я]*[a-zA-Zа-яА-Я-\\s]*$");
         Pattern patternEmail = Pattern.compile("^([-._'a-z0-9])+(\\+)?([-._'a-z0-9])+@(?:[a-z0-9][-a-z0-9]+\\.)+[a-z]{2,6}$");
         Pattern patternSite = Pattern.compile("^([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}$");
         Pattern patternIndex = Pattern.compile("\\d*");
-        Pattern patternCompany = Pattern.compile("^[a-zA-Z][a-zA-Z0-9-_.\\s]*$");
+        Pattern patternCompany = Pattern.compile("^[a-zA-Z]*[a-zA-Z0-9-_.\\s]*$");
         Pattern patternCountryCity = Pattern.compile("^[а-яА-ЯёЁa-zA-Z]+\\s*[а-яА-ЯёЁa-zA-Z]*-?\\s*[а-яА-ЯёЁa-zA-Z]*$");
         Pattern patternStreet = Pattern.compile("^[а-яА-ЯёЁa-zA-Z0-9]+\\s*[а-яА-ЯёЁa-zA-Z0-9]*-?\\.?\\s*/*[а-яА-ЯёЁa-zA-Z0-9]*$");
 
