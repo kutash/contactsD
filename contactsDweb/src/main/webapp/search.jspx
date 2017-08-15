@@ -50,7 +50,7 @@
                     placeholder="Enter middle name"/>
                 </div>
                 <div class="cont-div">
-                    <label for="sex" class="label">Sex:</label>
+                    <label for="gender" class="label">Sex:</label>
                     <select name="sex" class="sel" id="gender">
                         <option value="">not chosen</option>
                         <option value="male">male</option>
@@ -60,18 +60,15 @@
                 <h2>Birthday's range:</h2>
                 <div class="cont-div">
                     <label class="label" for="birthSince">From:</label>
-                    <input type="text" id="birthSince" name="birthSince" autocomplete="off" placeholder="YYYY-MM-DD" class="input-txt"
-                    pattern="(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+                    <input type="date" id="birthSince" name="birthSince" placeholder="YYYY-MM-DD" class="input-txt"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="birthUpto">To:</label>
-                    <input type="text"  id="birthUpto" name="birthUpto" autocomplete="off" placeholder="YYYY-MM-DD" class="input-txt"
-                    pattern="(?:19[0-9]{2}|20[0-1]{1}[0-7]{1})-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"/>
+                    <input type="date"  id="birthUpto" name="birthUpto" placeholder="YYYY-MM-DD" class="input-txt"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="citizenship">Citizenship:</label>
-                    <input type="text" class="input-txt" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" id="national" name="citizenship"
-                    placeholder="Enter citizenship"/>
+                    <input type="text" class="input-txt" id="national" name="citizenship" placeholder="Enter citizenship"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="status">Status:</label>
@@ -85,34 +82,32 @@
                 <h2>Address:</h2>
                 <div class="cont-div">
                     <label  for="country" class="label">Country:</label>
-                    <input type="text"  pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" class="input-txt" id="country"
-                    name="country" placeholder="Enter country"/>
+                    <input type="text" class="input-txt" id="country" name="country" placeholder="Enter country"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="city">City:</label>
-                    <input type="text"  class="input-txt" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*" name="city"
-                    placeholder="Enter city"/>
+                    <input type="text"  class="input-txt" name="city" placeholder="Enter city"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="street">Street:</label>
-                    <input type="text"  class="input-txt"  name="street" placeholder="Street" pattern="\s*([a-z]|[A-Z]|[а-я]|[А-Я])+\s*"/>
+                    <input type="text"  class="input-txt"  name="street" placeholder="Street"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="house">House:</label>
-                    <input type="number" min="0" max="32000" name="house" placeholder="House" class="input-txt"/>
+                    <input type="number" name="house" placeholder="House" class="input-txt"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="house">Flat:</label>
-                    <input type="number" min="0" max="32000" name="flat" placeholder="Flat" class="input-txt"/>
+                    <input type="number" name="flat" placeholder="Flat" class="input-txt"/>
                 </div>
                 <div class="cont-div">
                     <label class="label" for="index">Index:</label>
-                    <input type="text"  class="input-txt"  name="index" placeholder="Enter index" pattern="\d*"/>
+                    <input type="text"  class="input-txt"  name="index" placeholder="Enter index" />
                 </div>
             </form>
             <div class="div-but2">
                 <input type="submit" class="button-save" value="search"/>
-                <input type="submit" class="button-cancel" value="cancel"/>
+                <input type="submit" class="button-cancel" value="reset"/>
             </div>
         </body>
     </html>

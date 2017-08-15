@@ -1,42 +1,44 @@
-
 window.onload = function () {
 
-    var modalButtonEdit = document.querySelector(".edit-but");
+    var message = document.getElementById('emailMessage').value;
+    if(message !== '')  alert(message);
+
+    var modalButtonEdit = document.querySelector('.edit-but');
     modalButtonEdit.addEventListener("click", function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'edit';
         form.idChosen.value = '';
         if( countCont() === 0 ) {
-            alert("Select contact");
+            alert('Select contact');
             return false;
         }
         if( countCont() > 1) {
-            alert("You can select only one contact");
+            alert('You can select only one contact');
             return false;
         }
         form.submit();
     });
 
-    var modalButtonDelete = document.querySelector(".delete-but");
-    modalButtonDelete.addEventListener("click", function (event) {
+    var modalButtonDelete = document.querySelector('.delete-but');
+    modalButtonDelete.addEventListener('click', function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'delete';
         if (countCont() > 0) {
-            var doDelete = confirm("Are you sure you want to delete this contacts?");
+            var doDelete = confirm('Are you sure you want to delete this contacts?');
             if(doDelete == false) {
                 event.preventDefault();
             }else {
                 form.submit();
             }
         } else {
-            alert("Choose contacts");
+            alert('Choose contacts');
         }
     });
 
-    var modalButton = document.querySelector(".email-but");
-    modalButton.addEventListener("click", function (event) {
+    var modalButton = document.querySelector('.email-but');
+    modalButton.addEventListener('click', function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'email';
@@ -45,23 +47,18 @@ window.onload = function () {
 
     });
 
-    function countCont() {
-        "use strict";
-        var checkboxes = document.getElementsByName("idContact");
-        var length = checkboxes.length;
-        var count = 0;
-        for (var i = 0; i < length; i++)
-            if (checkboxes[i].checked) count++;
-        return count;
-    }
-
 };
 
-window.addEventListener("load", function (event) {
-    event.preventDefault();
-    var message = document.getElementById("emailMessage").value;
-    if(message !== "")  alert(message);
-});
+function countCont() {
+    'use strict';
+    var checkboxes = document.getElementsByName('idContact');
+    var length = checkboxes.length;
+    var count = 0;
+    for (var i = 0; i < length; i++)
+        if (checkboxes[i].checked) count++;
+    return count;
+}
+
 
 
 

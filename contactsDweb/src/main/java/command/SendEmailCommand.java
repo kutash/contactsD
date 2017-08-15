@@ -4,7 +4,7 @@ import model.Contact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stringtemplate.v4.ST;
-import utils.EmailSender;
+import util.EmailSender;
 import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,7 +76,7 @@ public class SendEmailCommand implements Command {
         } catch (IOException e) {
             throw new CommandException("Exception while preparing messages", e);
         }
-        request.setAttribute("message","Mail successfully sent");
+        request.setAttribute("message","Message successfully sent");
         return "/my-servlet?command=show";
     }
 }

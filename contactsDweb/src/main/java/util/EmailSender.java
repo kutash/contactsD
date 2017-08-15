@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import javax.mail.Message;
 import javax.mail.Session;

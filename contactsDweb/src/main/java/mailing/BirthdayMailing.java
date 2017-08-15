@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactService;
 import service.ContactServiceFactory;
-import utils.EmailSender;
+import util.EmailSender;
 import javax.mail.Session;
 import java.io.IOException;
 import java.util.List;

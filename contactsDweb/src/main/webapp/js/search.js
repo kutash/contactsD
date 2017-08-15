@@ -1,8 +1,7 @@
-
 window.onload = function () {
 
-     var emailButton = document.querySelector(".email-but");
-     emailButton.addEventListener("click", function (event) {
+     var emailButton = document.querySelector('.email-but');
+     emailButton.addEventListener('click', function (event) {
          event.preventDefault();
          var form = document.getElementById('chosen');
          form.command.value = 'email';
@@ -10,18 +9,18 @@ window.onload = function () {
 
      });
 
-     var button = document.querySelector(".button-cancel");
-     button.addEventListener("click", function (event) {
+     var button = document.querySelector('.button-cancel');
+     button.addEventListener('click', function (event) {
          event.preventDefault();
-         var form = document.getElementById("searchForm");
+         var form = document.getElementById('searchForm');
          form.reset();
      });
 
-     var buttonSave = document.querySelector(".button-save");
-     buttonSave.addEventListener("click", function (event) {
+     var buttonSave = document.querySelector('.button-save');
+     buttonSave.addEventListener('click', function (event) {
          event.preventDefault();
-         var form = document.getElementById("searchForm");
-         var fields = document.querySelectorAll(".input-txt");
+         var form = document.getElementById('searchForm');
+         var fields = document.querySelectorAll('.input-txt');
          var count =0;
          for (var i = 0, length = fields.length; i < length; i++) {
 
@@ -29,19 +28,18 @@ window.onload = function () {
                  count++;
              }
          }
-             var inputSel = document.getElementById("gender");
-             if (inputSel.value != "") {
+             var inputSel = document.getElementById('gender');
+             if (inputSel.value != '') {
                  count++
              }
-         var inputSel2 = document.getElementById("status");
-         if (inputSel2.value != "") {
+         var inputSel2 = document.getElementById('status');
+         if (inputSel2.value != '') {
              count++
          }
              if (count === 0) {
-                 alert("Select criteries");
+                 alert('Select criteries');
                  return false;
              }
-
          form.submit();
      });
 };

@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,9 +8,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class FileLoader {
+public class FileManager {
 
-    private Logger logger = LogManager.getLogger(FileLoader.class);
+    private Logger logger = LogManager.getLogger(FileManager.class);
 
     public void unloadFile(File file, HttpServletResponse response, int buffSize){
 
@@ -35,6 +35,29 @@ public class FileLoader {
                 }
             } catch (IOException e) {
                 logger.error("Error in closing streams");
+            }
+        }
+    }
+
+    public void deleteFile(String path) {
+        File file = new File(path);
+        if (file.canWrite() && file.exists()) {
+            boolean deleted = file.delete();
+            if (!deleted){
+                logger.debug("File wasn't deleted");
+            }
+        }
+    }
+
+    public void deleteEmptyFolder(File file){
+        String[] tempFiles = file.list();
+        if (tempFiles != null && file.isDirectory() && file.exists()) {
+            int length = tempFiles.length;
+            if (length == 0) {
+                boolean deleted = file.delete();
+                if (!deleted) {
+                    logger.debug("Empty directory wasn't deleted");
+                }
             }
         }
     }

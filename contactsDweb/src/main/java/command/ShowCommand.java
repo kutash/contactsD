@@ -7,7 +7,7 @@ import model.Contact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import service.ContactServiceFactory;
-import utils.Paginator;
+import util.Paginator;
 import service.ContactService;
 import java.util.LinkedHashMap;
 import java.util.List;

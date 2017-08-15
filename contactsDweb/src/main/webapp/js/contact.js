@@ -11,55 +11,87 @@ function previewFile() {
     if (file) {
         reader.readAsDataURL(file);
     } else {
-        preview.src = "${pageContext.request.contextPath}/my-servlet?command=photo&amp;idContact=${contact.id}";
+        preview.src = '${pageContext.request.contextPath}/my-servlet?command=photo&amp;idContact=${contact.id}';
     }
 }
 
-window.onload = function () {
+function attachCount() {
+    'use strict';
+    var checkboxes = document.getElementsByName('attach_checkbox');
+    var length = checkboxes.length;
+    var count = 0;
+    for (var i = 0; i < length; i++)
+        if (checkboxes[i].checked) count++;
+    return count;
+}
 
-    var modalButton = document.querySelector(".show-modal");
-    modalButton.addEventListener("click", function (event) {
+function phoneCount() {
+    'use strict';
+    var checkboxes = document.getElementsByName('phone_checkbox');
+    var length = checkboxes.length;
+    var count = 0;
+    for (var i = 0; i < length; i++)
+        if (checkboxes[i].checked) count++;
+    return count;
+}
+
+function validate_date(value) {
+    var arrD = value.split('-');
+    arrD[1] -= 1;
+    var d = new Date(arrD[0], arrD[1], arrD[2]);
+    var today = new Date();
+    return (d.getFullYear() == arrD[0]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[2]) && (d <= today);
+}
+
+function attachments() {
+
+    var modalButton = document.querySelector('.show-modal');
+    modalButton.addEventListener('click', function (event) {
         event.preventDefault();
-        var modalWindow = document.querySelector(".modal");
-        var fileName = document.getElementById("div_attachName");
-        fileName.style.display = "none";
-        var input_file = document.getElementById("div_attaches");
-        input_file.style.display = "initial";
-        modalWindow.style.display = "block";
+        var modalWindow = document.querySelector('.modal');
+        var fileName = document.getElementById('div_attachName');
+        fileName.style.display = 'none';
+        var input_file = document.getElementById('div_attaches');
+        input_file.style.display = 'initial';
+        modalWindow.style.display = 'block';
         var form = document.getElementById('saveForm');
         form.attachButton.value = 'add';
     });
 
-    var closeButtons = document.querySelectorAll(".cancel");
+    var closeButtons = document.querySelectorAll('.cancel');
     for (var i = 0, length = closeButtons.length; i < length; i++) {
         var btn = closeButtons[i];
-        btn.addEventListener("click", function (event) {
+        btn.addEventListener('click', function (event) {
             event.preventDefault();
-            var inp = document.getElementById("attach");
+            var inp = document.getElementById('attach');
             inp.value = "";
-            var modalWindow = document.querySelector(".modal");
-            modalWindow.style.display = "none";
+            var modalWindow = document.querySelector('.modal');
+            modalWindow.style.display = 'none';
         });
     }
 
-    var submitButton = document.querySelector(".submit-button");
-    submitButton.addEventListener("click", function (event) {
+    var submitButton = document.querySelector('.submit-button');
+    submitButton.addEventListener('click', function (event) {
         event.preventDefault();
         var form = document.getElementById('saveForm');
-        var input_file = document.getElementById("div_attaches");
-        if(form.attach.value == "" && input_file.style.display == "initial") {
-            alert("Select the file, please");
+        var input_file = document.getElementById('div_attaches');
+        if (form.attach.value == "" && input_file.style.display == 'initial') {
+            alert('Select the file, please');
             return false;
         }
         form.command.value = 'attach';
         form.submit();
-        var modalWindow = document.querySelector(".modal");
-        modalWindow.style.display = "none";
+        var modalWindow = document.querySelector('.modal');
+        modalWindow.style.display = 'none';
     });
 
-    var deleteButton = document.querySelector(".delete_attach");
-    deleteButton.addEventListener("click", function (event) {
+    var deleteButton = document.querySelector('.delete_attach');
+    deleteButton.addEventListener('click', function (event) {
         event.preventDefault();
+        if (attachCount() === 0) {
+            alert('select attachment please');
+            return false;
+        }
         var form = document.getElementById('saveForm');
         form.command.value = 'attach';
         form.attachButton.value = 'delete';
@@ -67,67 +99,71 @@ window.onload = function () {
 
     });
 
-    var editButton = document.querySelector(".edit_attach");
-    editButton.addEventListener("click", function (event) {
+    var editButton = document.querySelector('.edit_attach');
+    editButton.addEventListener('click', function (event) {
         event.preventDefault();
-        var modalWindow = document.querySelector(".modal");
-        modalWindow.style.display = "block";
-        var comment= document.getElementById("popUp_comment");
-        var fileName = document.getElementById("popUp_attachName");
-        var table = document.getElementById("attachTable");
+        if (attachCount() === 0) {
+            alert('select attachment please');
+            return false;
+        }
+        var modalWindow = document.querySelector('.modal');
+        modalWindow.style.display = 'block';
+        var comment = document.getElementById('popUp_comment');
+        var fileName = document.getElementById('popUp_attachName');
+        var table = document.getElementById('attachTable');
         var checkboxes = document.getElementsByName('attach_checkbox'), length = checkboxes.length;
         var form = document.getElementById('saveForm');
         form.attachButton.value = 'edit';
-        var input_file = document.getElementById("div_attaches");
-        var file_name = document.getElementById("div_attachName");
-        input_file.style.display = "none";
-        file_name.style.display = "initial";
+        var input_file = document.getElementById('div_attaches');
+        var file_name = document.getElementById('div_attachName');
+        input_file.style.display = 'none';
+        file_name.style.display = 'initial';
 
-        for (var i=0; i<length; i++) {
+        for (var i = 0; i < length; i++) {
             if (checkboxes[i].checked) {
                 var row = table.rows[i];
                 fileName.value = row.cells[4].firstElementChild.value;
                 comment.value = row.cells[3].firstElementChild.value;
             }
         }
-
     });
+}
+
+function phones() {
 
     var rowCount = 0;
     var flag = 0;
 
-    var phoneShow = document.querySelector(".show-modalphone");
-    phoneShow.addEventListener("click", function (event) {
+    var phoneShow = document.querySelector('.show-modalphone');
+    phoneShow.addEventListener('click', function (event) {
         event.preventDefault();
         flag = 0;
-        var modalWindow = document.querySelector(".modalPones");
-        modalWindow.style.display = "block";
+        var modalWindow = document.querySelector('.modalPones');
+        modalWindow.style.display = 'block';
     });
 
-    var phoneSubmit = document.querySelector(".save_phone");
-    phoneSubmit.addEventListener("click", function (event) {
+    var phoneSubmit = document.querySelector('.save_phone');
+    phoneSubmit.addEventListener('click', function (event) {
         event.preventDefault();
-        var modalWindow = document.querySelector(".modalPones");
+        var modalWindow = document.querySelector('.modalPones');
         var isValid = true;
-        var fields = modalWindow.querySelectorAll(".field");
+        var fields = modalWindow.querySelectorAll('.field');
         for (var i2 = 0, length22 = fields.length; i2 < length22; i2++) {
             var field = fields[i2];
-            var inputField = field.querySelector("input");
+            var inputField = field.querySelector('input');
             if (inputField.value && isFinite(inputField.value)) {
-                field.classList.remove("invalid");
+                field.classList.remove('invalid');
             } else {
-                field.classList.add("invalid");
+                field.classList.add('invalid');
                 isValid = false;
             }
         }
 
-
         if (isValid) {
-            var table = document.getElementById("phoneTable");
-            var form = document.getElementById("telForm");
-            modalWindow.style.display = "none";
+            var table = document.getElementById('phoneTable');
+            var form = document.getElementById('telForm');
+            modalWindow.style.display = 'none';
             var i, row, cell1, cell2, cell3, cell4, cell5, cell6, cell7;
-
             if (flag == 0) {
                 i = table.rows.length;
                 row = table.insertRow(i);
@@ -149,9 +185,7 @@ window.onload = function () {
                 cell6 = row.cells[5];
                 cell7 = row.cells[6];
             }
-
             cell1.innerHTML = "<input type='checkbox'  name='phone_checkbox'/>";
-
             var fullPhone = form.countryCode.value + " " + form.operatorCode.value + " " + form.telephone.value;
             cell2.innerHTML = "<input type='text' form='saveForm' value='" + fullPhone + "' readonly/>";
             cell3.innerHTML = "<input type='text' form='saveForm' name='type" + i + "' value='" + form.phonetype.value + "' readonly/>";
@@ -159,25 +193,23 @@ window.onload = function () {
             cell5.innerHTML = "<input type='hidden' form='saveForm' name='countryCode" + i + "' value='" + form.countryCode.value + "' />";
             cell6.innerHTML = "<input type='hidden' form='saveForm' name='operatorCode" + i + "' value='" + form.operatorCode.value + "' />";
             cell7.innerHTML = "<input type='hidden' form='saveForm' name='telephone" + i + "' value='" + form.telephone.value + "' />";
-
             form.reset();
         }
     });
 
-    var phoneEdit = document.querySelector(".edit");
-    phoneEdit.addEventListener("click", function (event) {
+    var phoneEdit = document.querySelector('.edit');
+    phoneEdit.addEventListener('click', function (event) {
         event.preventDefault();
-
-        var form= document.getElementById("telForm");
-        var table = document.getElementById("phoneTable");
+        var form = document.getElementById('telForm');
+        var table = document.getElementById('phoneTable');
         var checkboxes = document.getElementsByName('phone_checkbox'), length = checkboxes.length;
-        if(phoneCount()===0){
-            alert("select phone please");
+        if (phoneCount() === 0) {
+            alert('select phone please');
             return false;
         }
-        var modalWindow = document.querySelector(".modalPones");
-        modalWindow.style.display = "block";
-        for (var i=0; i<length; i++) {
+        var modalWindow = document.querySelector('.modalPones');
+        modalWindow.style.display = 'block';
+        for (var i = 0; i < length; i++) {
             if (checkboxes[i].checked) {
                 var row = table.rows[i];
                 form.countryCode.value = row.cells[4].childNodes[0].value;
@@ -187,61 +219,60 @@ window.onload = function () {
                 form.phoneComment.value = row.cells[3].childNodes[0].value;
                 rowCount = i;
                 flag = 1;
-
                 break;
             }
         }
 
     });
 
-    function phoneCount() {
-        "use strict";
-        var checkboxes = document.getElementsByName("phone_checkbox");
-        var length = checkboxes.length;
-        var count = 0;
-        for (var i = 0; i < length; i++)
-            if (checkboxes[i].checked) count++;
-        return count;
-    }
-
-    var phoneDelete = document.querySelector(".delete_phone");
-    phoneDelete.addEventListener("click", function (event) {
+    var phoneDelete = document.querySelector('.delete_phone');
+    phoneDelete.addEventListener('click', function (event) {
         event.preventDefault();
-        var table = document.getElementById("phoneTable");
+        var table = document.getElementById('phoneTable');
         var checkboxes = document.getElementsByName('phone_checkbox'), length = checkboxes.length;
-        for (var i=length - 1; i>=0; i--) {
+        if (phoneCount() === 0) {
+            alert('select phone please');
+            return false;
+        }
+        for (var i = length - 1; i >= 0; i--) {
             if (checkboxes[i].checked) {
                 table.deleteRow(i);
             }
         }
     });
 
-    var phoneClose = document.querySelectorAll(".cancelPhone");
+    var phoneClose = document.querySelectorAll('.cancelPhone');
     for (var j = 0, length2 = phoneClose.length; j < length2; j++) {
         var btn2 = phoneClose[j];
-        btn2.addEventListener("click", function (event) {
+        btn2.addEventListener('click', function (event) {
             event.preventDefault();
-            document.getElementById("telForm").reset();
-            var modalWindow = document.querySelector(".modalPones");
+            document.getElementById('telForm').reset();
+            var modalWindow = document.querySelector('.modalPones');
             var fields = modalWindow.querySelectorAll(".field");
             for (var i2 = 0, length22 = fields.length; i2 < length22; i2++) {
                 var field = fields[i2];
-                var inputField = field.querySelector("input");
-                field.classList.remove("invalid");
+                var inputField = field.querySelector('input');
+                field.classList.remove('invalid');
             }
-            modalWindow.style.display = "none";
+            modalWindow.style.display = 'none';
         });
     }
+}
 
-    var modalButton1 = document.querySelector(".delete-but");
-    modalButton1.addEventListener("click", function (event) {
+window.onload = function () {
+
+    attachments();
+    phones();
+
+    var modalButton1 = document.querySelector('.delete-but');
+    modalButton1.addEventListener('click', function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
-        if (form.idContact.value===""){
-            alert("You must choose valid contact");
+        if (form.idContact.value===''){
+            alert('You must choose valid contact');
             return false;
         }
-        var doDelete = confirm("Are you sure you want to delete this contacts?");
+        var doDelete = confirm('Are you sure you want to delete this contacts?');
         if(doDelete == false) {
             event.preventDefault();
         }else {
@@ -251,8 +282,8 @@ window.onload = function () {
         }
     });
 
-    var emailButton = document.querySelector(".email-but");
-    emailButton.addEventListener("click", function (event) {
+    var emailButton = document.querySelector('.email-but');
+    emailButton.addEventListener('click', function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'email';
@@ -261,8 +292,8 @@ window.onload = function () {
 
     });
     
-    var cancelButton = document.querySelector(".button-cancel");
-    cancelButton.addEventListener("click", function (event) {
+    var cancelButton = document.querySelector('.button-cancel');
+    cancelButton.addEventListener('click', function (event) {
         event.preventDefault();
         var form = document.getElementById('chosen');
         form.command.value = 'cancel';
@@ -270,36 +301,28 @@ window.onload = function () {
         form.submit();
     });
 
-    var saveBut = document.querySelector(".button-save");
-    saveBut.addEventListener("click", function (event) {
+    var saveBut = document.querySelector('.button-save');
+    saveBut.addEventListener('click', function (event) {
         event.preventDefault();
-        var errors = document.querySelectorAll(".er");
-        var input = document.getElementById("birthday");
+        var errors = document.querySelectorAll('.er');
+        var input = document.getElementById('birthday');
         var bool = true;
         if (input.value) {
             bool = validate_date(input.value);
         }
         if (!bool) {
-            alert("Invalid date");
+            alert('Invalid date');
             return false;
         } else if (errors.length > 0){
-            alert("Fill all fields correctly please!!!");
+            alert('Fill all fields correctly please!!!');
         }
         else {
             var form = document.getElementById('saveForm');
             form.submit();
         }
     });
-
-    function validate_date(value) {
-        var arrD = value.split("-");
-        arrD[1] -= 1;
-        var d = new Date(arrD[0], arrD[1], arrD[2]);
-        var today = new Date();
-        return (d.getFullYear() == arrD[0]) && (d.getMonth() == arrD[1]) && (d.getDate() == arrD[2]) && (d <= today);
-    }
-
 };
+
 
 
 

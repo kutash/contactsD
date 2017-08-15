@@ -1,7 +1,7 @@
 package command;
 
 import service.ContactServiceFactory;
-import utils.FileLoader;
+import util.FileManager;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,7 +52,7 @@ public class PhotoCommand implements Command {
         response.setContentType(properties.getProperty("CONTENT_TYPE"));
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("Content-Disposition", "avatar; filename=\"" + file.getName() + "\"");
-        new FileLoader().unloadFile(file, response, buffSize);
+        new FileManager().unloadFile(file, response, buffSize);
         return null;
     }
 }

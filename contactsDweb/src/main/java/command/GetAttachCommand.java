@@ -1,6 +1,6 @@
 package command;
 
-import utils.FileLoader;
+import util.FileManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-public class GetAttachCommand implements Command{
+public class GetAttachCommand implements Command {
 
     private Logger logger = LogManager.getLogger(GetAttachCommand.class);
 
@@ -39,7 +39,7 @@ public class GetAttachCommand implements Command{
         response.setContentType(properties.getProperty("CONTENT_TYPE"));
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
-        new FileLoader().unloadFile(file, response, buffSize);
+        new FileManager().unloadFile(file, response, buffSize);
         return null;
     }
 }

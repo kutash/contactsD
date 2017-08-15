@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import model.Address;
 import model.Contact;

@@ -2,12 +2,13 @@ package command;
 
 import service.AttachmentService;
 import service.AttachmentServiceFactory;
-import utils.Builder;
+import util.Builder;
 import model.Attachment;
 import model.Contact;
 import model.Phone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.FileManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -88,13 +89,9 @@ public class AttachCommand implements Command {
             for (String item : chosen) {
                Attachment attachment = attachMap.get(item);
                String attachPath = attachment.getAttachPath();
-                File file = new File(attachPath);
-                if (file.canWrite() && file.exists()) {
-                    boolean deleted = file.delete();
-                    if (!deleted){
-                        logger.debug("Attachment wasn't deleted");
-                    }
-                }
+               if(attachPath != null) {
+                   new FileManager().deleteFile(attachPath);
+               }
                 attachMap.remove(item);
             }
         }

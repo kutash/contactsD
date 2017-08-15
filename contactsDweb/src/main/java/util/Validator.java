@@ -1,4 +1,4 @@
-package utils;
+package util;
 
 import model.Contact;
 import org.apache.commons.lang3.StringUtils;
